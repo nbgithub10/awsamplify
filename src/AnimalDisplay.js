@@ -9,7 +9,7 @@ function AnimalDisplay() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await fetch('https://agus4uqwza.execute-api.ap-southeast-2.amazonaws.com/animals/9988');
+                const response = await fetch('https://agus4uqwza.execute-api.ap-southeast-2.amazonaws.com/animals');
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
