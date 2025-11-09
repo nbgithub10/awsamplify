@@ -34,7 +34,7 @@ function AnimalDisplay() {
             <h1>Posts</h1>
             <ul>
                 {posts.map((post) => (
-                     <li key={post.animal_id}>{post.animal_id} - {post.address}</li>
+                     <li key={post.animal_id}>{post.animalId} - {post.address}</li>
                 ))}
             </ul>
         </div>
