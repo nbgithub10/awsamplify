@@ -92,7 +92,7 @@ function AnimalDisplay() {
         fetchPosts();
     }, []);
 
-    if (loading) return <div>Loading posts...</div>;
+    if (loading) return <div>Loading profiles...</div>;
     if (error) return <div>Error: {error.message}</div>;
 
     return (
