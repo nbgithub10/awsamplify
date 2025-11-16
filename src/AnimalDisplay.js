@@ -18,23 +18,38 @@ function AnimalDisplay() {
         }
     };
 
-    const renderValue = (value) => {
+// Highlight matching text
+    const highlightText = (text, searchTerm) => {
+        if (!searchTerm || typeof text !== 'string') return text;
+
+        const parts = text.toString().split(new RegExp(`(${searchTerm})`, 'gi'));
+        return parts.map((part, index) =>
+            part.toLowerCase() === searchTerm.toLowerCase() ?
+                <mark key={index} className="highlight">{part}</mark> :
+                part
+        );
+    };
+
+    const renderValue = (value, searchTerm) => {
         if (value === null || value === undefined) return '';
+
         if (typeof value === 'object') {
             return (
                 <div className="nested-object">
                     {Object.entries(value).map(([key, val]) => (
                         <div key={key} className="nested-row">
-                            <span className="nested-key">{key}:</span>
+                            <span className="nested-key">{highlightText(key, searchTerm)}:</span>
                             <span className="nested-value">
-                                {typeof val === 'object' ? JSON.stringify(val, null, 2) : val}
+                                {typeof val === 'object'
+                                    ? highlightText(JSON.stringify(val, null, 2), searchTerm)
+                                    : highlightText(val, searchTerm)}
                             </span>
                         </div>
                     ))}
                 </div>
             );
         }
-        return value;
+        return highlightText(value, searchTerm);
     };
 
     // Search functionality
@@ -122,7 +137,7 @@ function AnimalDisplay() {
                                     <div key={key} className="data-row">
                                         <span className="key">{key}:</span>
                                         <span className="value">
-                                            {renderValue(parsedValue)}
+                                            {renderValue(parsedValue, searchTerm)}
                                         </span>
                                     </div>
                                 );
