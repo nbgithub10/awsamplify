@@ -14,13 +14,13 @@ function App() {
                     className={`nav-button ${currentView === 'animal' ? 'active' : ''}`}
                     onClick={() => setCurrentView('animal')}
                 >
-                    Animal Display
+                    Animal Activist Profiles
                 </button>
                 <button
                     className={`nav-button ${currentView === 'csv' ? 'active' : ''}`}
                     onClick={() => setCurrentView('csv')}
                 >
-                    CSV to JSON Converter
+                   Admin use
                 </button>
             </div>
 
