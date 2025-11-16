@@ -1,28 +1,23 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function AnimalDisplay() {
     const [posts, setPosts] = useState([]);
+    const [filteredPosts, setFilteredPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const parseValue = (value) => {
         if (typeof value !== 'string') return value;
-
-        // First clean the escaped quotes
         const cleanedValue = value.replace(/\\"/g, '"');
-
         try {
-            // Try to parse as JSON
-            const parsedValue = JSON.parse(cleanedValue);
-            return parsedValue;
+            return JSON.parse(cleanedValue);
         } catch (e) {
-            // If parsing fails, return original cleaned value
             return cleanedValue;
         }
     };
 
-    // Render complex values (objects/arrays)
     const renderValue = (value) => {
         if (value === null || value === undefined) return '';
         if (typeof value === 'object') {
@@ -42,6 +37,26 @@ function AnimalDisplay() {
         return value;
     };
 
+    // Search functionality
+    const handleSearch = (searchValue) => {
+        setSearchTerm(searchValue);
+
+        if (!searchValue.trim()) {
+            setFilteredPosts(posts);
+            return;
+        }
+
+        const searchTermLower = searchValue.toLowerCase();
+
+        const filtered = posts.filter(post => {
+            // Convert the entire post object to a string for searching
+            const postString = JSON.stringify(post).toLowerCase();
+            return postString.includes(searchTermLower);
+        });
+
+        setFilteredPosts(filtered);
+    };
+
     useEffect(() => {
         const fetchPosts = async () => {
             try {
@@ -49,9 +64,9 @@ function AnimalDisplay() {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
-                const data = parseValue(await response.json());
+                const data = await response.json();
                 setPosts(data);
-                console.log(data);
+                setFilteredPosts(data); // Initialize filtered posts with all posts
             } catch (err) {
                 setError(err);
             } finally {
@@ -67,25 +82,56 @@ function AnimalDisplay() {
 
     return (
         <div className="container">
-            <h1>User Data</h1>
-            {posts.map((post = JSON.parse(post), index) => (
-                <div key={post || index} className="data-card">
-                    {Object.entries(JSON.parse(post)).map(([key, value]) => {
-                        const parsedValue = parseValue(value);
-                        if (parsedValue !== null && parsedValue !== "") {
-                            return (
-                                <div key={key} className="data-row">
-                                    <span className="key">{key}:</span>
-                                    <span className="value">
-                                        {renderValue(parsedValue)}
-                                    </span>
-                                </div>
-                            );
-                        }
-                        return null;
-                    })}
-                </div>
-            ))}
+            <h1>Awesome people's profile</h1>
+
+            {/* Search Box */}
+            <div className="search-container">
+                <input
+                    type="text"
+                    className="search-input"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={(e) => handleSearch(e.target.value)}
+                />
+                {searchTerm && (
+                    <button
+                        className="clear-search"
+                        onClick={() => handleSearch('')}
+                    >
+                        ×
+                    </button>
+                )}
+            </div>
+
+            {/* Results count */}
+            <div className="results-count">
+                Found {filteredPosts.length} {filteredPosts.length === 1 ? 'result' : 'results'}
+                {searchTerm && ` for "${searchTerm}"`}
+            </div>
+
+            {/* Display filtered records */}
+            {filteredPosts.length === 0 ? (
+                <div className="no-results">No matching records found</div>
+            ) : (
+                filteredPosts.map((post, index) => (
+                    <div key={post.Record_Key || index} className="data-card">
+                        {Object.entries(JSON.parse(post)).map(([key, value]) => {
+                            const parsedValue = parseValue(value);
+                            if (parsedValue !== null && parsedValue !== "") {
+                                return (
+                                    <div key={key} className="data-row">
+                                        <span className="key">{key}:</span>
+                                        <span className="value">
+                                            {renderValue(parsedValue)}
+                                        </span>
+                                    </div>
+                                );
+                            }
+                            return null;
+                        })}
+                    </div>
+                ))
+            )}
         </div>
     );
 }
