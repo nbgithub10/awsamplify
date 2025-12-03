@@ -3,28 +3,37 @@ import './App.css';
 import { useState } from 'react';
 import AnimalDisplay from "./AnimalDisplay";
 import CsvToJsonConverter from "./CsvToJsonConverter";
+import UserProfile from './UserProfile';
 
 function App() {
-    const [currentView, setCurrentView] = useState('animal'); // 'animal' or 'csv'
+    const [currentView, setCurrentView] = useState('animal'); // 'animal', 'csv', or 'profile'
 
     return (
         <div className="app-container">
             <div className="navigation-buttons">
-                <button
+                <button 
                     className={`nav-button ${currentView === 'animal' ? 'active' : ''}`}
                     onClick={() => setCurrentView('animal')}
                 >
-                    Animal Activist Profiles
+                    Animal Display
                 </button>
-                <button
-                    className={`nav-button ${currentView === 'csv' ? 'active' : ''}`}
-                    onClick={() => setCurrentView('csv')}
+                {/*<button */}
+                {/*    className={`nav-button ${currentView === 'csv' ? 'active' : ''}`}*/}
+                {/*    onClick={() => setCurrentView('csv')}*/}
+                {/*>*/}
+                {/*    CSV to JSON Converter*/}
+                {/*</button>*/}
+                <button 
+                    className={`nav-button ${currentView === 'profile' ? 'active' : ''}`}
+                    onClick={() => setCurrentView('profile')}
                 >
-                   Admin use
+                    User Profile
                 </button>
             </div>
 
-            {currentView === 'animal' ? <AnimalDisplay /> : <CsvToJsonConverter />}
+            {currentView === 'animal' && <AnimalDisplay />}
+            {/*{currentView === 'csv' && <CsvToJsonConverter />}*/}
+            {currentView === 'profile' && <UserProfile />}
         </div>
     );
 }
