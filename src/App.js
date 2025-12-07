@@ -1,7 +1,7 @@
 
 import './App.css';
 import { useState } from 'react';
-import AnimalDisplay from "./AnimalDisplay";
+import UserProfileDisplay from "./UserProfileDisplay";
 import CsvToJsonConverter from "./CsvToJsonConverter";
 import UserProfile from './UserProfile';
 
@@ -31,7 +31,7 @@ function App() {
                 </button>
             </div>
 
-            {currentView === 'animal' && <AnimalDisplay />}
+            {currentView === 'animal' && <UserProfileDisplay />}
             {/*{currentView === 'csv' && <CsvToJsonConverter />}*/}
             {currentView === 'profile' && <UserProfile />}
         </div>

@@ -1,7 +1,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 
-function AnimalDisplay() {
+function UserProfileDisplay() {
     const [posts, setPosts] = useState([]);
     const [filteredPosts, setFilteredPosts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -151,4 +151,4 @@ function AnimalDisplay() {
     );
 }
 
-export default AnimalDisplay;
+export default UserProfileDisplay;
