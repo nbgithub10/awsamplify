@@ -4,6 +4,8 @@ import UserProfileDisplay from "./UserProfileDisplay";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import UserRegistration from './UserRegistration';
 import Home from './Home';
+import AnimalCare from './AnimalCare';
+import RealEstateHome from './RealEstateHome';
 
 function App() {
     const [currentView, setCurrentView] = useState('home'); // 'animal', 'csv', or 'profile'
@@ -11,23 +13,7 @@ function App() {
     return (
         <Router>
             <div className="app-container">
-                <div className="navigation-buttons">
-                    <button
-                        className={`nav-button ${currentView === 'home' ? 'active' : ''}`}
-                        onClick={() => setCurrentView('home')}
-                    >
-                        Home
-                    </button>
-                    <button
-                        className={`nav-button ${currentView === 'profile' ? 'active' : ''}`}
-                        onClick={() => setCurrentView('profile')}
-                    >
-                        User Profile
-                    </button>
-
-                    {/* Link to the new Home page */}
-                    {/*<Link to="/home" className="nav-link" style={{ marginLeft: 12 }}>Home</Link>*/}
-                </div>
+                
 
                 {/* preserve existing view switching for internal components */}
                 {currentView === 'animal' && <UserProfileDisplay />}
@@ -35,8 +21,11 @@ function App() {
 
                 <Routes>
                     <Route path="/register" element={<UserRegistration />} />
-                    {/*<Route path="/home" element={<Home />} />*/}
-                    <Route path="/" element={<Home />} />
+                    <Route path="/animal-care" element={<AnimalCare />} />
+                    <Route path="/real-estate-home" element={<RealEstateHome />} />
+                    {/* original Home route kept at /home if needed */}
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/" element={<RealEstateHome />} />
                 </Routes>
             </div>
         </Router>
