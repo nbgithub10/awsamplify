@@ -19,6 +19,7 @@
 .re-categories h2 { margin:0 0 10px; font-size:18px; }
 .re-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
 .card { background:#fff; border:1px solid #e6eef2; border-radius:8px; padding:12px; display:flex; flex-direction:column; gap:8px; }
+.card:focus { outline:3px solid rgba(0,115,230,0.18); box-shadow:0 0 0 3px rgba(0,115,230,0.06); }
 .card-icon { font-size:22px; color:#0073e6; }
 .card h3 { margin:0; font-size:16px; }
 .card p { margin:0; color:#555; font-size:13px; }
