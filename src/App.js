@@ -7,6 +7,9 @@ import HomeNotUsed from './home/HomeNotUsed';
 import AnimalCare from './AnimalCare';
 import Home from './home/Home';
 import Search from './search/Search';
+import Terms from './Terms';
+import Privacy from './Privacy';
+import PetSearch from './PetSearch';
 
 function App() {
     const [currentView, setCurrentView] = useState('home'); // 'animal', 'csv', or 'profile'
@@ -24,6 +27,9 @@ function App() {
                     <Route path="/register" element={<UserRegistration />} />
                     <Route path="/animal-care" element={<AnimalCare />} />
                     <Route path="/search" element={<Search />} />
+                    <Route path="/pet-search" element={<PetSearch />} />
+                    <Route path="/terms" element={<Terms />} />
+                    <Route path="/privacy" element={<Privacy />} />
                     <Route path="/real-estate-home" element={<Home />} />
                     {/* original HomeNotUsed route kept at /home if needed */}
                     <Route path="/home" element={<HomeNotUsed />} />

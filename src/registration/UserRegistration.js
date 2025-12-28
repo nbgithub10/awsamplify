@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './UserRegistration.css';
 
 function UserRegistration() {
@@ -398,7 +398,10 @@ function UserRegistration() {
         {/* Terms */}
         <div className="form-section">
           <div className="form-group">
-            <div className="checkbox-item"><input id="terms" name="terms" type="checkbox" /><label htmlFor="terms" className="required">I agree to the Terms and Conditions</label></div>
+            <div className="checkbox-item">
+              <input id="terms" name="terms" type="checkbox" />
+              <label htmlFor="terms" className="required">I agree to the <Link to="/terms">Terms and Conditions</Link></label>
+            </div>
             <div id="termsError" className="error-message">You must agree to the Terms and Conditions</div>
           </div>
 

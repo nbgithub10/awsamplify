@@ -1,0 +1,26 @@
+.terms-container {
+  max-width: 880px;
+  margin: 18px auto;
+  background: #fff;
+  border-radius: 8px;
+  padding: 18px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+}
+
+.terms-body {
+  color: #333;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.terms-body h3 { margin-top: 12px; }
+
+.terms-actions { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+
+.checkbox { display:flex; align-items:center; gap:8px; }
+
+.accept-btn {
+  background: #0b74de; color:#fff; border:none; padding:8px 14px; border-radius:8px; cursor:pointer; font-weight:600;
+}
+
+.accept-btn:disabled { opacity:0.5; cursor:not-allowed; }

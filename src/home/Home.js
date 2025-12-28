@@ -34,7 +34,7 @@ export default function Home() {
     }
 
     function goToLost() {
-        navigate('/search?service=Lost');
+        navigate('/pet-search');
     }
 
     return (
