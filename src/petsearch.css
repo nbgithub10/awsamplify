@@ -1,0 +1,40 @@
+.petsearch-root{max-width:800px;margin:20px auto;padding:16px}
+.petsearch-form{display:flex;flex-direction:column;gap:8px}
+.petsearch-form input{padding:8px;border:1px solid #ccc;border-radius:6px}
+.petsearch-results{margin-top:16px}
+.pet-item{padding:10px;border:1px solid #eee;border-radius:6px;margin-bottom:8px;background:#fff}
+.empty{color:#666}
+.button-group{display:flex;gap:8px}
+.submit-btn{background:#2b8aef;color:#fff;padding:8px 12px;border-radius:6px;border:none}
+.reset-btn{background:#eee;padding:8px 12px;border-radius:6px;border:none}
+
+.petsearch-guidance{background:#fffef8;border:1px solid #f0e6d6;padding:14px;border-radius:8px;margin-bottom:12px}
+.petsearch-guidance h2{margin:0 0 8px 0}
+.petsearch-guidance h3{margin:0}
+.petsearch-guidance ol{padding-left:18px;margin:8px 0}
+.petsearch-guidance ul{padding-left:16px;margin-top:6px}
+.petsearch-guidance p{margin:8px 0}
+
+.guidance-card{background:#fff;border:1px solid #efe7d9;padding:14px;border-radius:10px;margin:12px 0;box-shadow:0 1px 4px rgba(16,24,40,0.03)}
+.guidance-card.small-card{background:#fffef9}
+.card-header{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.step-badge{width:34px;height:34px;border-radius:50%;background:#2b8aef;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700}
+.step-badge.muted{background:#6b7280}
+.card-body p{margin:6px 0;color:#333}
+.card-body ul{margin:6px 0}
+
+.section-intro{
+	font-size:16px;
+	color:#21323a;
+	margin-bottom:14px;
+	padding:12px 14px;
+	background:rgba(43,138,239,0.06);
+	border-left:4px solid #2b8aef;
+	border-radius:6px;
+	line-height:1.6;
+}
+
+@media (min-width:900px){
+	.petsearch-guidance{padding:18px}
+}
+

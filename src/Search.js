@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import './search.css';
 
 export default function Search() {
@@ -78,6 +78,12 @@ export default function Search() {
     <div className="container search-container">
       <form id="searchForm" className="form-section" onSubmit={handleSubmit}>
         <div className="section-title">{displayTitle}</div>
+
+        {service === 'Lost' && (
+          <div className="form-note">
+            <Link to="/pet-search" className="petsearch-link">What to Do If Your Pet Goes Missing</Link>
+          </div>
+        )}
 
         <div className="form-row">
           <div className="form-group">

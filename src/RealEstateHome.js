@@ -29,8 +29,8 @@ export default function RealEstateHome() {
         navigate('/search?service=Shelters');
     }
 
-    function goToGuides() {
-        navigate('/search?service=Guides');
+    function goToAnimalCare() {
+        navigate('/animal-care');
     }
 
     function goToLost() {
@@ -103,7 +103,7 @@ export default function RealEstateHome() {
                             <div className="card-meta"><span><strong>95+</strong> Ambulances</span><span><strong>10 min</strong> Response</span></div>
                         </article>
 
-                        <article className="card" onClick={goToGuides} onKeyDown={(e)=>{ if(e.key==='Enter'||e.key===' ') goToGuides(); }} role="button" tabIndex={0} style={{cursor:'pointer'}}>
+                        <article className="card" onClick={goToAnimalCare} onKeyDown={(e)=>{ if(e.key==='Enter'||e.key===' ') goToAnimalCare(); }} role="button" tabIndex={0} style={{cursor:'pointer'}}>
                             <div className="card-icon guides"><i className="fas fa-book-medical" /></div>
                             <h3>Animal Care Guides</h3>
                             <p>Quick care guides and first aid for common situations</p>
