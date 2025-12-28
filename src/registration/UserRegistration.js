@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './UserRegistration.css';
 
 function UserRegistration() {
@@ -9,6 +10,7 @@ function UserRegistration() {
   const [showPasswordMatch, setShowPasswordMatch] = useState(false);
   const [showVolunteer, setShowVolunteer] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const form = formRef.current;
@@ -408,6 +410,7 @@ function UserRegistration() {
         <div className="button-group">
           <button type="submit" className="submit-btn">Register Now</button>
           <button type="reset" className="reset-btn">Clear Form</button>
+          <button type="button" className="submit-btn" onClick={() => navigate('/')}>Back</button>
         </div>
       </form>
     </div>

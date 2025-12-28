@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './realestate-home.css';
 
-export default function RealEstateHome() {
+export default function Home() {
     const navigate = useNavigate();
 
     function goToRescuers() {
@@ -30,7 +30,7 @@ export default function RealEstateHome() {
     }
 
     function goToGuides() {
-        navigate('/search?service=Guides');
+        navigate('/animal-care');
     }
 
     function goToLost() {
@@ -164,7 +164,7 @@ export default function RealEstateHome() {
                     <div>
                         <h4>Quick Links</h4>
                         <ul>
-                            <li><a href="/">Home</a></li>
+                            <li><a href="/public">Home</a></li>
                             <li><a href="/animal-care">Guides</a></li>
                         </ul>
                     </div>

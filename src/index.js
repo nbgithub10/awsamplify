@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <GoogleOAuthProvider clientId="1069041377668-ae51f99bcvan3vu8pee1nnlhde0fs5p2.apps.googleusercontent.com">
         <React.StrictMode>
-            {/* Small top-level link to Home page - clicking will navigate within SPA without full reload */}
+            {/* Small top-level link to HomeNotUsed page - clicking will navigate within SPA without full reload */}
             <div style={{padding: 8, textAlign: 'center'}}>
               
             </div>

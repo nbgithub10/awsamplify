@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import './home-styles.css';
+import '../home-styles.css';
 
-export default function Home() {
+export default function HomeNotUsed() {
     useEffect(() => {
         // Attach form handlers and window click listener similar to previous home-script.js
         function scrollToSection(id) {
