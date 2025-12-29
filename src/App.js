@@ -4,12 +4,12 @@ import UserProfileDisplay from "./registration/UserProfileDisplay";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import UserRegistration from './registration/UserRegistration';
 import HomeNotUsed from './home/HomeNotUsed';
-import AnimalCare from './AnimalCare';
+import AnimalCare from './static/AnimalCare';
 import Home from './home/Home';
 import Search from './search/Search';
-import Terms from './Terms';
-import Privacy from './Privacy';
-import PetSearch from './PetSearch';
+import Terms from './static/Terms';
+import Privacy from './static/Privacy';
+import PetSearch from './search/PetSearch';
 
 function App() {
     const [currentView, setCurrentView] = useState('home'); // 'animal', 'csv', or 'profile'

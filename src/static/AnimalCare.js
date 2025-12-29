@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import './home-styles.css';
+import '../home/home-styles.css';
 
 export default function AnimalCare() {
     useEffect(() => {
@@ -121,7 +121,7 @@ export default function AnimalCare() {
             <footer className="footer">
                 <div className="footer-container">
                     <div className="footer-section"><h4>Animals2Rescue</h4><p>Emergency animal rescue and support services directory.</p></div>
-                    <div className="footer-section"><h4>Quick Links</h4><ul><li><a href="/">Home</a></li><li><a href="/animal-care">Guides</a></li></ul></div>
+                    <div className="footer-section"><h4>Quick Links</h4><ul><li><a href="/src/static">Home</a></li><li><a href="/animal-care">Guides</a></li></ul></div>
                 </div>
                 <div className="footer-bottom"><p>© 2024 Animals2Rescue. All rights reserved. | Emergency Help: +91 1800-RESCUE</p></div>
             </footer>

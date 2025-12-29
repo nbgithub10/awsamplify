@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import '../home-styles.css';
+import './home-styles.css';
 
 export default function HomeNotUsed() {
     useEffect(() => {
