@@ -46,26 +46,6 @@ export default function Home() {
                         <span>Animals2Rescue</span>
                     </div>
                     <div className="re-actions">
-                        <label className="re-lang" style={{marginRight:12,display:'inline-block'}}>
-                            <select aria-label="Language" defaultValue="English" style={{padding:6,borderRadius:6,border:'1px solid #ccc'}}>
-                                <option>English</option>
-                                <option>हिन्दी</option>
-                                <option>Español</option>
-                                <option>Français</option>
-                                <option>العربية</option>
-                                <option>Deutsch</option>
-                                <option>Русский</option>
-                                <option>Português</option>
-                                <option> Italiano</option>
-                                <option>中文</option>
-                                <option>اردو</option>
-                                <option>বাংলা</option>
-                                <option>தமிழ்</option>
-                                <option>తెలుగు</option>
-                                <option>ગુજરાતી</option>
-                                <option>മലയാളം</option>
-                            </select>
-                        </label>
                         <a href="/signin" className="re-link">Sign In</a>
                         <a href="/register" className="re-cta">Join</a>
                     </div>
