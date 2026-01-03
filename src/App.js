@@ -1,9 +1,15 @@
 import './App.css';
 import { useState } from 'react';
-import UserProfileDisplay from "./UserProfileDisplay";
+import UserProfileDisplay from "./registration/UserProfileDisplay";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import UserRegistration from './UserRegistration';
-import Home from './Home';
+import UserRegistration from './registration/UserRegistration';
+import HomeNotUsed from './home/HomeNotUsed';
+import AnimalCare from './static/AnimalCare';
+import Home from './home/Home';
+import Search from './search/Search';
+import Terms from './static/Terms';
+import Privacy from './static/Privacy';
+import PetSearch from './search/PetSearch';
 
 function App() {
     const [currentView, setCurrentView] = useState('home'); // 'animal', 'csv', or 'profile'
@@ -11,23 +17,7 @@ function App() {
     return (
         <Router>
             <div className="app-container">
-                <div className="navigation-buttons">
-                    <button
-                        className={`nav-button ${currentView === 'home' ? 'active' : ''}`}
-                        onClick={() => setCurrentView('home')}
-                    >
-                        Home
-                    </button>
-                    <button
-                        className={`nav-button ${currentView === 'profile' ? 'active' : ''}`}
-                        onClick={() => setCurrentView('profile')}
-                    >
-                        User Profile
-                    </button>
-
-                    {/* Link to the new Home page */}
-                    {/*<Link to="/home" className="nav-link" style={{ marginLeft: 12 }}>Home</Link>*/}
-                </div>
+                
 
                 {/* preserve existing view switching for internal components */}
                 {currentView === 'animal' && <UserProfileDisplay />}
@@ -35,7 +25,14 @@ function App() {
 
                 <Routes>
                     <Route path="/register" element={<UserRegistration />} />
-                    {/*<Route path="/home" element={<Home />} />*/}
+                    <Route path="/animal-care" element={<AnimalCare />} />
+                    <Route path="/search" element={<Search />} />
+                    <Route path="/pet-search" element={<PetSearch />} />
+                    <Route path="/terms" element={<Terms />} />
+                    <Route path="/privacy" element={<Privacy />} />
+                    <Route path="/real-estate-home" element={<Home />} />
+                    {/* original HomeNotUsed route kept at /home if needed */}
+                    <Route path="/home" element={<HomeNotUsed />} />
                     <Route path="/" element={<Home />} />
                 </Routes>
             </div>

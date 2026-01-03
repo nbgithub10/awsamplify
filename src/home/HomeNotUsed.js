@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './home-styles.css';
 
-export default function Home() {
+export default function HomeNotUsed() {
     useEffect(() => {
         // Attach form handlers and window click listener similar to previous home-script.js
         function scrollToSection(id) {
@@ -154,13 +154,11 @@ export default function Home() {
                             <input type="text" placeholder="Search services, location...   " />
                             <button><i className="fas fa-search" /></button>
                         </div>
-                        <nav className="header-nav">
-                            <a href="#services" className="nav-link">Services</a>
-                            <a href="#tips" className="nav-link">Care Tips</a>
-                            <a href="#lost-found" className="nav-link">Lost & Found</a>
-                            <a href="#about" className="nav-link">About</a>
-                            <a href="#contact" className="nav-link">Contact</a>
-                        </nav>
+                        
+                        <div className="header-actions">
+                            <a href="/signin" className="btn btn-link signin-btn" style={{ marginRight: 8, textDecoration: 'none', color: 'inherit' }}>Sign In</a>
+                            <a href="/register" className="btn btn-primary join-btn" style={{ textDecoration: 'none', color: 'inherit' }}>Join</a>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -173,9 +171,6 @@ export default function Home() {
                         <button className="btn btn-primary" onClick={() => window.scrollToSection('services')}>
                             <i className="fas fa-stethoscope" /> Find Services
                         </button>
-                        <a className="btn btn-primary" href="/register" style={{textDecoration: 'none', color: 'inherit'}}>
-                            <i className="fas fa-user-plus" /> Register
-                        </a>
                         <button className="btn btn-primary" onClick={() => window.scrollToSection('lost-found')}>
                             <i className="fas fa-search" /> Report Lost/Found
                         </button>
@@ -267,67 +262,38 @@ export default function Home() {
                             </button>
                         </div>
 
+                        <div className="service-category-card">
+                            <div className="service-icon guide-icon"><i className="fas fa-book-medical" /></div>
+                            <h3>Animal Care Guides</h3>
+                            <p>Quick care guides and first aid for common situations</p>
+                            <div className="service-stats">
+                                <span className="stat"><strong>100+</strong> Guides</span>
+                                <span className="stat"><strong>5-20</strong> min Read</span>
+                            </div>
+                            
+                        </div>
+
+                        <div className="service-category-card">
+                            <div className="service-icon lost-icon"><i className="fas fa-search-location" /></div>
+                            <h3>Lost and Found Animals</h3>
+                            <p>Report sightings and browse recent lost animal posts</p>
+                            <div className="service-stats">
+                                <span className="stat"><strong>120+</strong> Active Reports</span>
+                                <span className="stat"><strong>25</strong> Reports Today</span>
+                            </div>
+                            <button className="btn btn-service" onClick={() => window.scrollToSection('lost-found')}>
+                                <i className="fas fa-search" /> View Lost & Found
+                            </button>
+                        </div>
+
                     </div>
                 </div>
             </section>
 
-            <section className="tips" id="tips">
+            <section className="tips-placeholder">
                 <div className="tips-container">
                     <h2>Animal Care Tips & Guides</h2>
-                    <p>Learn how to properly care for animals and provide first aid</p>
-
-                    <div className="tips-categories">
-                        <button className="tips-cat-btn active" onClick={(e) => { document.querySelectorAll('.tips-cat-btn').forEach(btn=>btn.classList.remove('active')); e.currentTarget.classList.add('active'); document.querySelectorAll('.tip-card').forEach(c=>c.style.display='block'); }}>All Tips</button>
-                        <button className="tips-cat-btn" onClick={(e) => { document.querySelectorAll('.tips-cat-btn').forEach(btn=>btn.classList.remove('active')); e.currentTarget.classList.add('active'); document.querySelectorAll('.tip-card').forEach(c=>{ if(c.dataset.category.includes('dogs')) c.style.display='block'; else c.style.display='none'; }); }}>Dogs</button>
-                        <button className="tips-cat-btn" onClick={(e) => { document.querySelectorAll('.tips-cat-btn').forEach(btn=>btn.classList.remove('active')); e.currentTarget.classList.add('active'); document.querySelectorAll('.tip-card').forEach(c=>{ if(c.dataset.category.includes('cats')) c.style.display='block'; else c.style.display='none'; }); }}>Cats</button>
-                        <button className="tips-cat-btn" onClick={(e) => { document.querySelectorAll('.tips-cat-btn').forEach(btn=>btn.classList.remove('active')); e.currentTarget.classList.add('active'); document.querySelectorAll('.tip-card').forEach(c=>{ if(c.dataset.category.includes('birds')) c.style.display='block'; else c.style.display='none'; }); }}>Birds</button>
-                        <button className="tips-cat-btn" onClick={(e) => { document.querySelectorAll('.tips-cat-btn').forEach(btn=>btn.classList.remove('active')); e.currentTarget.classList.add('active'); document.querySelectorAll('.tip-card').forEach(c=>{ if(c.dataset.category.includes('emergency')) c.style.display='block'; else c.style.display='none'; }); }}>Emergency</button>
-                        <button className="tips-cat-btn" onClick={(e) => { document.querySelectorAll('.tips-cat-btn').forEach(btn=>btn.classList.remove('active')); e.currentTarget.classList.add('active'); document.querySelectorAll('.tip-card').forEach(c=>{ if(c.dataset.category.includes('nutrition')) c.style.display='block'; else c.style.display='none'; }); }}>Nutrition</button>
-                    </div>
-
-                    <div className="tips-grid">
-                        <div className="tip-card" data-category="dogs">
-                            <div className="tip-icon"><i className="fas fa-dog" /></div>
-                            <h3>Dog Training Basics</h3>
-                            <p className="tip-category"><i className="fas fa-tag" /> Dogs</p>
-                            <p className="tip-description">Learn essential commands and positive reinforcement techniques to train your dog effectively and safely.</p>
-                            <div className="tip-points">
-                                <div className="point"><i className="fas fa-check-circle" /> Start with basic commands</div>
-                                <div className="point"><i className="fas fa-check-circle" /> Use positive reinforcement</div>
-                                <div className="point"><i className="fas fa-check-circle" /> Keep training sessions short</div>
-                            </div>
-                            <button className="btn btn-small" onClick={() => window.openTipDetail('Dog Training Basics')}>Read More</button>
-                        </div>
-
-                        <div className="tip-card" data-category="dogs">
-                            <div className="tip-icon"><i className="fas fa-heart-pulse" /></div>
-                            <h3>Dog Exercise Requirements</h3>
-                            <p className="tip-category"><i className="fas fa-tag" /> Dogs</p>
-                            <p className="tip-description">Understand how much exercise your dog needs based on breed, age, and health conditions.</p>
-                            <div className="tip-points">
-                                <div className="point"><i className="fas fa-check-circle" /> 30-60 min daily for most dogs</div>
-                                <div className="point"><i className="fas fa-check-circle" /> High-energy breeds need more</div>
-                                <div className="point"><i className="fas fa-check-circle" /> Mental stimulation is important</div>
-                            </div>
-                            <button className="btn btn-small" onClick={() => window.openTipDetail('Dog Exercise Requirements')}>Read More</button>
-                        </div>
-
-                        <div className="tip-card" data-category="cats">
-                            <div className="tip-icon"><i className="fas fa-cat" /></div>
-                            <h3>Cat Litter Box Care</h3>
-                            <p className="tip-category"><i className="fas fa-tag" /> Cats</p>
-                            <p className="tip-description">Proper litter box maintenance ensures your cat's health and keeps your home clean.</p>
-                            <div className="tip-points">
-                                <div className="point"><i className="fas fa-check-circle" /> Clean litter box daily</div>
-                                <div className="point"><i className="fas fa-check-circle" /> Use quality litter</div>
-                                <div className="point"><i className="fas fa-check-circle" /> One box per cat plus one extra</div>
-                            </div>
-                            <button className="btn btn-small" onClick={() => window.openTipDetail('Cat Litter Box Care')}>Read More</button>
-                        </div>
-
-                        {/* ... many more tip cards omitted for brevity - kept structure similar to original file ... */}
-
-                    </div>
+                    <p>This content has been moved to a dedicated page.</p>
                 </div>
             </section>
 

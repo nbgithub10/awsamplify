@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './UserRegistration.css';
 
 function UserRegistration() {
@@ -9,6 +10,7 @@ function UserRegistration() {
   const [showPasswordMatch, setShowPasswordMatch] = useState(false);
   const [showVolunteer, setShowVolunteer] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const form = formRef.current;
@@ -396,7 +398,10 @@ function UserRegistration() {
         {/* Terms */}
         <div className="form-section">
           <div className="form-group">
-            <div className="checkbox-item"><input id="terms" name="terms" type="checkbox" /><label htmlFor="terms" className="required">I agree to the Terms and Conditions</label></div>
+            <div className="checkbox-item">
+              <input id="terms" name="terms" type="checkbox" />
+              <label htmlFor="terms" className="required">I agree to the <Link to="/terms">Terms and Conditions</Link></label>
+            </div>
             <div id="termsError" className="error-message">You must agree to the Terms and Conditions</div>
           </div>
 
@@ -408,6 +413,7 @@ function UserRegistration() {
         <div className="button-group">
           <button type="submit" className="submit-btn">Register Now</button>
           <button type="reset" className="reset-btn">Clear Form</button>
+          <button type="button" className="submit-btn" onClick={() => navigate('/')}>Back</button>
         </div>
       </form>
     </div>
