@@ -1,7 +1,7 @@
 import './App.css';
 import { useState } from 'react';
 import UserProfileDisplay from "./registration/UserProfileDisplay";
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import UserRegistration from './registration/UserRegistration';
 import HomeNotUsed from './home/HomeNotUsed';
 import AnimalCare from './static/AnimalCare';
@@ -10,9 +10,10 @@ import Search from './search/Search';
 import Terms from './static/Terms';
 import Privacy from './static/Privacy';
 import PetSearch from './search/PetSearch';
+import PetMissingHelp from './search/PetMissingHelp';
 
 function App() {
-    const [currentView, setCurrentView] = useState('home'); // 'animal', 'csv', or 'profile'
+    const [currentView] = useState('home'); // 'animal', 'csv', or 'profile' (no setter used)
 
     return (
         <Router>
@@ -28,6 +29,7 @@ function App() {
                     <Route path="/animal-care" element={<AnimalCare />} />
                     <Route path="/search" element={<Search />} />
                     <Route path="/pet-search" element={<PetSearch />} />
+                    <Route path="/pet-missing" element={<PetMissingHelp />} />
                     <Route path="/terms" element={<Terms />} />
                     <Route path="/privacy" element={<Privacy />} />
                     <Route path="/real-estate-home" element={<Home />} />
