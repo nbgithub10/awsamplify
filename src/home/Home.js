@@ -1,9 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useStore } from '../store/useStore';
 import './realestate-home.css';
 
 export default function Home() {
     const navigate = useNavigate();
+    const state = useStore();
+    const { isAuthenticated, profile } = state.auth;
 
     function goToRescuers() {
         navigate('/search?service=Rescuers');
@@ -46,8 +49,31 @@ export default function Home() {
                         <span>Animals2Rescue</span>
                     </div>
                     <div className="re-actions">
-                        <a href="/login" className="re-link">Sign In</a>
-                        <a href="/register" className="re-cta">Join</a>
+                        {isAuthenticated && profile ? (
+                            <>
+                                <span className="re-link" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                    {profile.picture && (
+                                        <img
+                                            src={profile.picture}
+                                            alt={profile.name}
+                                            style={{
+                                                width: '32px',
+                                                height: '32px',
+                                                borderRadius: '50%',
+                                                objectFit: 'cover'
+                                            }}
+                                        />
+                                    )}
+                                    <span>Welcome, {profile.name}!</span>
+                                </span>
+                                <a href="/profile" className="re-cta">My Profile</a>
+                            </>
+                        ) : (
+                            <>
+                                <a href="/login" className="re-link">Sign In</a>
+                                <a href="/register" className="re-cta">Join</a>
+                            </>
+                        )}
                     </div>
                 </div>
                 <div className="re-search">

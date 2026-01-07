@@ -85,7 +85,9 @@ export const localStorageMiddleware = (store) => (next) => (action) => {
 
     // Persist auth state to localStorage with key 'auth_state'
     if (action.type.startsWith('auth/')) {
+      console.log('🔍 LocalStorage Middleware - Saving auth state:', state.auth);
       localStorage.setItem('auth_state', JSON.stringify(state.auth));
+      console.log('✅ Saved to localStorage:', localStorage.getItem('auth_state'));
     }
 
     // Note: We don't persist searchFilters or registration to localStorage

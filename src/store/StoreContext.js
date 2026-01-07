@@ -2,7 +2,7 @@
  * @fileoverview Store Context and Provider for global state management
  */
 
-import React, { createContext, useReducer, useEffect } from 'react';
+import React, { createContext, useReducer, useEffect, useRef } from 'react';
 import { rootReducer, getInitialState } from './reducer';
 import { loggerMiddleware, localStorageMiddleware } from './middleware';
 
@@ -145,32 +145,48 @@ export function StoreProvider({ children }) {
 
   const [state, dispatch] = useReducer(rootReducer, initialState);
 
-  // Create store object for middleware
-  const store = {
-    getState: () => state,
-    dispatch: dispatch
-  };
+  // Use ref to always have access to latest state
+  const stateRef = useRef(state);
 
-  // Apply middleware chain: logger -> localStorage
-  const middlewareChain = [loggerMiddleware, localStorageMiddleware];
+  // Always keep ref in sync with state
+  useEffect(() => {
+    stateRef.current = state;
+  }, [state]);
 
   // Enhanced dispatch with middleware
   const enhancedDispatch = (action) => {
-    let index = 0;
+    // Capture previous state for logger
+    const prevState = stateRef.current;
 
-    const next = (currentAction) => {
-      if (index >= middlewareChain.length) {
-        // End of chain, call actual dispatch
-        dispatch(currentAction);
-        return;
-      }
+    // Dispatch the action to update the state
+    dispatch(action);
 
-      const middleware = middlewareChain[index];
-      index++;
-      middleware(store)(() => next(currentAction))(currentAction);
+    // Calculate new state immediately (useReducer is synchronous)
+    const newState = rootReducer(prevState, action);
+    stateRef.current = newState;
+
+    // Create store object for middleware
+    const store = {
+      getState: () => stateRef.current,
+      dispatch: enhancedDispatch
     };
 
-    next(action);
+    // Run logger middleware with both prev and new state
+    if (process.env.NODE_ENV === 'development') {
+      const timestamp = new Date().toLocaleTimeString();
+      console.group(
+        `%c action ${action.type} %c @ ${timestamp}`,
+        'color: #4CAF50; font-weight: bold;',
+        'color: #999; font-weight: normal;'
+      );
+      console.log('%c prev state', 'color: #9E9E9E; font-weight: bold;', prevState);
+      console.log('%c action', 'color: #03A9F4; font-weight: bold;', action);
+      console.log('%c next state', 'color: #4CAF50; font-weight: bold;', newState);
+      console.groupEnd();
+    }
+
+    // Run localStorage middleware with new state
+    localStorageMiddleware(store)(() => {})(action);
   };
 
   // Persist sample data on first load if localStorage was empty
@@ -181,6 +197,29 @@ export function StoreProvider({ children }) {
       localStorage.setItem('pet_reports_v1', JSON.stringify(SAMPLE_REPORTS));
     }
   }, []);
+
+  // Expose store state to window object in development mode for debugging
+  useEffect(() => {
+    if (process.env.NODE_ENV === 'development') {
+      window.__STORE_STATE__ = state;
+      window.getStoreState = () => state;
+      window.inspectStore = () => {
+        console.log('%c📦 Current Store State', 'color: #4CAF50; font-size: 16px; font-weight: bold;');
+        console.log(state);
+        return state;
+      };
+
+      // Log helpful message on first mount
+      if (!window.__STORE_INITIALIZED__) {
+        console.log('%c🔍 Store Debugging Enabled', 'color: #2196F3; font-size: 14px; font-weight: bold;');
+        console.log('%cType one of these in console:', 'color: #666; font-style: italic;');
+        console.log('  %cwindow.__STORE_STATE__%c - View current state', 'color: #FF9800; font-weight: bold;', 'color: #666;');
+        console.log('  %cwindow.getStoreState()%c - Get current state', 'color: #FF9800; font-weight: bold;', 'color: #666;');
+        console.log('  %cwindow.inspectStore()%c - Pretty print state', 'color: #FF9800; font-weight: bold;', 'color: #666;');
+        window.__STORE_INITIALIZED__ = true;
+      }
+    }
+  }, [state]);
 
   return (
     <StoreContext.Provider value={{ state, dispatch: enhancedDispatch }}>
