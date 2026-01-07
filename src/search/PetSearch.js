@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 import './petsearch.css';
+import './search.css';
 import { filterReports, validatePostcode, validateImageFile, compressImage } from './searchUtils';
+import { searchByImage, hybridSearch } from './imageSearchUtils';
+import { useStore, useDispatch } from '../store/useStore';
+import { addPetReport, setSearchFilters } from '../store/actions';
 
 // Small sample lists for countries and states for dropdowns.
 const COUNTRY_OPTIONS = ['India', 'Australia', 'United States'];
@@ -11,17 +16,33 @@ const STATE_OPTIONS = {
   'United States': ['California', 'New York', 'Texas']
 };
 
-const LS_KEY = 'pet_reports_v1';
-
 export default function PetSearch() {
+  // Get state and dispatch from global store
+  const state = useStore();
+  const dispatch = useDispatch();
+
+  // Get pet reports from store
+  const reports = state.petReports.reports;
+
+  // Get search filters from store
+  const storeFilters = state.searchFilters.filters;
+
   // mode: 'search' | 'report'
   const [mode, setMode] = useState('search');
-  const [country, setCountry] = useState('India');
-  const [stateField, setStateField] = useState('Maharashtra');
-  const [postcode, setPostcode] = useState('');
 
-  const [includeLost, setIncludeLost] = useState(true);
-  const [includeFound, setIncludeFound] = useState(true);
+  // Local UI state for search filters (synced with store)
+  const [country, setCountry] = useState(storeFilters.country);
+  const [stateField, setStateField] = useState(storeFilters.state);
+  const [postcode, setPostcode] = useState(storeFilters.postcode);
+
+  const [includeLost, setIncludeLost] = useState(storeFilters.includeLost);
+  const [includeFound, setIncludeFound] = useState(storeFilters.includeFound);
+
+  // search image upload state
+  const [searchImageFile, setSearchImageFile] = useState(null);
+  const [searchImagePreview, setSearchImagePreview] = useState('');
+  const [searchMode, setSearchMode] = useState('location'); // 'location' | 'image' | 'hybrid'
+  const [isSearching, setIsSearching] = useState(false);
 
   const [results, setResults] = useState([]);
   const [message, setMessage] = useState('');
@@ -38,28 +59,14 @@ export default function PetSearch() {
   const [imageFiles, setImageFiles] = useState([]); // array of File
   const [imagePreviews, setImagePreviews] = useState([]); // array of dataURLs
 
-  // load persisted reports from localStorage (or seed sample data)
-  const [reports, setReports] = useState(() => {
-    try {
-      const raw = localStorage.getItem(LS_KEY);
-      if (raw) return JSON.parse(raw);
-    } catch (e) {
-      // ignore
-    }
-    return [
-      { id: 'P-001', name: 'Bella', type: 'Dog', status: 'lost', country: 'India', state: 'Maharashtra', postcode: '400001', lastSeen: 'Park Street, Mumbai', contact: '+91 98765 43210' },
-      { id: 'P-002', name: 'Milo', type: 'Cat', status: 'found', country: 'India', state: 'Karnataka', postcode: '560001', lastSeen: 'Lakeside', contact: '+91 98700 11122' }
-    ];
-  });
 
   useEffect(() => {
-    // persist reports when they change
-    try {
-      localStorage.setItem(LS_KEY, JSON.stringify(reports));
-    } catch (e) {
-      // ignore
+    // Initialize with all sample results on first load
+    if (mode === 'search' && results.length === 0 && reports.length > 0) {
+      setResults(reports);
+      setMessage(`Showing ${reports.length} sample pet reports. Use filters to search.`);
     }
-  }, [reports]);
+  }, [mode, reports]);
 
   useEffect(() => {
     // when country changes, default stateField
@@ -69,6 +76,69 @@ export default function PetSearch() {
       setStateField('');
     }
   }, [country]);
+
+  // Helper functions to update both local state and store
+  const handleCountryChange = (newCountry) => {
+    setCountry(newCountry);
+    dispatch(setSearchFilters({ country: newCountry }));
+  };
+
+  const handleStateFieldChange = (newState) => {
+    setStateField(newState);
+    dispatch(setSearchFilters({ state: newState }));
+  };
+
+  const handlePostcodeChange = (newPostcode) => {
+    setPostcode(newPostcode);
+    dispatch(setSearchFilters({ postcode: newPostcode }));
+  };
+
+  const handleIncludeLostChange = (checked) => {
+    setIncludeLost(checked);
+    dispatch(setSearchFilters({ includeLost: checked }));
+  };
+
+  const handleIncludeFoundChange = (checked) => {
+    setIncludeFound(checked);
+    dispatch(setSearchFilters({ includeFound: checked }));
+  };
+
+  async function handleSearchImageChange(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const validation = validateImageFile(file, 5 * 1024 * 1024); // 5MB limit
+    if (!validation.ok) {
+      setMessage(`Image rejected: ${validation.reason}`);
+      setSearchImageFile(null);
+      setSearchImagePreview('');
+      return;
+    }
+
+    try {
+      const compressed = await compressImage(file, 1200, 0.8);
+      setSearchImageFile(file);
+      setSearchImagePreview(compressed);
+      dispatch(setSearchFilters({ searchImagePreview: compressed }));
+      setMessage('');
+    } catch (err) {
+      // fallback to dataURL without compression
+      const reader = new FileReader();
+      reader.onload = () => {
+        setSearchImageFile(file);
+        setSearchImagePreview(reader.result);
+        dispatch(setSearchFilters({ searchImagePreview: reader.result }));
+        setMessage('');
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function removeSearchImage() {
+    setSearchImageFile(null);
+    setSearchImagePreview('');
+    dispatch(setSearchFilters({ searchImagePreview: null }));
+  }
 
   async function handleImageChange(e) {
     const files = Array.from(e.target.files || []);
@@ -126,31 +196,78 @@ export default function PetSearch() {
     setImagePreviews(prev => prev.filter((_, i) => i !== index));
   }
 
-  function handleSearch(e) {
+  async function handleSearch(e) {
     e && e.preventDefault();
-    setMessage('');
-    // Require at least one location field for search
-    if (!country && !stateField && !postcode) {
-      setResults([]);
-      setMessage('Please enter at least one location field: Country, State or Post code.');
-      return;
-    }
+    setIsSearching(true);
+    setMessage('Searching...');
 
-    if (!includeLost && !includeFound) {
-      setResults([]);
-      setMessage('Please select at least one of "Include Lost" or "Include Found".');
-      return;
-    }
+    try {
+      // Determine search mode based on inputs
+      const hasLocation = country || stateField || postcode;
+      const hasImage = searchImagePreview;
 
-    if (!validatePostcode(postcode, country)) {
-      setResults([]);
-      setMessage('Post code appears invalid for the selected country.');
-      return;
-    }
+      if (!hasLocation && !hasImage) {
+        setResults([]);
+        setMessage('Please enter location details or upload an image to search.');
+        setIsSearching(false);
+        return;
+      }
 
-    const filtered = filterReports(reports, { country, state: stateField, postcode, includeLost, includeFound });
-    setResults(filtered);
-    if (filtered.length === 0) setMessage('No matches found. Consider posting a report.');
+      if (!includeLost && !includeFound) {
+        setResults([]);
+        setMessage('Please select at least one of "Include Lost" or "Include Found".');
+        setIsSearching(false);
+        return;
+      }
+
+      if (postcode && !validatePostcode(postcode, country)) {
+        setResults([]);
+        setMessage('City/Suburb appears invalid for the selected country.');
+        setIsSearching(false);
+        return;
+      }
+
+      let searchResults = [];
+      let searchType = '';
+
+      if (hasImage && hasLocation) {
+        // Hybrid search: location + image
+        searchType = 'hybrid';
+        const locationFilter = { country, state: stateField, postcode, includeLost, includeFound };
+        searchResults = await hybridSearch(reports, locationFilter, searchImagePreview);
+        setMessage(searchResults.length > 0
+          ? `Found ${searchResults.length} match(es) using location and image similarity.`
+          : 'No matches found. Try adjusting location or uploading a different image.');
+      } else if (hasImage) {
+        // Image-only search
+        searchType = 'image';
+        // Filter by status first
+        const statusFiltered = reports.filter(r =>
+          (includeLost && r.status === 'lost') || (includeFound && r.status === 'found')
+        );
+        searchResults = await searchByImage(statusFiltered, searchImagePreview, 0.3);
+        setMessage(searchResults.length > 0
+          ? `Found ${searchResults.length} visually similar pet(s). Results ranked by similarity.`
+          : 'No visually similar pets found. Try uploading a clearer image or search by location.');
+      } else {
+        // Location-only search (original functionality)
+        searchType = 'location';
+        searchResults = filterReports(reports, { country, state: stateField, postcode, includeLost, includeFound });
+        setMessage(searchResults.length > 0
+          ? `Found ${searchResults.length} match(es) in the specified location.`
+          : 'No matches found. Consider posting a report.');
+      }
+
+      setSearchMode(searchType);
+      dispatch(setSearchFilters({ searchMode: searchType }));
+      setResults(searchResults);
+    } catch (error) {
+      console.error('Search error:', error);
+      setMessage('An error occurred during search. Please try again.');
+      setResults([]);
+    } finally {
+      setIsSearching(false);
+    }
   }
 
   function handleReportSubmit(e) {
@@ -177,7 +294,8 @@ export default function PetSearch() {
       createdAt: new Date().toISOString()
     };
 
-    setReports(prev => [newReport, ...prev]);
+    // Dispatch action to add report to store
+    dispatch(addPetReport(newReport));
     setResults(prev => [newReport, ...prev]);
     setMessage('Report submitted and saved locally. Thank you.');
 
@@ -186,9 +304,15 @@ export default function PetSearch() {
   }
 
   return (
-    <div className="petsearch-root">
-      <div className="section-title">Lost & Found Pets / Animals</div>
-      {mode === 'search' && <div className="section-subtitle">Search our database</div>}
+    <>
+      <Header />
+      <div className="petsearch-root">
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <div>
+          <div className="section-title">Lost & Found Pets / Animals</div>
+          {mode === 'search' && <div className="section-subtitle">Search our database</div>}
+        </div>
+      </div>
 
       <div className="petsearch-actions">
         <button className={mode === 'search' ? 'active' : ''} onClick={() => { setMode('search'); setResults([]); setMessage(''); }}>Search our database</button>
@@ -199,26 +323,80 @@ export default function PetSearch() {
       {mode === 'search' && (
         <form className="petsearch-form" onSubmit={handleSearch}>
           <div className="form-row">
-            <select value={country} onChange={e => setCountry(e.target.value)}>
+            <select value={country} onChange={e => handleCountryChange(e.target.value)}>
               {COUNTRY_OPTIONS.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
-            <select value={stateField} onChange={e => setStateField(e.target.value)}>
+            <select value={stateField} onChange={e => handleStateFieldChange(e.target.value)}>
               {(STATE_OPTIONS[country] || []).map(s => <option key={s} value={s}>{s}</option>)}
             </select>
-            <input placeholder="Post code" value={postcode} onChange={e => setPostcode(e.target.value)} />
+            <input placeholder="City/Suburb" value={postcode} onChange={e => handlePostcodeChange(e.target.value)} />
           </div>
 
           <div className="form-row">
             <label style={{ marginRight: 12 }}>
-              <input type="checkbox" checked={includeLost} onChange={e => setIncludeLost(e.target.checked)} /> Include Lost
+              <input type="checkbox" checked={includeLost} onChange={e => handleIncludeLostChange(e.target.checked)} /> Include Lost
             </label>
             <label>
-              <input type="checkbox" checked={includeFound} onChange={e => setIncludeFound(e.target.checked)} /> Include Found
+              <input type="checkbox" checked={includeFound} onChange={e => handleIncludeFoundChange(e.target.checked)} /> Include Found
             </label>
           </div>
 
           <div className="form-row">
-            <button type="submit">Search our database</button>
+            <label style={{ display: 'block', marginBottom: 8 }}>
+              Upload pet image (optional):
+              <input
+                type="file"
+                accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+                onChange={handleSearchImageChange}
+                style={{ display: 'block', marginTop: 4 }}
+              />
+              <div style={{ fontSize: '0.85em', color: '#666', marginTop: 4 }}>
+                Supported: JPEG, PNG, GIF, WebP (max 5MB)<br/>
+                💡 <strong>Pro tip:</strong> Upload a clear photo to search by visual similarity!
+                {!country && !stateField && !postcode && (
+                  <span> You can search by image alone without location.</span>
+                )}
+              </div>
+            </label>
+            {searchImagePreview && (
+              <div style={{ position: 'relative', marginTop: 8, display: 'inline-block' }}>
+                <img
+                  src={searchImagePreview}
+                  alt="search preview"
+                  style={{ maxWidth: 200, maxHeight: 150, objectFit: 'cover', borderRadius: 6, border: '2px solid #ddd' }}
+                />
+                <button
+                  type="button"
+                  onClick={removeSearchImage}
+                  style={{
+                    position: 'absolute',
+                    top: 4,
+                    right: 4,
+                    background: '#ff4444',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '50%',
+                    width: 24,
+                    height: 24,
+                    cursor: 'pointer',
+                    fontWeight: 'bold'
+                  }}
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+          </div>
+
+          <div className="form-row">
+            <button type="submit" disabled={isSearching}>
+              {isSearching ? 'Searching...' : 'Search our database'}
+            </button>
+            {searchImagePreview && (
+              <span style={{ marginLeft: 12, color: '#666', fontSize: '0.9em' }}>
+                🔍 Image search enabled
+              </span>
+            )}
           </div>
         </form>
       )}
@@ -266,16 +444,16 @@ export default function PetSearch() {
 
           <div className="form-row">
             <label>Country for this report:
-              <select value={country} onChange={e => setCountry(e.target.value)}>
+              <select value={country} onChange={e => handleCountryChange(e.target.value)}>
                 {COUNTRY_OPTIONS.map(c => <option key={c} value={c}>{c}</option>)}
               </select>
             </label>
             <label>State:
-              <select value={stateField} onChange={e => setStateField(e.target.value)}>
+              <select value={stateField} onChange={e => handleStateFieldChange(e.target.value)}>
                 {(STATE_OPTIONS[country] || []).map(s => <option key={s} value={s}>{s}</option>)}
               </select>
             </label>
-            <input placeholder="Post code" value={postcode} onChange={e => setPostcode(e.target.value)} />
+            <input placeholder="City/Suburb" value={postcode} onChange={e => handlePostcodeChange(e.target.value)} />
           </div>
 
           <div className="form-row">
@@ -284,27 +462,79 @@ export default function PetSearch() {
         </form>
       )}
 
-      <div className="petsearch-results">
+      <div className="petsearch-results" aria-live="polite">
         {message && <div className="message">{message}</div>}
 
         {results.length > 0 && (
-          <ul>
-            {results.map(r => (
-              <li key={r.id} className="pet-item">
-                <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-                  {r.images && r.images.length > 0 && <img src={r.images[0]} alt="report" style={{ width: 96, height: 96, objectFit: 'cover', borderRadius: 8 }} />}
-                  <div>
-                    <div><strong>{r.name || 'Unnamed'}</strong> {r.breed ? `(${r.breed})` : ''} — {r.status ? r.status.toUpperCase() : 'REPORT'}</div>
-                    <div className="small">Location: {r.suburb ? `${r.suburb}, ` : ''}{r.state || ''} {r.postcode ? `(${r.postcode})` : ''}</div>
-                    <div>Contact: {r.contact ? <a href={`tel:${r.contact}`}>{r.contact}</a> : 'N/A'}</div>
-                    {r.details && <div className="small">{r.details}</div>}
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+          <>
+            {(searchMode === 'image' || searchMode === 'hybrid') && (
+              <div style={{ marginBottom: 12, padding: 8, backgroundColor: '#e3f2fd', borderRadius: 6, fontSize: '0.9em' }}>
+                💡 <strong>Image Search Active:</strong> Results are ranked by visual similarity to your uploaded image.
+                {searchMode === 'hybrid' && ' Location filters also applied.'}
+              </div>
+            )}
+
+            <table className="results-table" role="table">
+              <tbody>
+                {results.map(r => (
+                  <tr key={r.id} className="results-row">
+                    <td className="result-cell">
+                      <div className="result-top">
+                        {r.images && r.images.length > 0 && (
+                          <div style={{ marginRight: 12 }}>
+                            <img src={r.images[0]} alt="report" style={{ width: 96, height: 96, objectFit: 'cover', borderRadius: 8 }} />
+                          </div>
+                        )}
+                        <div className="result-main">
+                          <div className="result-name">
+                            {r.name || 'Unnamed'} {r.breed ? `(${r.breed})` : ''}
+                            {r.similarityScore !== undefined && (
+                              <span style={{
+                                marginLeft: 8,
+                                padding: '2px 8px',
+                                backgroundColor: r.similarityScore > 0.7 ? '#4caf50' : r.similarityScore > 0.5 ? '#ff9800' : '#9e9e9e',
+                                color: 'white',
+                                borderRadius: 12,
+                                fontSize: '0.85em',
+                                fontWeight: 'normal'
+                              }}>
+                                {Math.round(r.similarityScore * 100)}% match
+                              </span>
+                            )}
+                          </div>
+                          <div className="result-type">{r.status ? r.status.toUpperCase() : 'REPORT'}</div>
+                          <div className="result-mobile">
+                            <a href={`tel:${r.contact ? r.contact.replace(/\s+/g, '') : ''}`}>{r.contact || 'N/A'}</a>
+                          </div>
+                        </div>
+                        <div className="result-action">
+                          <button
+                            type="button"
+                            className="view-btn"
+                            onClick={() => console.log('view details', r)}
+                            aria-label={`View details for ${r.name || 'Unnamed'}`}
+                          >
+                            View Details
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="result-bottom">
+                        <div className="result-address">
+                          Location: {r.suburb ? `${r.suburb}, ` : ''}{r.state || ''} {r.postcode ? `${r.postcode}` : ''}, {r.country || ''}
+                        </div>
+                        {r.lastSeen && <div className="result-email">Last Seen: {r.lastSeen}</div>}
+                        {r.details && <div className="result-email">{r.details}</div>}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </>
         )}
       </div>
     </div>
+    </>
   );
 }

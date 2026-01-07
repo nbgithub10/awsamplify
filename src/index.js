@@ -4,17 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {GoogleOAuthProvider} from '@react-oauth/google';
+import {StoreProvider} from './store/StoreContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <GoogleOAuthProvider clientId="1069041377668-ae51f99bcvan3vu8pee1nnlhde0fs5p2.apps.googleusercontent.com">
-        <React.StrictMode>
-            {/* Small top-level link to HomeNotUsed page - clicking will navigate within SPA without full reload */}
-            <div style={{padding: 8, textAlign: 'center'}}>
-              
-            </div>
-            <App/>
-        </React.StrictMode>
+        <StoreProvider>
+            <React.StrictMode>
+                {/* Small top-level link to HomeNotUsed page - clicking will navigate within SPA without full reload */}
+                <div style={{padding: 8, textAlign: 'center'}}>
+
+                </div>
+                <App/>
+            </React.StrictMode>
+        </StoreProvider>
     </GoogleOAuthProvider>
 );
 

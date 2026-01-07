@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import Header from '../components/Header';
 import './search.css';
 
 export default function Search() {
@@ -76,6 +77,7 @@ export default function Search() {
 
   return (
     <div className="container search-container">
+      <Header />
       <form id="searchForm" className="form-section" onSubmit={handleSubmit}>
         <div className="section-title">{displayTitle}</div>
 

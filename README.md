@@ -1,4 +1,24 @@
-# Getting Started with Create React App
+# Pet Search Application
+
+This project is a React-based application for reporting and searching lost/found pets.
+
+## 🆕 New Feature: Image-Based Pet Search
+
+The application now supports **visual similarity search**! Upload a photo of a pet to find visually similar matches in the database.
+
+### Key Features:
+- 🔍 **Search by Image**: Upload a pet photo and find similar-looking pets
+- 📍 **Hybrid Search**: Combine location filters with image similarity
+- 🎯 **Similarity Scoring**: Results ranked by visual match (30-100%)
+- 🖼️ **Image Preview**: See uploaded images before searching
+- ⚡ **Fast Processing**: Client-side image analysis using Canvas API
+
+### Quick Links:
+- 📖 [Image Search Quick Start Guide](./IMAGE_SEARCH_QUICKSTART.md)
+- 📚 [Full Technical Documentation](./IMAGE_SEARCH_DOCUMENTATION.md)
+- 🧪 [Test Suite](./src/search/imageSearchUtils.test.js)
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
