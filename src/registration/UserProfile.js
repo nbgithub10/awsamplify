@@ -2,6 +2,7 @@ import React from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Header from '../components/Header';
 import { useStore, useDispatch } from '../store/useStore';
 import { loginUser, logoutUser } from '../store/actions';
 
@@ -38,7 +39,9 @@ function UserProfile() {
     };
 
     return (
-        <div style={{ padding: '40px', maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
+        <>
+            <Header />
+            <div style={{ padding: '40px', maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
             <h2>React Google Login</h2>
             <br />
             <br />
@@ -72,6 +75,7 @@ function UserProfile() {
                 </div>
             )}
         </div>
+        </>
     );
 }
 

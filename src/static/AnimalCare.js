@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Header from '../components/Header';
 import '../home/home-styles.css';
 
 export default function AnimalCare() {
@@ -40,24 +41,7 @@ export default function AnimalCare() {
 
     return (
         <div className="home-root">
-            <header className="header">
-                <div className="header-top">
-                    <div className="header-container">
-                        <div className="header-logo">
-                            <i className="fas fa-paw" />
-                            <span>Animals2Rescue</span>
-                        </div>
-                        <div className="header-search">
-                            <input type="text" placeholder="Search services, location...   " />
-                            <button><i className="fas fa-search" /></button>
-                        </div>
-                        <div className="header-actions">
-                            <a href="/signin" className="btn btn-link signin-btn" style={{ marginRight: 8, textDecoration: 'none', color: 'inherit' }}>Sign In</a>
-                            <a href="/register" className="btn btn-primary join-btn" style={{ textDecoration: 'none', color: 'inherit' }}>Join</a>
-                        </div>
-                    </div>
-                </div>
-            </header>
+            <Header />
 
             <section className="tips" id="tips">
                 <div className="tips-container">

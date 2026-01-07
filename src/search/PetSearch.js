@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 import './petsearch.css';
 import './search.css';
 import { filterReports, validatePostcode, validateImageFile, compressImage } from './searchUtils';
@@ -303,7 +304,9 @@ export default function PetSearch() {
   }
 
   return (
-    <div className="petsearch-root">
+    <>
+      <Header />
+      <div className="petsearch-root">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
         <div>
           <div className="section-title">Lost & Found Pets / Animals</div>
@@ -532,5 +535,6 @@ export default function PetSearch() {
         )}
       </div>
     </div>
+    </>
   );
 }

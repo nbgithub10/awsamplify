@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
 import './UserRegistration.css';
 
 function UserRegistration() {
@@ -192,11 +193,13 @@ function UserRegistration() {
   }
 
   return (
-    <div className="container">
-      <div className="header">
-        <h1>🐾 Animals2Rescue</h1>
-        <p>Create Your Account</p>
-      </div>
+    <>
+      <Header />
+      <div className="container">
+        <div className="header">
+          <h1>🐾 Animals2Rescue</h1>
+          <p>Create Your Account</p>
+        </div>
 
       <div id="successMessage" className={`success-message ${successVisible ? 'show' : ''}`}>✓ Registration successful! Welcome to Animals2Rescue!</div>
 
@@ -417,6 +420,7 @@ function UserRegistration() {
         </div>
       </form>
     </div>
+    </>
   );
 }
 
