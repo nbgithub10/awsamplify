@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -13,6 +13,13 @@ function UserProfile() {
 
     const { user, profile } = state.auth;
 
+    // If already logged in, redirect to registration page
+    useEffect(() => {
+        if (profile && profile.name) {
+            navigate('/register');
+        }
+    }, [profile, navigate]);
+
     const login = useGoogleLogin({
         onSuccess: (codeResponse) => {
             // Fetch user profile and update store
@@ -26,6 +33,8 @@ function UserProfile() {
                 .then((res) => {
                     console.log(res);
                     dispatch(loginUser(codeResponse, res.data));
+                    // Redirect to registration page after successful login
+                    navigate('/register');
                 })
                 .catch((err) => console.log(err));
         },

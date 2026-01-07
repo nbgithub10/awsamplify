@@ -11,7 +11,6 @@ import Terms from './static/Terms';
 import Privacy from './static/Privacy';
 import PetSearch from './search/PetSearch';
 import PetMissingHelp from './search/PetMissingHelp';
-import UserProfile from "./registration/UserProfile";
 
 function App() {
     const [currentView] = useState('home'); // 'animal', 'csv', or 'profile' (no setter used)
@@ -27,7 +26,7 @@ function App() {
 
                 <Routes>
                     <Route path="/register" element={<UserRegistration />} />
-                    <Route path="/login" element={<UserProfile />} />
+                    <Route path="/login" element={<UserRegistration />} />
                     <Route path="/animal-care" element={<AnimalCare />} />
                     <Route path="/search" element={<Search />} />
                     <Route path="/pet-search" element={<PetSearch />} />

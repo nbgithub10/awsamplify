@@ -65,6 +65,22 @@
     background: #0059b3;
 }
 
+.header-logout-btn {
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.header-logout-btn:hover {
+    background: #ff5252;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     .header-inner {

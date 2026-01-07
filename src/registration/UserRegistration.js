@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
 import Header from '../components/Header';
+import { useStore, useDispatch } from '../store/useStore';
+import { loginUser } from '../store/actions';
 import './UserRegistration.css';
 
 function UserRegistration() {
@@ -12,12 +16,40 @@ function UserRegistration() {
   const [showVolunteer, setShowVolunteer] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
   const navigate = useNavigate();
+  const state = useStore();
+  const dispatch = useDispatch();
+  const { profile, isAuthenticated } = state.auth;
+
+  // Google login handler
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      // Fetch user profile and update store
+      axios
+        .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${codeResponse.access_token}`, {
+          headers: {
+            Authorization: `Bearer ${codeResponse.access_token}`,
+            Accept: 'application/json'
+          }
+        })
+        .then((res) => {
+          console.log(res);
+          dispatch(loginUser(codeResponse, res.data));
+        })
+        .catch((err) => console.log(err));
+    },
+    onError: (error) => console.log('Login Failed:', error)
+  });
 
   useEffect(() => {
+    // Only set up form listeners when authenticated and form exists
+    if (!isAuthenticated || !formRef.current || !profilePictureRef.current) return;
+
     const form = formRef.current;
     const profileInput = profilePictureRef.current;
     const passwordInput = form.querySelector('#password');
     const confirmPasswordInput = form.querySelector('#confirmPassword');
+
+    if (!passwordInput || !confirmPasswordInput) return;
 
     function onUserTypeChange(e) {
       setShowVolunteer(e.target.value === 'Volunteer');
@@ -54,7 +86,22 @@ function UserRegistration() {
       profileInput.removeEventListener('change', onProfileChange);
       confirmPasswordInput.removeEventListener('input', onConfirmInput);
     };
-  }, []);
+  }, [isAuthenticated]);
+
+  // Pre-populate form fields from Google profile
+  useEffect(() => {
+    if (profile && formRef.current) {
+      const fullNameInput = formRef.current.querySelector('#fullName');
+      const emailInput = formRef.current.querySelector('#email');
+
+      if (fullNameInput && profile.name) {
+        fullNameInput.value = profile.name;
+      }
+      if (emailInput && profile.email) {
+        emailInput.value = profile.email;
+      }
+    }
+  }, [profile]);
 
   // validators (kept similar to original)
   function isValidEmail(email) {
@@ -92,59 +139,88 @@ function UserRegistration() {
   function validateForm() {
     let valid = true;
     const form = formRef.current;
-    const fullName = form.querySelector('#fullName').value.trim();
-    if (!fullName) { showError('fullName','fullNameError'); valid=false; } else clearError('fullName','fullNameError');
 
+    // All fields are now optional - only validate format if field has value
     const email = form.querySelector('#email').value.trim();
-    if (!email || !isValidEmail(email)) { showError('email','emailError'); valid=false; } else clearError('email','emailError');
+    if (email && !isValidEmail(email)) {
+      showError('email','emailError');
+      valid=false;
+    } else {
+      clearError('email','emailError');
+    }
 
     const phone = form.querySelector('#phone').value.trim();
-    if (!phone || !isValidPhone(phone)) { showError('phone','phoneError'); valid=false; } else clearError('phone','phoneError');
-
-    const country = form.querySelector('#country').value;
-    if (!country) { showError('country','countryError'); valid=false; } else clearError('country','countryError');
-
-    const street = form.querySelector('#street').value.trim();
-    if (!street) { showError('street','streetError'); valid=false; } else clearError('street','streetError');
-
-    const city = form.querySelector('#city').value.trim();
-    if (!city) { showError('city','cityError'); valid=false; } else clearError('city','cityError');
-
-    const state = form.querySelector('#state').value.trim();
-    if (!state) { showError('state','stateError'); valid=false; } else clearError('state','stateError');
-
-    const postal = form.querySelector('#postalCode').value.trim();
-    if (!postal) { showError('postalCode','postalCodeError'); valid=false; } else clearError('postalCode','postalCodeError');
+    if (phone && !isValidPhone(phone)) {
+      showError('phone','phoneError');
+      valid=false;
+    } else {
+      clearError('phone','phoneError');
+    }
 
     const password = form.querySelector('#password').value;
-    if (!password || password.length < 8) { showError('password','passwordError'); valid=false; } else clearError('password','passwordError');
-
     const confirmPassword = form.querySelector('#confirmPassword').value;
-    if (password !== confirmPassword) { showError('confirmPassword','confirmPasswordError'); valid=false; } else clearError('confirmPassword','confirmPasswordError');
+
+    // Only validate password if user entered one
+    if (password || confirmPassword) {
+      if (password && password.length < 8) {
+        showError('password','passwordError');
+        valid=false;
+      } else {
+        clearError('password','passwordError');
+      }
+
+      if (password !== confirmPassword) {
+        showError('confirmPassword','confirmPasswordError');
+        valid=false;
+      } else {
+        clearError('confirmPassword','confirmPasswordError');
+      }
+    } else {
+      clearError('password','passwordError');
+      clearError('confirmPassword','confirmPasswordError');
+    }
 
     const profileFile = profilePictureRef.current.files[0];
     const fv = isValidFile(profileFile);
-    if (!fv.valid) { const el = form.querySelector('#profilePictureError'); if (el) el.textContent = fv.error; showError('profilePicture','profilePictureError'); valid=false; } else clearError('profilePicture','profilePictureError');
-
-    const userType = form.querySelector('input[name="userType"]:checked');
-    if (!userType) { showError('userType','userTypeError'); valid=false; } else clearError('userType','userTypeError');
-
-    const experience = form.querySelector('#experience').value.trim();
-    if (!experience || experience.length < 10) { showError('experience','experienceError'); valid=false; } else clearError('experience','experienceError');
-
-    if (form.querySelector('input[value="Volunteer"]:checked')) {
-      const any = form.querySelectorAll('input[name="availability"]:checked').length>0;
-      if (!any) { showError('volunteerSection','availabilityError'); valid=false; } else clearError('volunteerSection','availabilityError');
+    if (!fv.valid) {
+      const el = form.querySelector('#profilePictureError');
+      if (el) el.textContent = fv.error;
+      showError('profilePicture','profilePictureError');
+      valid=false;
+    } else {
+      clearError('profilePicture','profilePictureError');
     }
+
+    // Clear all other field errors since they're optional
+    clearError('fullName','fullNameError');
+    clearError('country','countryError');
+    clearError('street','streetError');
+    clearError('city','cityError');
+    clearError('state','stateError');
+    clearError('postalCode','postalCodeError');
+    clearError('userType','userTypeError');
+    clearError('experience','experienceError');
+    clearError('volunteerSection','availabilityError');
 
     const socialIds = ['facebook','instagram','x','tiktok','youtube','website'];
     socialIds.forEach(id => {
       const v = form.querySelector(`#${id}`).value.trim();
-      if (v && !isValidURL(v)) { showError(id, id+'Error'); valid=false; } else clearError(id, id+'Error');
+      if (v && !isValidURL(v)) {
+        showError(id, id+'Error');
+        valid=false;
+      } else {
+        clearError(id, id+'Error');
+      }
     });
 
+    // Terms agreement is still required
     const terms = form.querySelector('#terms').checked;
-    if (!terms) { showError('terms','termsError'); valid=false; } else clearError('terms','termsError');
+    if (!terms) {
+      showError('terms','termsError');
+      valid=false;
+    } else {
+      clearError('terms','termsError');
+    }
 
     return valid;
   }
@@ -198,37 +274,77 @@ function UserRegistration() {
       <div className="container">
         <div className="header">
           <h1>🐾 Animals2Rescue</h1>
-          <p>Create Your Account</p>
+          <p>{isAuthenticated ? 'Complete Your Profile' : 'Login or Register'}</p>
         </div>
 
-      <div id="successMessage" className={`success-message ${successVisible ? 'show' : ''}`}>✓ Registration successful! Welcome to Animals2Rescue!</div>
+        {!isAuthenticated ? (
+          // Show only Google login button when not logged in
+          <div style={{ textAlign: 'center', padding: '60px 20px' }}>
+            <div style={{
+              maxWidth: '400px',
+              margin: '0 auto',
+              background: '#fff',
+              padding: '40px',
+              borderRadius: '8px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+            }}>
+              <h2 style={{ marginBottom: '20px', color: '#222' }}>Welcome!</h2>
+              <p style={{ marginBottom: '30px', color: '#666' }}>
+                Sign in with your Google account to continue
+              </p>
+              <button
+                onClick={login}
+                style={{
+                  padding: '12px 24px',
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                  background: '#0073e6',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '6px',
+                  fontWeight: '600',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  margin: '0 auto'
+                }}
+              >
+                <i className="fab fa-google" style={{ fontSize: '18px' }}></i>
+                Login/Register with Google Account
+              </button>
+            </div>
+          </div>
+        ) : (
+          // Show full registration form when logged in
+          <>
+            <div id="successMessage" className={`success-message ${successVisible ? 'show' : ''}`}>✓ Registration successful! Welcome to Animals2Rescue!</div>
 
-      <form id="registrationForm" ref={formRef} onSubmit={onSubmit}>
+            <form id="registrationForm" ref={formRef} onSubmit={onSubmit}>
         {/* Personal Information */}
         <div className="form-section">
           <div className="section-title">Personal Information</div>
 
           <div className="form-group">
-            <label htmlFor="fullName" className="required">Full Name</label>
+            <label htmlFor="fullName">Full Name</label>
             <input id="fullName" name="fullName" type="text" placeholder="Enter your full name" />
             <div id="fullNameError" className="error-message">Full name is required</div>
           </div>
 
           <div className="form-group">
-            <label htmlFor="email" className="required">Email Address</label>
+            <label htmlFor="email">Email Address</label>
             <input id="email" name="email" type="email" placeholder="Enter your email address" />
             <div id="emailError" className="error-message">Please enter a valid email address</div>
           </div>
 
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="phone" className="required">Phone Number</label>
+              <label htmlFor="phone">Phone Number</label>
               <input id="phone" name="phone" type="tel" placeholder="e.g., +1 (555) 123-4567" />
               <div id="phoneError" className="error-message">Please enter a valid phone number</div>
             </div>
 
             <div className="form-group">
-              <label htmlFor="country" className="required">Country</label>
+              <label htmlFor="country">Country</label>
               <select id="country" name="country">
                 <option value="">Select Country</option>
                 <option>United States</option>
@@ -250,20 +366,20 @@ function UserRegistration() {
           <div className="section-title">Address Information</div>
 
           <div className="form-group">
-            <label htmlFor="street" className="required">Street Address</label>
+            <label htmlFor="street">Street Address</label>
             <input id="street" name="street" type="text" placeholder="Enter your street address" />
             <div id="streetError" className="error-message">Street address is required</div>
           </div>
 
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="city" className="required">City</label>
+              <label htmlFor="city">City</label>
               <input id="city" name="city" type="text" placeholder="Enter your city" />
               <div id="cityError" className="error-message">City is required</div>
             </div>
 
             <div className="form-group">
-              <label htmlFor="state" className="required">State/Province</label>
+              <label htmlFor="state">State/Province</label>
               <input id="state" name="state" type="text" placeholder="Enter your state or province" />
               <div id="stateError" className="error-message">State/Province is required</div>
             </div>
@@ -271,7 +387,7 @@ function UserRegistration() {
 
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="postalCode" className="required">Postal Code</label>
+              <label htmlFor="postalCode">Postal Code</label>
               <input id="postalCode" name="postalCode" type="text" placeholder="Enter your postal code" />
               <div id="postalCodeError" className="error-message">Postal code is required</div>
             </div>
@@ -283,13 +399,13 @@ function UserRegistration() {
           <div className="section-title">Account Security</div>
 
           <div className="form-group">
-            <label htmlFor="password" className="required">Password</label>
+            <label htmlFor="password">Password</label>
             <input id="password" name="password" type="password" placeholder="Enter a strong password (min. 8 characters)" />
             <div id="passwordError" className="error-message">Password must be at least 8 characters long</div>
           </div>
 
           <div className="form-group">
-            <label htmlFor="confirmPassword" className="required">Confirm Password</label>
+            <label htmlFor="confirmPassword">Confirm Password</label>
             <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Re-enter your password" />
             <div id="passwordMatch" className={`password-match-indicator ${showPasswordMatch ? 'show' : ''} ${passwordMatch === 'match' ? 'match' : ''} ${passwordMatch === 'no-match' ? 'no-match' : ''}`}></div>
             <div id="confirmPasswordError" className="error-message">Passwords do not match</div>
@@ -309,7 +425,7 @@ function UserRegistration() {
           </div>
 
           <div className="form-group">
-            <label className="required">User Type</label>
+            <label>User Type</label>
             <div className="info-box">Select the category that best describes your role with Animals2Rescue</div>
             <div className="radio-group">
               <div className="radio-item"><input id="rescuer" name="userType" type="radio" value="Rescuer" /><label htmlFor="rescuer">🚨 Rescuer - Help rescue and save animals</label></div>
@@ -328,13 +444,13 @@ function UserRegistration() {
           <div className="section-title">Additional Information</div>
 
           <div className="form-group">
-            <label htmlFor="experience" className="required">Experience with Animals</label>
+            <label htmlFor="experience">Experience with Animals</label>
             <textarea id="experience" name="experience" placeholder="Tell us about your experience with animals, pet history, or why you want to join Animals2Rescue..."></textarea>
             <div id="experienceError" className="error-message">Please share your experience with animals (minimum 10 characters)</div>
           </div>
 
           <div id="volunteerSection" className="form-group" style={{ display: showVolunteer ? 'block' : 'none' }}>
-            <label className="required">Availability (for Volunteers)</label>
+            <label>Availability (for Volunteers)</label>
             <div className="info-box">Select the days and times you are available to volunteer</div>
             <div className="availability-grid">
               <div className="availability-item"><input id="monMorning" name="availability" type="checkbox" value="Monday Morning" /><label htmlFor="monMorning">Monday (AM)</label></div>
@@ -419,6 +535,8 @@ function UserRegistration() {
           <button type="button" className="submit-btn" onClick={() => navigate('/')}>Back</button>
         </div>
       </form>
+          </>
+        )}
     </div>
     </>
   );

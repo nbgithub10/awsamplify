@@ -1,12 +1,21 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useStore } from '../store/useStore';
+import { googleLogout } from '@react-oauth/google';
+import { useStore, useDispatch } from '../store/useStore';
+import { logoutUser } from '../store/actions';
 import './Header.css';
 
 export default function Header() {
     const navigate = useNavigate();
     const state = useStore();
+    const dispatch = useDispatch();
     const { isAuthenticated, profile } = state.auth;
+
+    const handleLogout = () => {
+        googleLogout();
+        dispatch(logoutUser());
+        navigate('/');
+    };
 
     return (
         <header className="common-header">
@@ -18,27 +27,24 @@ export default function Header() {
                 <div className="header-actions">
                     {isAuthenticated && profile ? (
                         <>
-                            <span className="header-link" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                {profile.picture && (
-                                    <img
-                                        src={profile.picture}
-                                        alt={profile.name}
-                                        style={{
-                                            width: '32px',
-                                            height: '32px',
-                                            borderRadius: '50%',
-                                            objectFit: 'cover'
-                                        }}
-                                    />
-                                )}
-                                <span>Welcome, {profile.name}!</span>
+                            <span className="header-link">
+                                Welcome, {profile.name}!
                             </span>
-                            <a href="/login" className="header-cta">My Profile</a>
+                            <a href="/register" className="header-cta">My Profile</a>
+                            <span
+                                onClick={handleLogout}
+                                className="header-link"
+                                style={{ cursor: 'pointer' }}
+                            >
+                                Logout
+                            </span>
                         </>
                     ) : (
                         <>
-                            <a href="/login" className="header-link">Sign In</a>
-                            <a href="/register" className="header-cta">Join</a>
+                            <a href="/login" className="header-cta">
+                                <i className="fas fa-user" style={{ marginRight: '6px' }} />
+                                Sign In / Join
+                            </a>
                         </>
                     )}
                 </div>
