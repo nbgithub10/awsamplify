@@ -4,6 +4,8 @@ import './petsearch.css';
 import './search.css';
 import { filterReports, validatePostcode, validateImageFile, compressImage } from './searchUtils';
 import { searchByImage, hybridSearch } from './imageSearchUtils';
+import { useStore, useDispatch } from '../store/useStore';
+import { addPetReport, setSearchFilters } from '../store/actions';
 
 // Small sample lists for countries and states for dropdowns.
 const COUNTRY_OPTIONS = ['India', 'Australia', 'United States'];
@@ -13,17 +15,27 @@ const STATE_OPTIONS = {
   'United States': ['California', 'New York', 'Texas']
 };
 
-const LS_KEY = 'pet_reports_v1';
-
 export default function PetSearch() {
+  // Get state and dispatch from global store
+  const state = useStore();
+  const dispatch = useDispatch();
+
+  // Get pet reports from store
+  const reports = state.petReports.reports;
+
+  // Get search filters from store
+  const storeFilters = state.searchFilters.filters;
+
   // mode: 'search' | 'report'
   const [mode, setMode] = useState('search');
-  const [country, setCountry] = useState('India');
-  const [stateField, setStateField] = useState('Maharashtra');
-  const [postcode, setPostcode] = useState('');
 
-  const [includeLost, setIncludeLost] = useState(true);
-  const [includeFound, setIncludeFound] = useState(true);
+  // Local UI state for search filters (synced with store)
+  const [country, setCountry] = useState(storeFilters.country);
+  const [stateField, setStateField] = useState(storeFilters.state);
+  const [postcode, setPostcode] = useState(storeFilters.postcode);
+
+  const [includeLost, setIncludeLost] = useState(storeFilters.includeLost);
+  const [includeFound, setIncludeFound] = useState(storeFilters.includeFound);
 
   // search image upload state
   const [searchImageFile, setSearchImageFile] = useState(null);
@@ -46,111 +58,6 @@ export default function PetSearch() {
   const [imageFiles, setImageFiles] = useState([]); // array of File
   const [imagePreviews, setImagePreviews] = useState([]); // array of dataURLs
 
-  // load persisted reports from localStorage (or seed sample data)
-  const [reports, setReports] = useState(() => {
-    try {
-      const raw = localStorage.getItem(LS_KEY);
-      if (raw) return JSON.parse(raw);
-    } catch (e) {
-      // ignore
-    }
-    return [
-      {
-        id: 'P-001',
-        name: 'Bella',
-        breed: 'Golden Retriever',
-        type: 'Dog',
-        status: 'lost',
-        country: 'India',
-        state: 'Maharashtra',
-        suburb: 'Bandra',
-        postcode: '400050',
-        lastSeen: 'Bandra West, near Linking Road',
-        contact: '+91 98765 43210',
-        details: 'Golden coat, very friendly, wearing red collar. Reward offered!',
-        color: 'Golden',
-        images: ['data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="96" height="96"%3E%3Crect fill="%23f4a460" width="96" height="96"/%3E%3Ctext x="50%25" y="50%25" font-size="14" text-anchor="middle" dy=".3em" fill="%23fff"%3EGolden%0ARetriever%3C/text%3E%3C/svg%3E'],
-        createdAt: '2026-01-02T10:30:00Z'
-      },
-      {
-        id: 'P-002',
-        name: 'Milo',
-        breed: 'Persian Cat',
-        type: 'Cat',
-        status: 'found',
-        country: 'India',
-        state: 'Karnataka',
-        suburb: 'Koramangala',
-        postcode: '560034',
-        lastSeen: 'Found near Koramangala 5th Block park',
-        contact: '+91 98700 11122',
-        details: 'White Persian cat, well groomed, seems to be someone\'s pet',
-        color: 'White',
-        images: ['data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="96" height="96"%3E%3Crect fill="%23e8e8e8" width="96" height="96"/%3E%3Ctext x="50%25" y="50%25" font-size="14" text-anchor="middle" dy=".3em" fill="%23666"%3EPersian%0ACat%3C/text%3E%3C/svg%3E'],
-        createdAt: '2026-01-02T14:15:00Z'
-      },
-      {
-        id: 'P-003',
-        name: 'Max',
-        breed: 'Labrador',
-        type: 'Dog',
-        status: 'lost',
-        country: 'Australia',
-        state: 'New South Wales',
-        suburb: 'Sydney',
-        postcode: '2000',
-        lastSeen: 'Sydney CBD, near Hyde Park',
-        contact: '+61 412 345 678',
-        details: 'Black Labrador, 3 years old, answers to Max. Very friendly with children.',
-        color: 'Black',
-        images: ['data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="96" height="96"%3E%3Crect fill="%23333" width="96" height="96"/%3E%3Ctext x="50%25" y="50%25" font-size="14" text-anchor="middle" dy=".3em" fill="%23fff"%3ELabrador%3C/text%3E%3C/svg%3E'],
-        createdAt: '2026-01-01T08:00:00Z'
-      },
-      {
-        id: 'P-004',
-        name: 'Luna',
-        breed: 'Indie Dog',
-        type: 'Dog',
-        status: 'found',
-        country: 'India',
-        state: 'Delhi',
-        suburb: 'Connaught Place',
-        postcode: '110001',
-        lastSeen: 'Found wandering in Connaught Place',
-        contact: '+91 98123 45678',
-        details: 'Brown indie dog, wearing blue collar with no tag. Looking for owner.',
-        color: 'Brown',
-        images: ['data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="96" height="96"%3E%3Crect fill="%23a0522d" width="96" height="96"/%3E%3Ctext x="50%25" y="50%25" font-size="14" text-anchor="middle" dy=".3em" fill="%23fff"%3EIndie%0ADog%3C/text%3E%3C/svg%3E'],
-        createdAt: '2026-01-03T06:45:00Z'
-      },
-      {
-        id: 'P-005',
-        name: 'Whiskers',
-        breed: 'Tabby Cat',
-        type: 'Cat',
-        status: 'lost',
-        country: 'United States',
-        state: 'California',
-        suburb: 'Los Angeles',
-        postcode: '90001',
-        lastSeen: 'Hollywood area, near Sunset Boulevard',
-        contact: '+1 323 555 0123',
-        details: 'Orange tabby cat with white paws. Microchipped. Please contact if found!',
-        color: 'Orange/White',
-        images: ['data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="96" height="96"%3E%3Crect fill="%23ff8c42" width="96" height="96"/%3E%3Ctext x="50%25" y="50%25" font-size="14" text-anchor="middle" dy=".3em" fill="%23fff"%3ETabby%0ACat%3C/text%3E%3C/svg%3E'],
-        createdAt: '2026-01-02T18:20:00Z'
-      }
-    ];
-  });
-
-  useEffect(() => {
-    // persist reports when they change
-    try {
-      localStorage.setItem(LS_KEY, JSON.stringify(reports));
-    } catch (e) {
-      // ignore
-    }
-  }, [reports]);
 
   useEffect(() => {
     // Initialize with all sample results on first load
@@ -169,6 +76,32 @@ export default function PetSearch() {
     }
   }, [country]);
 
+  // Helper functions to update both local state and store
+  const handleCountryChange = (newCountry) => {
+    setCountry(newCountry);
+    dispatch(setSearchFilters({ country: newCountry }));
+  };
+
+  const handleStateFieldChange = (newState) => {
+    setStateField(newState);
+    dispatch(setSearchFilters({ state: newState }));
+  };
+
+  const handlePostcodeChange = (newPostcode) => {
+    setPostcode(newPostcode);
+    dispatch(setSearchFilters({ postcode: newPostcode }));
+  };
+
+  const handleIncludeLostChange = (checked) => {
+    setIncludeLost(checked);
+    dispatch(setSearchFilters({ includeLost: checked }));
+  };
+
+  const handleIncludeFoundChange = (checked) => {
+    setIncludeFound(checked);
+    dispatch(setSearchFilters({ includeFound: checked }));
+  };
+
   async function handleSearchImageChange(e) {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -185,6 +118,7 @@ export default function PetSearch() {
       const compressed = await compressImage(file, 1200, 0.8);
       setSearchImageFile(file);
       setSearchImagePreview(compressed);
+      dispatch(setSearchFilters({ searchImagePreview: compressed }));
       setMessage('');
     } catch (err) {
       // fallback to dataURL without compression
@@ -192,6 +126,7 @@ export default function PetSearch() {
       reader.onload = () => {
         setSearchImageFile(file);
         setSearchImagePreview(reader.result);
+        dispatch(setSearchFilters({ searchImagePreview: reader.result }));
         setMessage('');
       };
       reader.readAsDataURL(file);
@@ -201,6 +136,7 @@ export default function PetSearch() {
   function removeSearchImage() {
     setSearchImageFile(null);
     setSearchImagePreview('');
+    dispatch(setSearchFilters({ searchImagePreview: null }));
   }
 
   async function handleImageChange(e) {
@@ -322,6 +258,7 @@ export default function PetSearch() {
       }
 
       setSearchMode(searchType);
+      dispatch(setSearchFilters({ searchMode: searchType }));
       setResults(searchResults);
     } catch (error) {
       console.error('Search error:', error);
@@ -356,7 +293,8 @@ export default function PetSearch() {
       createdAt: new Date().toISOString()
     };
 
-    setReports(prev => [newReport, ...prev]);
+    // Dispatch action to add report to store
+    dispatch(addPetReport(newReport));
     setResults(prev => [newReport, ...prev]);
     setMessage('Report submitted and saved locally. Thank you.');
 
@@ -382,21 +320,21 @@ export default function PetSearch() {
       {mode === 'search' && (
         <form className="petsearch-form" onSubmit={handleSearch}>
           <div className="form-row">
-            <select value={country} onChange={e => setCountry(e.target.value)}>
+            <select value={country} onChange={e => handleCountryChange(e.target.value)}>
               {COUNTRY_OPTIONS.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
-            <select value={stateField} onChange={e => setStateField(e.target.value)}>
+            <select value={stateField} onChange={e => handleStateFieldChange(e.target.value)}>
               {(STATE_OPTIONS[country] || []).map(s => <option key={s} value={s}>{s}</option>)}
             </select>
-            <input placeholder="City/Suburb" value={postcode} onChange={e => setPostcode(e.target.value)} />
+            <input placeholder="City/Suburb" value={postcode} onChange={e => handlePostcodeChange(e.target.value)} />
           </div>
 
           <div className="form-row">
             <label style={{ marginRight: 12 }}>
-              <input type="checkbox" checked={includeLost} onChange={e => setIncludeLost(e.target.checked)} /> Include Lost
+              <input type="checkbox" checked={includeLost} onChange={e => handleIncludeLostChange(e.target.checked)} /> Include Lost
             </label>
             <label>
-              <input type="checkbox" checked={includeFound} onChange={e => setIncludeFound(e.target.checked)} /> Include Found
+              <input type="checkbox" checked={includeFound} onChange={e => handleIncludeFoundChange(e.target.checked)} /> Include Found
             </label>
           </div>
 
@@ -503,16 +441,16 @@ export default function PetSearch() {
 
           <div className="form-row">
             <label>Country for this report:
-              <select value={country} onChange={e => setCountry(e.target.value)}>
+              <select value={country} onChange={e => handleCountryChange(e.target.value)}>
                 {COUNTRY_OPTIONS.map(c => <option key={c} value={c}>{c}</option>)}
               </select>
             </label>
             <label>State:
-              <select value={stateField} onChange={e => setStateField(e.target.value)}>
+              <select value={stateField} onChange={e => handleStateFieldChange(e.target.value)}>
                 {(STATE_OPTIONS[country] || []).map(s => <option key={s} value={s}>{s}</option>)}
               </select>
             </label>
-            <input placeholder="City/Suburb" value={postcode} onChange={e => setPostcode(e.target.value)} />
+            <input placeholder="City/Suburb" value={postcode} onChange={e => handlePostcodeChange(e.target.value)} />
           </div>
 
           <div className="form-row">

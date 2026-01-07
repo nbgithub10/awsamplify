@@ -46,7 +46,7 @@ export default function Home() {
                         <span>Animals2Rescue</span>
                     </div>
                     <div className="re-actions">
-                        <a href="/signin" className="re-link">Sign In</a>
+                        <a href="/login" className="re-link">Sign In</a>
                         <a href="/register" className="re-cta">Join</a>
                     </div>
                 </div>
