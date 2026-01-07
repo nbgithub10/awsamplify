@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
 import './realestate-home.css';
 
 export default function Home() {
@@ -39,18 +40,8 @@ export default function Home() {
 
     return (
         <div className="re-root">
-            <header className="re-header">
-                <div className="re-header-inner">
-                    <div className="re-logo">
-                        <i className="fas fa-paw" />
-                        <span>Animals2Rescue</span>
-                    </div>
-                    <div className="re-actions">
-                        <a href="/signin" className="re-link">Sign In</a>
-                        <a href="/register" className="re-cta">Join</a>
-                    </div>
-                </div>
-                <div className="re-search">
+            <Header />
+            <div className="re-search">
                     <h1>Find Help for Your Animals, Anytime</h1>
                     <p>Quick access to rescuers, vets, paramedics, shelters, and boarding services</p>
 
@@ -70,7 +61,6 @@ export default function Home() {
                         </a>
                     </form>
                 </div>
-            </header>
 
             <main className="re-main">
                 <section className="re-categories">
