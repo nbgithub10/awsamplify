@@ -9,9 +9,6 @@ import './UserRegistration.css';
 
 function UserRegistration() {
   const formRef = useRef(null);
-  const profilePictureRef = useRef(null);
-  const [fileName, setFileName] = useState('');
-  const [showVolunteer, setShowVolunteer] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
   const navigate = useNavigate();
   const state = useStore();
@@ -39,31 +36,8 @@ function UserRegistration() {
   });
 
   useEffect(() => {
-    // Only set up form listeners when authenticated and form exists
-    if (!isAuthenticated || !formRef.current || !profilePictureRef.current) return;
-
-    const form = formRef.current;
-    const profileInput = profilePictureRef.current;
-
-    function onUserTypeChange(e) {
-      setShowVolunteer(e.target.value === 'Volunteer');
-    }
-
-    function onProfileChange() {
-      const file = profileInput.files && profileInput.files[0];
-      setFileName(file ? `Selected: ${file.name}` : '');
-    }
-
-    // attach change listeners for radio group
-    const userTypeRadios = form.querySelectorAll('input[name="userType"]');
-    userTypeRadios.forEach(r => r.addEventListener('change', onUserTypeChange));
-    profileInput.addEventListener('change', onProfileChange);
-
-    // cleanup
-    return () => {
-      userTypeRadios.forEach(r => r.removeEventListener('change', onUserTypeChange));
-      profileInput.removeEventListener('change', onProfileChange);
-    };
+    // Form listeners are no longer needed since volunteer availability section is removed
+    return () => {};
   }, [isAuthenticated]);
 
   // Pre-populate form fields from Google profile
@@ -91,14 +65,6 @@ function UserRegistration() {
   function isValidURL(url) {
     if (!url) return true;
     try { new URL(url); return true; } catch(e){ return false; }
-  }
-  function isValidFile(file) {
-    if (!file) return { valid: true };
-    const validTypes = ['image/jpeg','image/png'];
-    const maxSize = 5*1024*1024;
-    if (!validTypes.includes(file.type)) return { valid:false, error:'Please upload a valid JPG or PNG file' };
-    if (file.size > maxSize) return { valid:false, error:'File size must be less than 5MB' };
-    return { valid:true };
   }
 
   function showError(fieldId, errorId) {
@@ -133,17 +99,6 @@ function UserRegistration() {
       valid=false;
     } else {
       clearError('phone','phoneError');
-    }
-
-    const profileFile = profilePictureRef.current.files[0];
-    const fv = isValidFile(profileFile);
-    if (!fv.valid) {
-      const el = form.querySelector('#profilePictureError');
-      if (el) el.textContent = fv.error;
-      showError('profilePicture','profilePictureError');
-      valid=false;
-    } else {
-      clearError('profilePicture','profilePictureError');
     }
 
     // Clear all other field errors since they're optional
@@ -198,9 +153,8 @@ function UserRegistration() {
         state: formData.get('state'),
         postalCode: formData.get('postalCode')
       },
-      userType: formData.get('userType'),
+      userType: formData.getAll('userType'),
       experience: formData.get('experience'),
-      availability: formData.getAll('availability'),
       socialProfiles: {
         facebook: formData.get('facebook'),
         instagram: formData.get('instagram'),
@@ -382,24 +336,17 @@ function UserRegistration() {
         <div className="form-section">
           <div className="section-title">Profile Information</div>
 
-          <div className="form-group">
-            <label htmlFor="profilePicture">Profile Picture</label>
-            <label className="file-input-label" htmlFor="profilePicture">Choose File</label>
-            <input ref={profilePictureRef} id="profilePicture" name="profilePicture" type="file" accept=".jpg,.jpeg,.png" />
-            <div id="fileName" className="file-name">{fileName}</div>
-            <div id="profilePictureError" className="error-message">Please upload a valid JPG or PNG file (max 5MB)</div>
-          </div>
 
           <div className="form-group">
-            <label>User Type</label>
-            <div className="info-box">Select the category that best describes your role with Animals2Rescue</div>
+            <label>User Type (Select all that apply)</label>
+            <div className="info-box">Select the categories that best describe your role with Animals2Rescue</div>
             <div className="radio-group">
-              <div className="radio-item"><input id="rescuer" name="userType" type="radio" value="Rescuer" /><label htmlFor="rescuer">🚨 Rescuer - Help rescue and save animals</label></div>
-              <div className="radio-item"><input id="volunteer" name="userType" type="radio" value="Volunteer" /><label htmlFor="volunteer">🤝 Volunteer - Willing to help and support</label></div>
-              <div className="radio-item"><input id="boarding" name="userType" type="radio" value="Offer Boarding" /><label htmlFor="boarding">🏡 Offer Boarding - Provide temporary shelter for animals</label></div>
-              <div className="radio-item"><input id="feeder" name="userType" type="radio" value="Feeder" /><label htmlFor="feeder">🍖 Feeder - Provide food and nutrition for animals</label></div>
-              <div className="radio-item"><input id="shelter" name="userType" type="radio" value="Own a Shelter" /><label htmlFor="shelter">🏢 Own a Shelter - Manage a rescue shelter</label></div>
-              <div className="radio-item"><input id="other" name="userType" type="radio" value="Other" /><label htmlFor="other">❓ Other</label></div>
+              <div className="radio-item"><input id="rescuer" name="userType" type="checkbox" value="Rescuer" /><label htmlFor="rescuer">Rescuer - Help rescue and save animals</label></div>
+              <div className="radio-item"><input id="volunteer" name="userType" type="checkbox" value="Volunteer" /><label htmlFor="volunteer">Volunteer - Willing to help and support</label></div>
+              <div className="radio-item"><input id="boarding" name="userType" type="checkbox" value="Offer Boarding" /><label htmlFor="boarding">Offer Boarding - Provide temporary shelter for animals</label></div>
+              <div className="radio-item"><input id="feeder" name="userType" type="checkbox" value="Feeder" /><label htmlFor="feeder">Feeder - Provide food and nutrition for animals</label></div>
+              <div className="radio-item"><input id="shelter" name="userType" type="checkbox" value="Own a Shelter" /><label htmlFor="shelter">Own a Shelter - Manage a rescue shelter</label></div>
+              <div className="radio-item"><input id="other" name="userType" type="checkbox" value="Other" /><label htmlFor="other">Other</label></div>
             </div>
             <div id="userTypeError" className="error-message">Please select a user type</div>
           </div>
@@ -413,28 +360,6 @@ function UserRegistration() {
             <label htmlFor="experience">Experience with Animals</label>
             <textarea id="experience" name="experience" placeholder="Tell us about your experience with animals, pet history, or why you want to join Animals2Rescue..."></textarea>
             <div id="experienceError" className="error-message">Please share your experience with animals (minimum 10 characters)</div>
-          </div>
-
-          <div id="volunteerSection" className="form-group" style={{ display: showVolunteer ? 'block' : 'none' }}>
-            <label>Availability (for Volunteers)</label>
-            <div className="info-box">Select the days and times you are available to volunteer</div>
-            <div className="availability-grid">
-              <div className="availability-item"><input id="monMorning" name="availability" type="checkbox" value="Monday Morning" /><label htmlFor="monMorning">Monday (AM)</label></div>
-              <div className="availability-item"><input id="monEvening" name="availability" type="checkbox" value="Monday Evening" /><label htmlFor="monEvening">Monday (PM)</label></div>
-              <div className="availability-item"><input id="tuesMorning" name="availability" type="checkbox" value="Tuesday Morning" /><label htmlFor="tuesMorning">Tuesday (AM)</label></div>
-              <div className="availability-item"><input id="tuesEvening" name="availability" type="checkbox" value="Tuesday Evening" /><label htmlFor="tuesEvening">Tuesday (PM)</label></div>
-              <div className="availability-item"><input id="wedMorning" name="availability" type="checkbox" value="Wednesday Morning" /><label htmlFor="wedMorning">Wednesday (AM)</label></div>
-              <div className="availability-item"><input id="wedEvening" name="availability" type="checkbox" value="Wednesday Evening" /><label htmlFor="wedEvening">Wednesday (PM)</label></div>
-              <div className="availability-item"><input id="thuMorning" name="availability" type="checkbox" value="Thursday Morning" /><label htmlFor="thuMorning">Thursday (AM)</label></div>
-              <div className="availability-item"><input id="thuEvening" name="availability" type="checkbox" value="Thursday Evening" /><label htmlFor="thuEvening">Thursday (PM)</label></div>
-              <div className="availability-item"><input id="friMorning" name="availability" type="checkbox" value="Friday Morning" /><label htmlFor="friMorning">Friday (AM)</label></div>
-              <div className="availability-item"><input id="friEvening" name="availability" type="checkbox" value="Friday Evening" /><label htmlFor="friEvening">Friday (PM)</label></div>
-              <div className="availability-item"><input id="satMorning" name="availability" type="checkbox" value="Saturday Morning" /><label htmlFor="satMorning">Saturday (AM)</label></div>
-              <div className="availability-item"><input id="satEvening" name="availability" type="checkbox" value="Saturday Evening" /><label htmlFor="satEvening">Saturday (PM)</label></div>
-              <div className="availability-item"><input id="sunMorning" name="availability" type="checkbox" value="Sunday Morning" /><label htmlFor="sunMorning">Sunday (AM)</label></div>
-              <div className="availability-item"><input id="sunEvening" name="availability" type="checkbox" value="Sunday Evening" /><label htmlFor="sunEvening">Sunday (PM)</label></div>
-            </div>
-            <div id="availabilityError" className="error-message">Please select at least one availability slot</div>
           </div>
         </div>
 
