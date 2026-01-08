@@ -1,5 +1,6 @@
 import '../App.css';
 import { useState, useEffect } from 'react';
+import { fetchUserProfiles } from '../services/api';
 
 function UserProfileDisplay() {
     const [posts, setPosts] = useState([]);
@@ -75,11 +76,7 @@ function UserProfileDisplay() {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await fetch('https://agus4uqwza.execute-api.ap-southeast-2.amazonaws.com/animals');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const data = await response.json();
+                const data = await fetchUserProfiles();
                 setPosts(data);
                 setFilteredPosts(data); // Initialize filtered posts with all posts
             } catch (err) {

@@ -11,8 +11,6 @@ function UserRegistration() {
   const formRef = useRef(null);
   const profilePictureRef = useRef(null);
   const [fileName, setFileName] = useState('');
-  const [passwordMatch, setPasswordMatch] = useState('');
-  const [showPasswordMatch, setShowPasswordMatch] = useState(false);
   const [showVolunteer, setShowVolunteer] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
   const navigate = useNavigate();
@@ -46,10 +44,6 @@ function UserRegistration() {
 
     const form = formRef.current;
     const profileInput = profilePictureRef.current;
-    const passwordInput = form.querySelector('#password');
-    const confirmPasswordInput = form.querySelector('#confirmPassword');
-
-    if (!passwordInput || !confirmPasswordInput) return;
 
     function onUserTypeChange(e) {
       setShowVolunteer(e.target.value === 'Volunteer');
@@ -60,31 +54,15 @@ function UserRegistration() {
       setFileName(file ? `Selected: ${file.name}` : '');
     }
 
-    function onConfirmInput() {
-      if (passwordInput.value && confirmPasswordInput.value) {
-        setShowPasswordMatch(true);
-        if (passwordInput.value === confirmPasswordInput.value) {
-          setPasswordMatch('match');
-        } else {
-          setPasswordMatch('no-match');
-        }
-      } else {
-        setShowPasswordMatch(false);
-        setPasswordMatch('');
-      }
-    }
-
     // attach change listeners for radio group
     const userTypeRadios = form.querySelectorAll('input[name="userType"]');
     userTypeRadios.forEach(r => r.addEventListener('change', onUserTypeChange));
     profileInput.addEventListener('change', onProfileChange);
-    confirmPasswordInput.addEventListener('input', onConfirmInput);
 
     // cleanup
     return () => {
       userTypeRadios.forEach(r => r.removeEventListener('change', onUserTypeChange));
       profileInput.removeEventListener('change', onProfileChange);
-      confirmPasswordInput.removeEventListener('input', onConfirmInput);
     };
   }, [isAuthenticated]);
 
@@ -157,29 +135,6 @@ function UserRegistration() {
       clearError('phone','phoneError');
     }
 
-    const password = form.querySelector('#password').value;
-    const confirmPassword = form.querySelector('#confirmPassword').value;
-
-    // Only validate password if user entered one
-    if (password || confirmPassword) {
-      if (password && password.length < 8) {
-        showError('password','passwordError');
-        valid=false;
-      } else {
-        clearError('password','passwordError');
-      }
-
-      if (password !== confirmPassword) {
-        showError('confirmPassword','confirmPasswordError');
-        valid=false;
-      } else {
-        clearError('confirmPassword','confirmPasswordError');
-      }
-    } else {
-      clearError('password','passwordError');
-      clearError('confirmPassword','confirmPasswordError');
-    }
-
     const profileFile = profilePictureRef.current.files[0];
     const fv = isValidFile(profileFile);
     if (!fv.valid) {
@@ -225,22 +180,24 @@ function UserRegistration() {
     return valid;
   }
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
     if (!validateForm()) return;
 
     const form = formRef.current;
     const formData = new FormData(form);
-    const data = {
+
+    // Capture all fields and create profile JSON
+    const profileData = {
       fullName: formData.get('fullName'),
-      email: formData.get('email'),
       phone: formData.get('phone'),
       country: formData.get('country'),
-      street: formData.get('street'),
-      city: formData.get('city'),
-      state: formData.get('state'),
-      postalCode: formData.get('postalCode'),
-      password: formData.get('password'),
+      address: {
+        street: formData.get('street'),
+        city: formData.get('city'),
+        state: formData.get('state'),
+        postalCode: formData.get('postalCode')
+      },
       userType: formData.get('userType'),
       experience: formData.get('experience'),
       availability: formData.getAll('availability'),
@@ -256,16 +213,43 @@ function UserRegistration() {
       subscribedToUpdates: formData.get('privacy') === 'on'
     };
 
-    // in real app send to server; here just show success
-    console.log('Registration Data:', data);
-    setSuccessVisible(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    form.reset();
-    setFileName('');
-    setShowVolunteer(false);
-    setShowPasswordMatch(false);
-    setPasswordMatch('');
-    setTimeout(() => setSuccessVisible(false), 5000);
+    // Convert profile data to JSON string
+    const profileJsonString = JSON.stringify(profileData);
+
+    // Create final payload structure
+    const payload = {
+      email: formData.get('email'),
+      profile: profileJsonString
+    };
+
+    console.log('Payload to be sent:', payload);
+
+    try {
+      // Make POST request to save user profile
+      const response = await axios.put(
+        'https://agus4uqwza.execute-api.ap-southeast-2.amazonaws.com/user',
+        payload,
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      // Check if response status is 200
+      if (response.status === 200) {
+        console.log('Profile saved successfully:', response.data);
+        setSuccessVisible(true);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Keep the form data so user can see their saved information
+        setTimeout(() => setSuccessVisible(false), 5000);
+      }
+    } catch (error) {
+      console.error('Error saving profile:', error);
+      // Show error message to user
+      alert('Failed to save profile. Please try again. Error: ' + (error.response?.data?.message || error.message));
+    }
   }
 
   return (
@@ -317,7 +301,7 @@ function UserRegistration() {
         ) : (
           // Show full registration form when logged in
           <>
-            <div id="successMessage" className={`success-message ${successVisible ? 'show' : ''}`}>✓ Registration successful! Welcome to Animals2Rescue!</div>
+            <div id="successMessage" className={`success-message ${successVisible ? 'show' : ''}`}>✓ Profile has been saved successfully!</div>
 
             <form id="registrationForm" ref={formRef} onSubmit={onSubmit}>
         {/* Personal Information */}
@@ -391,24 +375,6 @@ function UserRegistration() {
               <input id="postalCode" name="postalCode" type="text" placeholder="Enter your postal code" />
               <div id="postalCodeError" className="error-message">Postal code is required</div>
             </div>
-          </div>
-        </div>
-
-        {/* Account Security */}
-        <div className="form-section">
-          <div className="section-title">Account Security</div>
-
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input id="password" name="password" type="password" placeholder="Enter a strong password (min. 8 characters)" />
-            <div id="passwordError" className="error-message">Password must be at least 8 characters long</div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Re-enter your password" />
-            <div id="passwordMatch" className={`password-match-indicator ${showPasswordMatch ? 'show' : ''} ${passwordMatch === 'match' ? 'match' : ''} ${passwordMatch === 'no-match' ? 'no-match' : ''}`}></div>
-            <div id="confirmPasswordError" className="error-message">Passwords do not match</div>
           </div>
         </div>
 
