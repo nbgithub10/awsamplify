@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
 import Header from '../components/Header';
 import { useStore, useDispatch } from '../store/useStore';
 import { loginUser } from '../store/actions';
+import { saveUserProfile, fetchGoogleUserInfo, getUserProfile } from '../services/api';
 import './UserRegistration.css';
 
 function UserRegistration() {
   const formRef = useRef(null);
   const [successVisible, setSuccessVisible] = useState(false);
+  const [fetchedProfileData, setFetchedProfileData] = useState(null);
   const navigate = useNavigate();
   const state = useStore();
   const dispatch = useDispatch();
@@ -17,20 +18,55 @@ function UserRegistration() {
 
   // Google login handler
   const login = useGoogleLogin({
-    onSuccess: (codeResponse) => {
-      // Fetch user profile and update store
-      axios
-        .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${codeResponse.access_token}`, {
-          headers: {
-            Authorization: `Bearer ${codeResponse.access_token}`,
-            Accept: 'application/json'
+    onSuccess: async (codeResponse) => {
+      try {
+        // Fetch user profile from Google
+        const googleUserInfo = await fetchGoogleUserInfo(codeResponse.access_token);
+
+        // Update store with Google auth data
+        dispatch(loginUser(codeResponse, googleUserInfo.data));
+
+        // Fetch user profile from our API using email
+        if (googleUserInfo.data?.email) {
+          try {
+            const userProfileResponse = await getUserProfile(googleUserInfo.data.email);
+
+            // Check if response has data
+            if (userProfileResponse.data) {
+              // First parse: response.data might be a JSON string
+              let parsedData = userProfileResponse.data;
+              if (typeof parsedData === 'string') {
+                parsedData = JSON.parse(parsedData);
+              }
+
+              // Second parse: parsedData.profile might be a JSON string
+              let profileData = null;
+              if (parsedData.profile) {
+                if (typeof parsedData.profile === 'string') {
+                  profileData = JSON.parse(parsedData.profile);
+                } else {
+                  profileData = parsedData.profile;
+                }
+              } else {
+                // If no profile property, use the entire parsed data
+                profileData = parsedData;
+              }
+
+              // Store the profile data in state - useEffect will handle prepopulation
+              const dataToSet = {
+                ...profileData,
+                email: parsedData.email || googleUserInfo.data.email
+              };
+              setFetchedProfileData(dataToSet);
+            }
+          } catch (error) {
+            // If user profile doesn't exist (404), that's okay - user is registering for the first time
+            console.log('User profile not found (likely first-time registration):', error);
           }
-        })
-        .then((res) => {
-          console.log(res);
-          dispatch(loginUser(codeResponse, res.data));
-        })
-        .catch((err) => console.log(err));
+        }
+      } catch (err) {
+        console.log('Error during login:', err);
+      }
     },
     onError: (error) => console.log('Login Failed:', error)
   });
@@ -40,16 +76,112 @@ function UserRegistration() {
     return () => {};
   }, [isAuthenticated]);
 
-  // Pre-populate form fields from Google profile
+  // Prepopulate form when fetched profile data is available
+  useEffect(() => {
+    if (fetchedProfileData && formRef.current && isAuthenticated) {
+      // Use requestAnimationFrame to ensure DOM is fully rendered
+      const frameId = requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const form = formRef.current;
+          if (!form) return;
+
+          // Populate basic fields
+          if (fetchedProfileData.fullName) {
+            const fullNameInput = form.querySelector('#fullName');
+            if (fullNameInput) fullNameInput.value = fetchedProfileData.fullName;
+          }
+          if (fetchedProfileData.email) {
+            const emailInput = form.querySelector('#email');
+            if (emailInput) emailInput.value = fetchedProfileData.email;
+          }
+          if (fetchedProfileData.phone) {
+            const phoneInput = form.querySelector('#phone');
+            if (phoneInput) phoneInput.value = fetchedProfileData.phone;
+          }
+          if (fetchedProfileData.country) {
+            const countryInput = form.querySelector('#country');
+            if (countryInput) countryInput.value = fetchedProfileData.country;
+          }
+
+          // Populate address fields
+          if (fetchedProfileData.address) {
+            if (fetchedProfileData.address.street) {
+              const streetInput = form.querySelector('#street');
+              if (streetInput) streetInput.value = fetchedProfileData.address.street;
+            }
+            if (fetchedProfileData.address.city) {
+              const cityInput = form.querySelector('#city');
+              if (cityInput) cityInput.value = fetchedProfileData.address.city;
+            }
+            if (fetchedProfileData.address.state) {
+              const stateInput = form.querySelector('#state');
+              if (stateInput) stateInput.value = fetchedProfileData.address.state;
+            }
+            if (fetchedProfileData.address.postalCode) {
+              const postalCodeInput = form.querySelector('#postalCode');
+              if (postalCodeInput) postalCodeInput.value = fetchedProfileData.address.postalCode;
+            }
+          }
+
+          // Populate user type checkboxes
+          if (fetchedProfileData.userType && Array.isArray(fetchedProfileData.userType)) {
+            fetchedProfileData.userType.forEach(type => {
+              const checkbox = form.querySelector(`input[name="userType"][value="${type}"]`);
+              if (checkbox) checkbox.checked = true;
+            });
+          }
+
+          // Populate experience
+          if (fetchedProfileData.experience) {
+            const experienceInput = form.querySelector('#experience');
+            if (experienceInput) experienceInput.value = fetchedProfileData.experience;
+          }
+
+          // Populate social profiles
+          if (fetchedProfileData.socialProfiles) {
+            if (fetchedProfileData.socialProfiles.facebook) {
+              const facebookInput = form.querySelector('#facebook');
+              if (facebookInput) facebookInput.value = fetchedProfileData.socialProfiles.facebook;
+            }
+            if (fetchedProfileData.socialProfiles.instagram) {
+              const instagramInput = form.querySelector('#instagram');
+              if (instagramInput) instagramInput.value = fetchedProfileData.socialProfiles.instagram;
+            }
+            if (fetchedProfileData.socialProfiles.x) {
+              const xInput = form.querySelector('#x');
+              if (xInput) xInput.value = fetchedProfileData.socialProfiles.x;
+            }
+            if (fetchedProfileData.socialProfiles.tiktok) {
+              const tiktokInput = form.querySelector('#tiktok');
+              if (tiktokInput) tiktokInput.value = fetchedProfileData.socialProfiles.tiktok;
+            }
+            if (fetchedProfileData.socialProfiles.youtube) {
+              const youtubeInput = form.querySelector('#youtube');
+              if (youtubeInput) youtubeInput.value = fetchedProfileData.socialProfiles.youtube;
+            }
+            if (fetchedProfileData.socialProfiles.website) {
+              const websiteInput = form.querySelector('#website');
+              if (websiteInput) websiteInput.value = fetchedProfileData.socialProfiles.website;
+            }
+          }
+        });
+      });
+
+      return () => cancelAnimationFrame(frameId);
+    }
+  }, [fetchedProfileData, isAuthenticated]);
+
+  // Pre-populate basic Google profile fields (name and email) if not already populated
   useEffect(() => {
     if (profile && formRef.current) {
       const fullNameInput = formRef.current.querySelector('#fullName');
       const emailInput = formRef.current.querySelector('#email');
 
-      if (fullNameInput && profile.name) {
+      // Only set these if they're empty (to not override API data)
+      if (fullNameInput && profile.name && !fullNameInput.value) {
         fullNameInput.value = profile.name;
       }
-      if (emailInput && profile.email) {
+      if (emailInput && profile.email && !emailInput.value) {
         emailInput.value = profile.email;
       }
     }
@@ -123,14 +255,6 @@ function UserRegistration() {
       }
     });
 
-    // Terms agreement is still required
-    const terms = form.querySelector('#terms').checked;
-    if (!terms) {
-      showError('terms','termsError');
-      valid=false;
-    } else {
-      clearError('terms','termsError');
-    }
 
     return valid;
   }
@@ -163,7 +287,7 @@ function UserRegistration() {
         youtube: formData.get('youtube'),
         website: formData.get('website')
       },
-      agreedToTerms: formData.get('terms') === 'on',
+      agreedToTerms: true, // User agrees by using the website
       subscribedToUpdates: formData.get('privacy') === 'on'
     };
 
@@ -176,23 +300,13 @@ function UserRegistration() {
       profile: profileJsonString
     };
 
-    console.log('Payload to be sent:', payload);
 
     try {
-      // Make POST request to save user profile
-      const response = await axios.put(
-        'https://agus4uqwza.execute-api.ap-southeast-2.amazonaws.com/user',
-        payload,
-        {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-      );
+      // Use the common API service to save user profile
+      const response = await saveUserProfile(payload);
 
       // Check if response status is 200
       if (response.status === 200) {
-        console.log('Profile saved successfully:', response.data);
         setSuccessVisible(true);
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -248,7 +362,7 @@ function UserRegistration() {
                 }}
               >
                 <i className="fab fa-google" style={{ fontSize: '18px' }}></i>
-                Login/Register with Google Account
+                Login with Google Account
               </button>
             </div>
           </div>
@@ -408,11 +522,9 @@ function UserRegistration() {
         {/* Terms */}
         <div className="form-section">
           <div className="form-group">
-            <div className="checkbox-item">
-              <input id="terms" name="terms" type="checkbox" />
-              <label htmlFor="terms" className="required">I agree to the <Link to="/terms">Terms and Conditions</Link></label>
-            </div>
-            <div id="termsError" className="error-message">You must agree to the Terms and Conditions</div>
+            <p style={{ fontSize: '14px', color: '#555', lineHeight: '1.6' }}>
+              By using this website, I agree to the <Link to="/terms" style={{ color: '#0073e6', textDecoration: 'none' }}>Terms and Conditions</Link>.
+            </p>
           </div>
 
           <div className="form-group">
@@ -421,9 +533,8 @@ function UserRegistration() {
         </div>
 
         <div className="button-group">
-          <button type="submit" className="submit-btn">Register Now</button>
-          <button type="reset" className="reset-btn">Clear Form</button>
-          <button type="button" className="submit-btn" onClick={() => navigate('/')}>Back</button>
+          <button type="submit" className="submit-btn">Update Profile</button>
+          <button type="button" className="submit-btn" onClick={() => navigate('/')}>Home</button>
         </div>
       </form>
           </>
