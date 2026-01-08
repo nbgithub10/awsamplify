@@ -7,6 +7,7 @@ import {
   LOGIN,
   LOGOUT,
   UPDATE_PROFILE,
+  SET_USER_REGISTRATION_PROFILE,
   ADD_REPORT,
   UPDATE_REPORTS,
   SET_REPORTS,
@@ -23,6 +24,7 @@ import {
 const initialAuthState = {
   user: null,
   profile: null,
+  registrationProfile: null,
   isAuthenticated: false
 };
 
@@ -107,6 +109,12 @@ function authReducer(state = initialAuthState, action) {
           ...state.profile,
           ...action.payload
         }
+      };
+
+    case SET_USER_REGISTRATION_PROFILE:
+      return {
+        ...state,
+        registrationProfile: action.payload
       };
 
     default:

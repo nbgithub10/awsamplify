@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
 import Header from '../components/Header';
 import { useStore, useDispatch } from '../store/useStore';
-import { loginUser } from '../store/actions';
+import { loginUser, setUserRegistrationProfile } from '../store/actions';
 import { saveUserProfile, fetchGoogleUserInfo, getUserProfile } from '../services/api';
 import './UserRegistration.css';
 
@@ -14,7 +14,7 @@ function UserRegistration() {
   const navigate = useNavigate();
   const state = useStore();
   const dispatch = useDispatch();
-  const { profile, isAuthenticated } = state.auth;
+  const { profile, isAuthenticated, registrationProfile } = state.auth;
 
   // Google login handler
   const login = useGoogleLogin({
@@ -57,7 +57,12 @@ function UserRegistration() {
                 ...profileData,
                 email: parsedData.email || googleUserInfo.data.email
               };
+
+              // Store in local component state for immediate use
               setFetchedProfileData(dataToSet);
+
+              // Store in Redux store and localStorage
+              dispatch(setUserRegistrationProfile(dataToSet));
             }
           } catch (error) {
             // If user profile doesn't exist (404), that's okay - user is registering for the first time
@@ -75,6 +80,14 @@ function UserRegistration() {
     // Form listeners are no longer needed since volunteer availability section is removed
     return () => {};
   }, [isAuthenticated]);
+
+  // Populate form from Redux store when component mounts and user is authenticated
+  useEffect(() => {
+    if (registrationProfile && isAuthenticated && formRef.current && !fetchedProfileData) {
+      // Set the fetched profile data from Redux store
+      setFetchedProfileData(registrationProfile);
+    }
+  }, [registrationProfile, isAuthenticated, fetchedProfileData]);
 
   // Prepopulate form when fetched profile data is available
   useEffect(() => {
@@ -307,6 +320,13 @@ function UserRegistration() {
 
       // Check if response status is 200
       if (response.status === 200) {
+        // Update Redux store and localStorage with the saved profile data
+        const updatedProfileData = {
+          ...profileData,
+          email: formData.get('email')
+        };
+        dispatch(setUserRegistrationProfile(updatedProfileData));
+
         setSuccessVisible(true);
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
