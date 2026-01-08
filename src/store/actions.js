@@ -10,6 +10,7 @@
 export const LOGIN = 'auth/LOGIN';
 export const LOGOUT = 'auth/LOGOUT';
 export const UPDATE_PROFILE = 'auth/UPDATE_PROFILE';
+export const SET_USER_REGISTRATION_PROFILE = 'auth/SET_USER_REGISTRATION_PROFILE';
 
 // Pet Reports Actions
 export const ADD_REPORT = 'petReports/ADD_REPORT';
@@ -55,6 +56,16 @@ export const logoutUser = () => ({
 export const updateProfile = (profile) => ({
   type: UPDATE_PROFILE,
   payload: profile
+});
+
+/**
+ * Set user registration profile (from API)
+ * @param {Object} profileData - Full user registration profile data
+ * @returns {import('./types.js').Action}
+ */
+export const setUserRegistrationProfile = (profileData) => ({
+  type: SET_USER_REGISTRATION_PROFILE,
+  payload: profileData
 });
 
 /**

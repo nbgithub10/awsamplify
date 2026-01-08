@@ -1,103 +1,200 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useGoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
 import Header from '../components/Header';
 import { useStore, useDispatch } from '../store/useStore';
-import { loginUser } from '../store/actions';
+import { loginUser, setUserRegistrationProfile } from '../store/actions';
+import { saveUserProfile, fetchGoogleUserInfo, getUserProfile } from '../services/api';
 import './UserRegistration.css';
 
 function UserRegistration() {
   const formRef = useRef(null);
-  const profilePictureRef = useRef(null);
-  const [fileName, setFileName] = useState('');
-  const [passwordMatch, setPasswordMatch] = useState('');
-  const [showPasswordMatch, setShowPasswordMatch] = useState(false);
-  const [showVolunteer, setShowVolunteer] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
+  const [fetchedProfileData, setFetchedProfileData] = useState(null);
   const navigate = useNavigate();
   const state = useStore();
   const dispatch = useDispatch();
-  const { profile, isAuthenticated } = state.auth;
+  const { profile, isAuthenticated, registrationProfile } = state.auth;
 
   // Google login handler
   const login = useGoogleLogin({
-    onSuccess: (codeResponse) => {
-      // Fetch user profile and update store
-      axios
-        .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${codeResponse.access_token}`, {
-          headers: {
-            Authorization: `Bearer ${codeResponse.access_token}`,
-            Accept: 'application/json'
+    onSuccess: async (codeResponse) => {
+      try {
+        // Fetch user profile from Google
+        const googleUserInfo = await fetchGoogleUserInfo(codeResponse.access_token);
+
+        // Update store with Google auth data
+        dispatch(loginUser(codeResponse, googleUserInfo.data));
+
+        // Fetch user profile from our API using email
+        if (googleUserInfo.data?.email) {
+          try {
+            const userProfileResponse = await getUserProfile(googleUserInfo.data.email);
+
+            // Check if response has data
+            if (userProfileResponse.data) {
+              // First parse: response.data might be a JSON string
+              let parsedData = userProfileResponse.data;
+              if (typeof parsedData === 'string') {
+                parsedData = JSON.parse(parsedData);
+              }
+
+              // Second parse: parsedData.profile might be a JSON string
+              let profileData = null;
+              if (parsedData.profile) {
+                if (typeof parsedData.profile === 'string') {
+                  profileData = JSON.parse(parsedData.profile);
+                } else {
+                  profileData = parsedData.profile;
+                }
+              } else {
+                // If no profile property, use the entire parsed data
+                profileData = parsedData;
+              }
+
+              // Store the profile data in state - useEffect will handle prepopulation
+              const dataToSet = {
+                ...profileData,
+                email: parsedData.email || googleUserInfo.data.email
+              };
+
+              // Store in local component state for immediate use
+              setFetchedProfileData(dataToSet);
+
+              // Store in Redux store and localStorage
+              dispatch(setUserRegistrationProfile(dataToSet));
+            }
+          } catch (error) {
+            // If user profile doesn't exist (404), that's okay - user is registering for the first time
+            console.log('User profile not found (likely first-time registration):', error);
           }
-        })
-        .then((res) => {
-          console.log(res);
-          dispatch(loginUser(codeResponse, res.data));
-        })
-        .catch((err) => console.log(err));
+        }
+      } catch (err) {
+        console.log('Error during login:', err);
+      }
     },
     onError: (error) => console.log('Login Failed:', error)
   });
 
   useEffect(() => {
-    // Only set up form listeners when authenticated and form exists
-    if (!isAuthenticated || !formRef.current || !profilePictureRef.current) return;
-
-    const form = formRef.current;
-    const profileInput = profilePictureRef.current;
-    const passwordInput = form.querySelector('#password');
-    const confirmPasswordInput = form.querySelector('#confirmPassword');
-
-    if (!passwordInput || !confirmPasswordInput) return;
-
-    function onUserTypeChange(e) {
-      setShowVolunteer(e.target.value === 'Volunteer');
-    }
-
-    function onProfileChange() {
-      const file = profileInput.files && profileInput.files[0];
-      setFileName(file ? `Selected: ${file.name}` : '');
-    }
-
-    function onConfirmInput() {
-      if (passwordInput.value && confirmPasswordInput.value) {
-        setShowPasswordMatch(true);
-        if (passwordInput.value === confirmPasswordInput.value) {
-          setPasswordMatch('match');
-        } else {
-          setPasswordMatch('no-match');
-        }
-      } else {
-        setShowPasswordMatch(false);
-        setPasswordMatch('');
-      }
-    }
-
-    // attach change listeners for radio group
-    const userTypeRadios = form.querySelectorAll('input[name="userType"]');
-    userTypeRadios.forEach(r => r.addEventListener('change', onUserTypeChange));
-    profileInput.addEventListener('change', onProfileChange);
-    confirmPasswordInput.addEventListener('input', onConfirmInput);
-
-    // cleanup
-    return () => {
-      userTypeRadios.forEach(r => r.removeEventListener('change', onUserTypeChange));
-      profileInput.removeEventListener('change', onProfileChange);
-      confirmPasswordInput.removeEventListener('input', onConfirmInput);
-    };
+    // Form listeners are no longer needed since volunteer availability section is removed
+    return () => {};
   }, [isAuthenticated]);
 
-  // Pre-populate form fields from Google profile
+  // Populate form from Redux store when component mounts and user is authenticated
+  useEffect(() => {
+    if (registrationProfile && isAuthenticated && formRef.current && !fetchedProfileData) {
+      // Set the fetched profile data from Redux store
+      setFetchedProfileData(registrationProfile);
+    }
+  }, [registrationProfile, isAuthenticated, fetchedProfileData]);
+
+  // Prepopulate form when fetched profile data is available
+  useEffect(() => {
+    if (fetchedProfileData && formRef.current && isAuthenticated) {
+      // Use requestAnimationFrame to ensure DOM is fully rendered
+      const frameId = requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const form = formRef.current;
+          if (!form) return;
+
+          // Populate basic fields
+          if (fetchedProfileData.fullName) {
+            const fullNameInput = form.querySelector('#fullName');
+            if (fullNameInput) fullNameInput.value = fetchedProfileData.fullName;
+          }
+          if (fetchedProfileData.email) {
+            const emailInput = form.querySelector('#email');
+            if (emailInput) emailInput.value = fetchedProfileData.email;
+          }
+          if (fetchedProfileData.phone) {
+            const phoneInput = form.querySelector('#phone');
+            if (phoneInput) phoneInput.value = fetchedProfileData.phone;
+          }
+          if (fetchedProfileData.country) {
+            const countryInput = form.querySelector('#country');
+            if (countryInput) countryInput.value = fetchedProfileData.country;
+          }
+
+          // Populate address fields
+          if (fetchedProfileData.address) {
+            if (fetchedProfileData.address.street) {
+              const streetInput = form.querySelector('#street');
+              if (streetInput) streetInput.value = fetchedProfileData.address.street;
+            }
+            if (fetchedProfileData.address.city) {
+              const cityInput = form.querySelector('#city');
+              if (cityInput) cityInput.value = fetchedProfileData.address.city;
+            }
+            if (fetchedProfileData.address.state) {
+              const stateInput = form.querySelector('#state');
+              if (stateInput) stateInput.value = fetchedProfileData.address.state;
+            }
+            if (fetchedProfileData.address.postalCode) {
+              const postalCodeInput = form.querySelector('#postalCode');
+              if (postalCodeInput) postalCodeInput.value = fetchedProfileData.address.postalCode;
+            }
+          }
+
+          // Populate user type checkboxes
+          if (fetchedProfileData.userType && Array.isArray(fetchedProfileData.userType)) {
+            fetchedProfileData.userType.forEach(type => {
+              const checkbox = form.querySelector(`input[name="userType"][value="${type}"]`);
+              if (checkbox) checkbox.checked = true;
+            });
+          }
+
+          // Populate experience
+          if (fetchedProfileData.experience) {
+            const experienceInput = form.querySelector('#experience');
+            if (experienceInput) experienceInput.value = fetchedProfileData.experience;
+          }
+
+          // Populate social profiles
+          if (fetchedProfileData.socialProfiles) {
+            if (fetchedProfileData.socialProfiles.facebook) {
+              const facebookInput = form.querySelector('#facebook');
+              if (facebookInput) facebookInput.value = fetchedProfileData.socialProfiles.facebook;
+            }
+            if (fetchedProfileData.socialProfiles.instagram) {
+              const instagramInput = form.querySelector('#instagram');
+              if (instagramInput) instagramInput.value = fetchedProfileData.socialProfiles.instagram;
+            }
+            if (fetchedProfileData.socialProfiles.x) {
+              const xInput = form.querySelector('#x');
+              if (xInput) xInput.value = fetchedProfileData.socialProfiles.x;
+            }
+            if (fetchedProfileData.socialProfiles.tiktok) {
+              const tiktokInput = form.querySelector('#tiktok');
+              if (tiktokInput) tiktokInput.value = fetchedProfileData.socialProfiles.tiktok;
+            }
+            if (fetchedProfileData.socialProfiles.youtube) {
+              const youtubeInput = form.querySelector('#youtube');
+              if (youtubeInput) youtubeInput.value = fetchedProfileData.socialProfiles.youtube;
+            }
+            if (fetchedProfileData.socialProfiles.website) {
+              const websiteInput = form.querySelector('#website');
+              if (websiteInput) websiteInput.value = fetchedProfileData.socialProfiles.website;
+            }
+          }
+        });
+      });
+
+      return () => cancelAnimationFrame(frameId);
+    }
+  }, [fetchedProfileData, isAuthenticated]);
+
+  // Pre-populate basic Google profile fields (name and email) if not already populated
   useEffect(() => {
     if (profile && formRef.current) {
       const fullNameInput = formRef.current.querySelector('#fullName');
       const emailInput = formRef.current.querySelector('#email');
 
-      if (fullNameInput && profile.name) {
+      // Only set these if they're empty (to not override API data)
+      if (fullNameInput && profile.name && !fullNameInput.value) {
         fullNameInput.value = profile.name;
       }
-      if (emailInput && profile.email) {
+      if (emailInput && profile.email && !emailInput.value) {
         emailInput.value = profile.email;
       }
     }
@@ -113,14 +210,6 @@ function UserRegistration() {
   function isValidURL(url) {
     if (!url) return true;
     try { new URL(url); return true; } catch(e){ return false; }
-  }
-  function isValidFile(file) {
-    if (!file) return { valid: true };
-    const validTypes = ['image/jpeg','image/png'];
-    const maxSize = 5*1024*1024;
-    if (!validTypes.includes(file.type)) return { valid:false, error:'Please upload a valid JPG or PNG file' };
-    if (file.size > maxSize) return { valid:false, error:'File size must be less than 5MB' };
-    return { valid:true };
   }
 
   function showError(fieldId, errorId) {
@@ -157,40 +246,6 @@ function UserRegistration() {
       clearError('phone','phoneError');
     }
 
-    const password = form.querySelector('#password').value;
-    const confirmPassword = form.querySelector('#confirmPassword').value;
-
-    // Only validate password if user entered one
-    if (password || confirmPassword) {
-      if (password && password.length < 8) {
-        showError('password','passwordError');
-        valid=false;
-      } else {
-        clearError('password','passwordError');
-      }
-
-      if (password !== confirmPassword) {
-        showError('confirmPassword','confirmPasswordError');
-        valid=false;
-      } else {
-        clearError('confirmPassword','confirmPasswordError');
-      }
-    } else {
-      clearError('password','passwordError');
-      clearError('confirmPassword','confirmPasswordError');
-    }
-
-    const profileFile = profilePictureRef.current.files[0];
-    const fv = isValidFile(profileFile);
-    if (!fv.valid) {
-      const el = form.querySelector('#profilePictureError');
-      if (el) el.textContent = fv.error;
-      showError('profilePicture','profilePictureError');
-      valid=false;
-    } else {
-      clearError('profilePicture','profilePictureError');
-    }
-
     // Clear all other field errors since they're optional
     clearError('fullName','fullNameError');
     clearError('country','countryError');
@@ -213,37 +268,30 @@ function UserRegistration() {
       }
     });
 
-    // Terms agreement is still required
-    const terms = form.querySelector('#terms').checked;
-    if (!terms) {
-      showError('terms','termsError');
-      valid=false;
-    } else {
-      clearError('terms','termsError');
-    }
 
     return valid;
   }
 
-  function onSubmit(e) {
+  async function onSubmit(e) {
     e.preventDefault();
     if (!validateForm()) return;
 
     const form = formRef.current;
     const formData = new FormData(form);
-    const data = {
+
+    // Capture all fields and create profile JSON
+    const profileData = {
       fullName: formData.get('fullName'),
-      email: formData.get('email'),
       phone: formData.get('phone'),
       country: formData.get('country'),
-      street: formData.get('street'),
-      city: formData.get('city'),
-      state: formData.get('state'),
-      postalCode: formData.get('postalCode'),
-      password: formData.get('password'),
-      userType: formData.get('userType'),
+      address: {
+        street: formData.get('street'),
+        city: formData.get('city'),
+        state: formData.get('state'),
+        postalCode: formData.get('postalCode')
+      },
+      userType: formData.getAll('userType'),
       experience: formData.get('experience'),
-      availability: formData.getAll('availability'),
       socialProfiles: {
         facebook: formData.get('facebook'),
         instagram: formData.get('instagram'),
@@ -252,20 +300,44 @@ function UserRegistration() {
         youtube: formData.get('youtube'),
         website: formData.get('website')
       },
-      agreedToTerms: formData.get('terms') === 'on',
+      agreedToTerms: true, // User agrees by using the website
       subscribedToUpdates: formData.get('privacy') === 'on'
     };
 
-    // in real app send to server; here just show success
-    console.log('Registration Data:', data);
-    setSuccessVisible(true);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    form.reset();
-    setFileName('');
-    setShowVolunteer(false);
-    setShowPasswordMatch(false);
-    setPasswordMatch('');
-    setTimeout(() => setSuccessVisible(false), 5000);
+    // Convert profile data to JSON string
+    const profileJsonString = JSON.stringify(profileData);
+
+    // Create final payload structure
+    const payload = {
+      email: formData.get('email'),
+      profile: profileJsonString
+    };
+
+
+    try {
+      // Use the common API service to save user profile
+      const response = await saveUserProfile(payload);
+
+      // Check if response status is 200
+      if (response.status === 200) {
+        // Update Redux store and localStorage with the saved profile data
+        const updatedProfileData = {
+          ...profileData,
+          email: formData.get('email')
+        };
+        dispatch(setUserRegistrationProfile(updatedProfileData));
+
+        setSuccessVisible(true);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Keep the form data so user can see their saved information
+        setTimeout(() => setSuccessVisible(false), 5000);
+      }
+    } catch (error) {
+      console.error('Error saving profile:', error);
+      // Show error message to user
+      alert('Failed to save profile. Please try again. Error: ' + (error.response?.data?.message || error.message));
+    }
   }
 
   return (
@@ -310,14 +382,14 @@ function UserRegistration() {
                 }}
               >
                 <i className="fab fa-google" style={{ fontSize: '18px' }}></i>
-                Login/Register with Google Account
+                Login with Google Account
               </button>
             </div>
           </div>
         ) : (
           // Show full registration form when logged in
           <>
-            <div id="successMessage" className={`success-message ${successVisible ? 'show' : ''}`}>✓ Registration successful! Welcome to Animals2Rescue!</div>
+            <div id="successMessage" className={`success-message ${successVisible ? 'show' : ''}`}>✓ Profile has been saved successfully!</div>
 
             <form id="registrationForm" ref={formRef} onSubmit={onSubmit}>
         {/* Personal Information */}
@@ -394,46 +466,21 @@ function UserRegistration() {
           </div>
         </div>
 
-        {/* Account Security */}
-        <div className="form-section">
-          <div className="section-title">Account Security</div>
-
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input id="password" name="password" type="password" placeholder="Enter a strong password (min. 8 characters)" />
-            <div id="passwordError" className="error-message">Password must be at least 8 characters long</div>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
-            <input id="confirmPassword" name="confirmPassword" type="password" placeholder="Re-enter your password" />
-            <div id="passwordMatch" className={`password-match-indicator ${showPasswordMatch ? 'show' : ''} ${passwordMatch === 'match' ? 'match' : ''} ${passwordMatch === 'no-match' ? 'no-match' : ''}`}></div>
-            <div id="confirmPasswordError" className="error-message">Passwords do not match</div>
-          </div>
-        </div>
-
         {/* Profile */}
         <div className="form-section">
           <div className="section-title">Profile Information</div>
 
-          <div className="form-group">
-            <label htmlFor="profilePicture">Profile Picture</label>
-            <label className="file-input-label" htmlFor="profilePicture">Choose File</label>
-            <input ref={profilePictureRef} id="profilePicture" name="profilePicture" type="file" accept=".jpg,.jpeg,.png" />
-            <div id="fileName" className="file-name">{fileName}</div>
-            <div id="profilePictureError" className="error-message">Please upload a valid JPG or PNG file (max 5MB)</div>
-          </div>
 
           <div className="form-group">
-            <label>User Type</label>
-            <div className="info-box">Select the category that best describes your role with Animals2Rescue</div>
+            <label>User Type (Select all that apply)</label>
+            <div className="info-box">Select the categories that best describe your role with Animals2Rescue</div>
             <div className="radio-group">
-              <div className="radio-item"><input id="rescuer" name="userType" type="radio" value="Rescuer" /><label htmlFor="rescuer">🚨 Rescuer - Help rescue and save animals</label></div>
-              <div className="radio-item"><input id="volunteer" name="userType" type="radio" value="Volunteer" /><label htmlFor="volunteer">🤝 Volunteer - Willing to help and support</label></div>
-              <div className="radio-item"><input id="boarding" name="userType" type="radio" value="Offer Boarding" /><label htmlFor="boarding">🏡 Offer Boarding - Provide temporary shelter for animals</label></div>
-              <div className="radio-item"><input id="feeder" name="userType" type="radio" value="Feeder" /><label htmlFor="feeder">🍖 Feeder - Provide food and nutrition for animals</label></div>
-              <div className="radio-item"><input id="shelter" name="userType" type="radio" value="Own a Shelter" /><label htmlFor="shelter">🏢 Own a Shelter - Manage a rescue shelter</label></div>
-              <div className="radio-item"><input id="other" name="userType" type="radio" value="Other" /><label htmlFor="other">❓ Other</label></div>
+              <div className="radio-item"><input id="rescuer" name="userType" type="checkbox" value="Rescuer" /><label htmlFor="rescuer">Rescuer - Help rescue and save animals</label></div>
+              <div className="radio-item"><input id="volunteer" name="userType" type="checkbox" value="Volunteer" /><label htmlFor="volunteer">Volunteer - Willing to help and support</label></div>
+              <div className="radio-item"><input id="boarding" name="userType" type="checkbox" value="Offer Boarding" /><label htmlFor="boarding">Offer Boarding - Provide temporary shelter for animals</label></div>
+              <div className="radio-item"><input id="feeder" name="userType" type="checkbox" value="Feeder" /><label htmlFor="feeder">Feeder - Provide food and nutrition for animals</label></div>
+              <div className="radio-item"><input id="shelter" name="userType" type="checkbox" value="Own a Shelter" /><label htmlFor="shelter">Own a Shelter - Manage a rescue shelter</label></div>
+              <div className="radio-item"><input id="other" name="userType" type="checkbox" value="Other" /><label htmlFor="other">Other</label></div>
             </div>
             <div id="userTypeError" className="error-message">Please select a user type</div>
           </div>
@@ -447,28 +494,6 @@ function UserRegistration() {
             <label htmlFor="experience">Experience with Animals</label>
             <textarea id="experience" name="experience" placeholder="Tell us about your experience with animals, pet history, or why you want to join Animals2Rescue..."></textarea>
             <div id="experienceError" className="error-message">Please share your experience with animals (minimum 10 characters)</div>
-          </div>
-
-          <div id="volunteerSection" className="form-group" style={{ display: showVolunteer ? 'block' : 'none' }}>
-            <label>Availability (for Volunteers)</label>
-            <div className="info-box">Select the days and times you are available to volunteer</div>
-            <div className="availability-grid">
-              <div className="availability-item"><input id="monMorning" name="availability" type="checkbox" value="Monday Morning" /><label htmlFor="monMorning">Monday (AM)</label></div>
-              <div className="availability-item"><input id="monEvening" name="availability" type="checkbox" value="Monday Evening" /><label htmlFor="monEvening">Monday (PM)</label></div>
-              <div className="availability-item"><input id="tuesMorning" name="availability" type="checkbox" value="Tuesday Morning" /><label htmlFor="tuesMorning">Tuesday (AM)</label></div>
-              <div className="availability-item"><input id="tuesEvening" name="availability" type="checkbox" value="Tuesday Evening" /><label htmlFor="tuesEvening">Tuesday (PM)</label></div>
-              <div className="availability-item"><input id="wedMorning" name="availability" type="checkbox" value="Wednesday Morning" /><label htmlFor="wedMorning">Wednesday (AM)</label></div>
-              <div className="availability-item"><input id="wedEvening" name="availability" type="checkbox" value="Wednesday Evening" /><label htmlFor="wedEvening">Wednesday (PM)</label></div>
-              <div className="availability-item"><input id="thuMorning" name="availability" type="checkbox" value="Thursday Morning" /><label htmlFor="thuMorning">Thursday (AM)</label></div>
-              <div className="availability-item"><input id="thuEvening" name="availability" type="checkbox" value="Thursday Evening" /><label htmlFor="thuEvening">Thursday (PM)</label></div>
-              <div className="availability-item"><input id="friMorning" name="availability" type="checkbox" value="Friday Morning" /><label htmlFor="friMorning">Friday (AM)</label></div>
-              <div className="availability-item"><input id="friEvening" name="availability" type="checkbox" value="Friday Evening" /><label htmlFor="friEvening">Friday (PM)</label></div>
-              <div className="availability-item"><input id="satMorning" name="availability" type="checkbox" value="Saturday Morning" /><label htmlFor="satMorning">Saturday (AM)</label></div>
-              <div className="availability-item"><input id="satEvening" name="availability" type="checkbox" value="Saturday Evening" /><label htmlFor="satEvening">Saturday (PM)</label></div>
-              <div className="availability-item"><input id="sunMorning" name="availability" type="checkbox" value="Sunday Morning" /><label htmlFor="sunMorning">Sunday (AM)</label></div>
-              <div className="availability-item"><input id="sunEvening" name="availability" type="checkbox" value="Sunday Evening" /><label htmlFor="sunEvening">Sunday (PM)</label></div>
-            </div>
-            <div id="availabilityError" className="error-message">Please select at least one availability slot</div>
           </div>
         </div>
 
@@ -517,11 +542,9 @@ function UserRegistration() {
         {/* Terms */}
         <div className="form-section">
           <div className="form-group">
-            <div className="checkbox-item">
-              <input id="terms" name="terms" type="checkbox" />
-              <label htmlFor="terms" className="required">I agree to the <Link to="/terms">Terms and Conditions</Link></label>
-            </div>
-            <div id="termsError" className="error-message">You must agree to the Terms and Conditions</div>
+            <p style={{ fontSize: '14px', color: '#555', lineHeight: '1.6' }}>
+              By using this website, I agree to the <Link to="/terms" style={{ color: '#0073e6', textDecoration: 'none' }}>Terms and Conditions</Link>.
+            </p>
           </div>
 
           <div className="form-group">
@@ -530,9 +553,8 @@ function UserRegistration() {
         </div>
 
         <div className="button-group">
-          <button type="submit" className="submit-btn">Register Now</button>
-          <button type="reset" className="reset-btn">Clear Form</button>
-          <button type="button" className="submit-btn" onClick={() => navigate('/')}>Back</button>
+          <button type="submit" className="submit-btn">Update Profile</button>
+          <button type="button" className="submit-btn" onClick={() => navigate('/')}>Home</button>
         </div>
       </form>
           </>
