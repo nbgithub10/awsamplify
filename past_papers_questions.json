@@ -1,0 +1,860 @@
+[
+  {
+    "id": "past-2020-q1",
+    "year": 2020,
+    "questionNumber": 1,
+    "question": "What is the main purpose of applying a polymer coating to a copper telecommunications cable?",
+    "options": [
+      "To insulate it",
+      "To strengthen it",
+      "To increase its flexibility",
+      "To improve its conductivity"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "past-2020-q2",
+    "year": 2020,
+    "questionNumber": 2,
+    "question": "What is the main purpose of the flaps on the wings of an aircraft?",
+    "options": [
+      "To make the aircraft safer at higher speeds",
+      "To decrease lift to allow faster take-off speeds",
+      "To increase lift at lower speeds for take-off and landing",
+      "To decrease drag to allow higher take-off and landing speeds"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2020-q3",
+    "year": 2020,
+    "questionNumber": 3,
+    "question": "Which of the following manufacturing methods can be used to produce complex polymer components?",
+    "options": [
+      "Sand casting",
+      "Blow moulding",
+      "Lost wax casting",
+      "Injection moulding 4 The diagram shows a model of a windmill which is designed to lift a mass as the turbine rotates. Turbine Mass to be lifted A mass of 80 grams is lifted a distance of 200 mm by the windmill. What is the work done by the windmill? A. 0.16 J B. 16 JC. 160 JD. 1600 J 5 To what must the professional services of telecommunications engineers be primarily dedicated? A. Completing projects on time B. Ensuring public health and safetyC. Designing efficient engineering systemsD. Reducing the legal liability of their employers 6 Which electronic component can be used to increase or decrease the speed of a train powered by an electric motor? A. Diode B. CapacitorC. TransistorD. Potentiometer 7 Which of the following best describes how an unpowered aircraft will glide, in controlled descent, when the lift-to-drag ratio is high? A. Long distance at a steep glide angle B. Short distance at a steep glide angleC. Long distance at a shallow glide angleD. Short distance at a shallow glide angle a 8 The photograph shows a transport viaduct based on a series of Roman arches. By using the Roman arch, engineers today can design structures which A. are easy to construct.B. are quick to construct.C. can span long distances.D. place foundations in tension. 9 A cured cylindrical concrete specimen is tested under a compressive load through its vertical axis, until it fails. Which of the following is the most likely shape of the front view of the failed specimen? A. B. C. D. 10 Which of the following only contains tasks performed by the aeronautical engineer? A. Provide technical advice, assemble aircraft, design aircraft B. Assist in air traffic control, investigate crashes, pilot aircraftC. Make good checklists, read training manuals, schedule flightsD. Write training manuals, assist in air traffic control, act as a public relations officer 11 The diagram shows a 10 kg lamp hanging from a cable over a cycle path. A Lamp 5 m Cycle path70° 50° What is the tension in cable A? A. 44 N B. 88 NC. 100 ND. 110 N 12 A geostationary satellite is positioned above the equator. How many times does the satellite go around Earth’s axis in a 24-hour period? A. 0 B. 1C. 2D. 3 13 Which of the following can be safely transmitted by fibre optic cables? A. Microwaves B. Radio wavesC. Gamma raysD. Infrared waves 14 The diagram shows the forces acting on a block on an inclined plane. The block is held in a stationary position by force P. f qW P N What is the correct equation for the normal force, N ? A. N = W cos q − P sin f B. N = W cos q + P sin f C. N = W sin q − P cos f D. N = W sin q + P cos f 15 A uniformly distributed load is applied to a simply supported beam. Which of the following is the correct shear force diagram for this load? A.+ 0 – B.+ –0 C.+ –0 D.+ –0 16 Which of the following contributes to pitting or crevice corrosion in aircraft component joints? A. Water levels B. Alloy concentrationsC. Oxygen concentrationsD. Levels of static electricity 17 A photograph of a 6.5 m stanchion with guy wires is shown. D AC BE D E C ABE C B,A Front SideD Using the scaled orthogonal drawing, find the true length of wire BD. A. 7.3 m B. 7.9 m C. 8.3 mD. 8.9 m  18 The grain structure of a material has changed over time from that shown in microstructure A to that shown in microstructure B. b a a a bab b Microstructure A Microstructure Ba What heat treatment process has the material undergone to cause this change? A. Tempering B. NormalisingC. Quench hardeningD. Precipitation hardening 19 Turbofan engines are generally more fuel efficient than turbojet engines. What causes this efficiency? A. Smaller intake area B. Higher combustion temperaturesC. Air bypassing the combustion systemD. Air directly entering the combustion area 20 Which of the following describes high frequency wireless transmission when compared to low frequency wireless transmission? A. Faster data rates over longer distances with higher interference B. Faster data rates over shorter distances with lower interferenceC. Slower data rates over longer distances with lower interferenceD. Slower data rates over shorter distances with higher interference BLANK PAGE  BLANK PAGE © 2020 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2020 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies"
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "past-2020-q5",
+    "year": 2020,
+    "questionNumber": 5,
+    "question": "To what must the professional services of telecommunications engineers be primarily dedicated?",
+    "options": [
+      "Completing projects on time",
+      "Ensuring public health and safety",
+      "Designing efficient engineering systems",
+      "Reducing the legal liability of their employers 6 Which electronic component can be used to increase or decrease the speed of a train powered by an electric motor? A. Diode B. CapacitorC. TransistorD. Potentiometer 7 Which of the following best describes how an unpowered aircraft will glide, in controlled descent, when the lift-to-drag ratio is high? A. Long distance at a steep glide angle B. Short distance at a steep glide angleC. Long distance at a shallow glide angleD. Short distance at a shallow glide angle a 8 The photograph shows a transport viaduct based on a series of Roman arches. By using the Roman arch, engineers today can design structures which A. are easy to construct.B. are quick to construct.C. can span long distances.D. place foundations in tension. 9 A cured cylindrical concrete specimen is tested under a compressive load through its vertical axis, until it fails. Which of the following is the most likely shape of the front view of the failed specimen? A. B. C. D. 10 Which of the following only contains tasks performed by the aeronautical engineer? A. Provide technical advice, assemble aircraft, design aircraft B. Assist in air traffic control, investigate crashes, pilot aircraftC. Make good checklists, read training manuals, schedule flightsD. Write training manuals, assist in air traffic control, act as a public relations officer 11 The diagram shows a 10 kg lamp hanging from a cable over a cycle path. A Lamp 5 m Cycle path70° 50° What is the tension in cable A? A. 44 N B. 88 NC. 100 ND. 110 N 12 A geostationary satellite is positioned above the equator. How many times does the satellite go around Earth’s axis in a 24-hour period? A. 0 B. 1C. 2D. 3 13 Which of the following can be safely transmitted by fibre optic cables? A. Microwaves B. Radio wavesC. Gamma raysD. Infrared waves 14 The diagram shows the forces acting on a block on an inclined plane. The block is held in a stationary position by force P. f qW P N What is the correct equation for the normal force, N ? A. N = W cos q − P sin f B. N = W cos q + P sin f C. N = W sin q − P cos f D. N = W sin q + P cos f 15 A uniformly distributed load is applied to a simply supported beam. Which of the following is the correct shear force diagram for this load? A.+ 0 – B.+ –0 C.+ –0 D.+ –0 16 Which of the following contributes to pitting or crevice corrosion in aircraft component joints? A. Water levels B. Alloy concentrationsC. Oxygen concentrationsD. Levels of static electricity 17 A photograph of a 6.5 m stanchion with guy wires is shown. D AC BE D E C ABE C B,A Front SideD Using the scaled orthogonal drawing, find the true length of wire BD. A. 7.3 m B. 7.9 m C. 8.3 mD. 8.9 m  18 The grain structure of a material has changed over time from that shown in microstructure A to that shown in microstructure B. b a a a bab b Microstructure A Microstructure Ba What heat treatment process has the material undergone to cause this change? A. Tempering B. NormalisingC. Quench hardeningD. Precipitation hardening 19 Turbofan engines are generally more fuel efficient than turbojet engines. What causes this efficiency? A. Smaller intake area B. Higher combustion temperaturesC. Air bypassing the combustion systemD. Air directly entering the combustion area 20 Which of the following describes high frequency wireless transmission when compared to low frequency wireless transmission? A. Faster data rates over longer distances with higher interference B. Faster data rates over shorter distances with lower interferenceC. Slower data rates over longer distances with lower interferenceD. Slower data rates over shorter distances with higher interference BLANK PAGE  BLANK PAGE © 2020 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2020 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "past-2020-q7",
+    "year": 2020,
+    "questionNumber": 7,
+    "question": "Which of the following best describes how an unpowered aircraft will glide, in controlled descent, when the lift-to-drag ratio is high?",
+    "options": [
+      "Long distance at a steep glide angle",
+      "Short distance at a steep glide angle",
+      "Long distance at a shallow glide angle",
+      "Short distance at a shallow glide angle a"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2020-q8",
+    "year": 2020,
+    "questionNumber": 8,
+    "question": "The photograph shows a transport viaduct based on a series of Roman arches. By using the Roman arch, engineers today can design structures which",
+    "options": [
+      "are easy to construct.",
+      "are quick to construct.",
+      "can span long distances.",
+      "place foundations in tension. 9 A cured cylindrical concrete specimen is tested under a compressive load through its vertical axis, until it fails. Which of the following is the most likely shape of the front view of the failed specimen? A. B. C. D. 10 Which of the following only contains tasks performed by the aeronautical engineer? A. Provide technical advice, assemble aircraft, design aircraft B. Assist in air traffic control, investigate crashes, pilot aircraftC. Make good checklists, read training manuals, schedule flightsD. Write training manuals, assist in air traffic control, act as a public relations officer 11 The diagram shows a 10 kg lamp hanging from a cable over a cycle path. A Lamp 5 m Cycle path70° 50° What is the tension in cable A? A. 44 N B. 88 NC. 100 ND. 110 N 12 A geostationary satellite is positioned above the equator. How many times does the satellite go around Earth’s axis in a 24-hour period? A. 0 B. 1C. 2D. 3 13 Which of the following can be safely transmitted by fibre optic cables? A. Microwaves B. Radio wavesC. Gamma raysD. Infrared waves 14 The diagram shows the forces acting on a block on an inclined plane. The block is held in a stationary position by force P. f qW P N What is the correct equation for the normal force, N ? A. N = W cos q − P sin f B. N = W cos q + P sin f C. N = W sin q − P cos f D. N = W sin q + P cos f 15 A uniformly distributed load is applied to a simply supported beam. Which of the following is the correct shear force diagram for this load? A.+ 0 – B.+ –0 C.+ –0 D.+ –0 16 Which of the following contributes to pitting or crevice corrosion in aircraft component joints? A. Water levels B. Alloy concentrationsC. Oxygen concentrationsD. Levels of static electricity 17 A photograph of a 6.5 m stanchion with guy wires is shown. D AC BE D E C ABE C B,A Front SideD Using the scaled orthogonal drawing, find the true length of wire BD. A. 7.3 m B. 7.9 m C. 8.3 mD. 8.9 m  18 The grain structure of a material has changed over time from that shown in microstructure A to that shown in microstructure B. b a a a bab b Microstructure A Microstructure Ba What heat treatment process has the material undergone to cause this change? A. Tempering B. NormalisingC. Quench hardeningD. Precipitation hardening 19 Turbofan engines are generally more fuel efficient than turbojet engines. What causes this efficiency? A. Smaller intake area B. Higher combustion temperaturesC. Air bypassing the combustion systemD. Air directly entering the combustion area 20 Which of the following describes high frequency wireless transmission when compared to low frequency wireless transmission? A. Faster data rates over longer distances with higher interference B. Faster data rates over shorter distances with lower interferenceC. Slower data rates over longer distances with lower interferenceD. Slower data rates over shorter distances with higher interference BLANK PAGE  BLANK PAGE © 2020 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2020 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2020-q10",
+    "year": 2020,
+    "questionNumber": 10,
+    "question": "Which of the following only contains tasks performed by the aeronautical engineer?",
+    "options": [
+      "Provide technical advice, assemble aircraft, design aircraft",
+      "Assist in air traffic control, investigate crashes, pilot aircraft",
+      "Make good checklists, read training manuals, schedule flights",
+      "Write training manuals, assist in air traffic control, act as a public relations officer 11 The diagram shows a 10 kg lamp hanging from a cable over a cycle path. A Lamp 5 m Cycle path70° 50° What is the tension in cable A? A. 44 N B. 88 NC. 100 ND. 110 N 12 A geostationary satellite is positioned above the equator. How many times does the satellite go around Earth’s axis in a 24-hour period? A. 0 B. 1C. 2D. 3 13 Which of the following can be safely transmitted by fibre optic cables? A. Microwaves B. Radio wavesC. Gamma raysD. Infrared waves 14 The diagram shows the forces acting on a block on an inclined plane. The block is held in a stationary position by force P. f qW P N What is the correct equation for the normal force, N ? A. N = W cos q − P sin f B. N = W cos q + P sin f C. N = W sin q − P cos f D. N = W sin q + P cos f 15 A uniformly distributed load is applied to a simply supported beam. Which of the following is the correct shear force diagram for this load? A.+ 0 – B.+ –0 C.+ –0 D.+ –0 16 Which of the following contributes to pitting or crevice corrosion in aircraft component joints? A. Water levels B. Alloy concentrationsC. Oxygen concentrationsD. Levels of static electricity 17 A photograph of a 6.5 m stanchion with guy wires is shown. D AC BE D E C ABE C B,A Front SideD Using the scaled orthogonal drawing, find the true length of wire BD. A. 7.3 m B. 7.9 m C. 8.3 mD. 8.9 m  18 The grain structure of a material has changed over time from that shown in microstructure A to that shown in microstructure B. b a a a bab b Microstructure A Microstructure Ba What heat treatment process has the material undergone to cause this change? A. Tempering B. NormalisingC. Quench hardeningD. Precipitation hardening 19 Turbofan engines are generally more fuel efficient than turbojet engines. What causes this efficiency? A. Smaller intake area B. Higher combustion temperaturesC. Air bypassing the combustion systemD. Air directly entering the combustion area 20 Which of the following describes high frequency wireless transmission when compared to low frequency wireless transmission? A. Faster data rates over longer distances with higher interference B. Faster data rates over shorter distances with lower interferenceC. Slower data rates over longer distances with lower interferenceD. Slower data rates over shorter distances with higher interference BLANK PAGE  BLANK PAGE © 2020 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2020 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "past-2020-q12",
+    "year": 2020,
+    "questionNumber": 12,
+    "question": "A geostationary satellite is positioned above the equator. How many times does the satellite go around Earth’s axis in a 24-hour period?",
+    "options": [
+      "0",
+      "1",
+      "2",
+      "3"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "past-2020-q13",
+    "year": 2020,
+    "questionNumber": 13,
+    "question": "Which of the following can be safely transmitted by fibre optic cables?",
+    "options": [
+      "Microwaves",
+      "Radio waves",
+      "Gamma rays",
+      "Infrared waves 14 The diagram shows the forces acting on a block on an inclined plane. The block is held in a stationary position by force P. f qW P N What is the correct equation for the normal force, N ? A. N = W cos q − P sin f B. N = W cos q + P sin f C. N = W sin q − P cos f D. N = W sin q + P cos f 15 A uniformly distributed load is applied to a simply supported beam. Which of the following is the correct shear force diagram for this load? A.+ 0 – B.+ –0 C.+ –0 D.+ –0 16 Which of the following contributes to pitting or crevice corrosion in aircraft component joints? A. Water levels B. Alloy concentrationsC. Oxygen concentrationsD. Levels of static electricity 17 A photograph of a 6.5 m stanchion with guy wires is shown. D AC BE D E C ABE C B,A Front SideD Using the scaled orthogonal drawing, find the true length of wire BD. A. 7.3 m B. 7.9 m C. 8.3 mD. 8.9 m  18 The grain structure of a material has changed over time from that shown in microstructure A to that shown in microstructure B. b a a a bab b Microstructure A Microstructure Ba What heat treatment process has the material undergone to cause this change? A. Tempering B. NormalisingC. Quench hardeningD. Precipitation hardening 19 Turbofan engines are generally more fuel efficient than turbojet engines. What causes this efficiency? A. Smaller intake area B. Higher combustion temperaturesC. Air bypassing the combustion systemD. Air directly entering the combustion area 20 Which of the following describes high frequency wireless transmission when compared to low frequency wireless transmission? A. Faster data rates over longer distances with higher interference B. Faster data rates over shorter distances with lower interferenceC. Slower data rates over longer distances with lower interferenceD. Slower data rates over shorter distances with higher interference BLANK PAGE  BLANK PAGE © 2020 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2020 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies"
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "past-2020-q16",
+    "year": 2020,
+    "questionNumber": 16,
+    "question": "Which of the following contributes to pitting or crevice corrosion in aircraft component joints?",
+    "options": [
+      "Water levels",
+      "Alloy concentrations",
+      "Oxygen concentrations",
+      "Levels of static electricity 17 A photograph of a 6.5 m stanchion with guy wires is shown. D AC BE D E C ABE C B,A Front SideD Using the scaled orthogonal drawing, find the true length of wire BD. A. 7.3 m B. 7.9 m C. 8.3 mD. 8.9 m  18 The grain structure of a material has changed over time from that shown in microstructure A to that shown in microstructure B. b a a a bab b Microstructure A Microstructure Ba What heat treatment process has the material undergone to cause this change? A. Tempering B. NormalisingC. Quench hardeningD. Precipitation hardening 19 Turbofan engines are generally more fuel efficient than turbojet engines. What causes this efficiency? A. Smaller intake area B. Higher combustion temperaturesC. Air bypassing the combustion systemD. Air directly entering the combustion area 20 Which of the following describes high frequency wireless transmission when compared to low frequency wireless transmission? A. Faster data rates over longer distances with higher interference B. Faster data rates over shorter distances with lower interferenceC. Slower data rates over longer distances with lower interferenceD. Slower data rates over shorter distances with higher interference BLANK PAGE  BLANK PAGE © 2020 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2020 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2020-q19",
+    "year": 2020,
+    "questionNumber": 19,
+    "question": "Turbofan engines are generally more fuel efficient than turbojet engines. What causes this efficiency?",
+    "options": [
+      "Smaller intake area",
+      "Higher combustion temperatures",
+      "Air bypassing the combustion system",
+      "Air directly entering the combustion area"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2020-q20",
+    "year": 2020,
+    "questionNumber": 20,
+    "question": "marks Attempt Questions 1–20Allow about 30 minutes for this section Use the multiple-choice answer sheet for Questions 1–20. 1 What is the main purpose of applying a polymer coating to a copper telecommunications cable?",
+    "options": [
+      "To insulate it",
+      "To strengthen it",
+      "To increase its flexibility",
+      "To improve its conductivity 2 What is the main purpose of the flaps on the wings of an aircraft? A. To make the aircraft safer at higher speedsB. To decrease lift to allow faster take-off speedsC. To increase lift at lower speeds for take-off and landingD. To decrease drag to allow higher take-off and landing speeds 3 Which of the following manufacturing methods can be used to produce complex polymer components? A. Sand casting B. Blow mouldingC. Lost wax castingD. Injection moulding 4 The diagram shows a model of a windmill which is designed to lift a mass as the turbine rotates. Turbine Mass to be lifted A mass of 80 grams is lifted a distance of 200 mm by the windmill. What is the work done by the windmill? A. 0.16 J B. 16 JC. 160 JD. 1600 J 5 To what must the professional services of telecommunications engineers be primarily dedicated? A. Completing projects on time B. Ensuring public health and safetyC. Designing efficient engineering systemsD. Reducing the legal liability of their employers 6 Which electronic component can be used to increase or decrease the speed of a train powered by an electric motor? A. Diode B. CapacitorC. TransistorD. Potentiometer 7 Which of the following best describes how an unpowered aircraft will glide, in controlled descent, when the lift-to-drag ratio is high? A. Long distance at a steep glide angle B. Short distance at a steep glide angleC. Long distance at a shallow glide angleD. Short distance at a shallow glide angle a 8 The photograph shows a transport viaduct based on a series of Roman arches. By using the Roman arch, engineers today can design structures which A. are easy to construct.B. are quick to construct.C. can span long distances.D. place foundations in tension. 9 A cured cylindrical concrete specimen is tested under a compressive load through its vertical axis, until it fails. Which of the following is the most likely shape of the front view of the failed specimen? A. B. C. D. 10 Which of the following only contains tasks performed by the aeronautical engineer? A. Provide technical advice, assemble aircraft, design aircraft B. Assist in air traffic control, investigate crashes, pilot aircraftC. Make good checklists, read training manuals, schedule flightsD. Write training manuals, assist in air traffic control, act as a public relations officer 11 The diagram shows a 10 kg lamp hanging from a cable over a cycle path. A Lamp 5 m Cycle path70° 50° What is the tension in cable A? A. 44 N B. 88 NC. 100 ND. 110 N 12 A geostationary satellite is positioned above the equator. How many times does the satellite go around Earth’s axis in a 24-hour period? A. 0 B. 1C. 2D. 3 13 Which of the following can be safely transmitted by fibre optic cables? A. Microwaves B. Radio wavesC. Gamma raysD. Infrared waves 14 The diagram shows the forces acting on a block on an inclined plane. The block is held in a stationary position by force P. f qW P N What is the correct equation for the normal force, N ? A. N = W cos q − P sin f B. N = W cos q + P sin f C. N = W sin q − P cos f D. N = W sin q + P cos f 15 A uniformly distributed load is applied to a simply supported beam. Which of the following is the correct shear force diagram for this load? A.+ 0 – B.+ –0 C.+ –0 D.+ –0 16 Which of the following contributes to pitting or crevice corrosion in aircraft component joints? A. Water levels B. Alloy concentrationsC. Oxygen concentrationsD. Levels of static electricity 17 A photograph of a 6.5 m stanchion with guy wires is shown. D AC BE D E C ABE C B,A Front SideD Using the scaled orthogonal drawing, find the true length of wire BD. A. 7.3 m B. 7.9 m C. 8.3 mD. 8.9 m  18 The grain structure of a material has changed over time from that shown in microstructure A to that shown in microstructure B. b a a a bab b Microstructure A Microstructure Ba What heat treatment process has the material undergone to cause this change? A. Tempering B. NormalisingC. Quench hardeningD. Precipitation hardening 19 Turbofan engines are generally more fuel efficient than turbojet engines. What causes this efficiency? A. Smaller intake area B. Higher combustion temperaturesC. Air bypassing the combustion systemD. Air directly entering the combustion area 20 Which of the following describes high frequency wireless transmission when compared to low frequency wireless transmission? A. Faster data rates over longer distances with higher interference B. Faster data rates over shorter distances with lower interferenceC. Slower data rates over longer distances with lower interferenceD. Slower data rates over shorter distances with higher interference BLANK PAGE  BLANK PAGE © 2020 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2020 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "past-2021-q1",
+    "year": 2021,
+    "questionNumber": 1,
+    "question": "The diagram shows the rear and front views of a bracket. FRONT REAR Which of the following shows the bracket in third angle projection?",
+    "options": [
+      "B. C. D. 2 The flight recorder, commonly know as the ‘black box’, was developed in Australia in the 1950s to assist in air crash investigations. How does a black box assist in an air crash investigation?A. It contains aircraft maintenance history.",
+      "C. D. 2 The flight recorder, commonly know as the ‘black box’, was developed in Australia in the 1950s to assist in air crash investigations. How does a black box assist in an air crash investigation?A. It contains aircraft maintenance history. B. It holds passenger details and conversations.",
+      "D. 2 The flight recorder, commonly know as the ‘black box’, was developed in Australia in the 1950s to assist in air crash investigations. How does a black box assist in an air crash investigation?A. It contains aircraft maintenance history. B. It holds passenger details and conversations. C. It keeps details of flight data and cockpit conversations.",
+      "2 The flight recorder, commonly know as the ‘black box’, was developed in Australia in the 1950s to assist in air crash investigations. How does a black box assist in an air crash investigation?A. It contains aircraft maintenance history. B. It holds passenger details and conversations. C. It keeps details of flight data and cockpit conversations.D. It retains details of baggage weight and flight crew rosters. 3 Which of the following is used to transmit data in a fibre optic cable? A. Air pressure B. Infrared light C. Plasma radiationD. Electrical voltage 4 Which engineering drawing shows a bracket correctly dimensioned to AS 1100 drawing standards? A. B. C. D. 20 32251136 11251120 36 11 3220 36 R 5.5 11 1325 25 20 36 11 11 13 5 One of the key responsibilities of a qualified professional aeronautical engineer is to ensure that A. flight schedules at an airport are optimised. B. airport runways are constructed to standard.C. baggage carousels undergo routine maintenance. D. aircraft design minimises the noise heard at ground level. 6 A train has a total mass of 400 tonnes. It accelerates from rest to a speed of 25 m/s. What is the kinetic energy of the train at the speed of 25 m/s? A. 125 × 103 J B. 250 × 103 J C. 125 × 106 J D. 250 × 106 J 7 The diagram shows a section of a pin jointed truss in equilibrium. The force in Member 1 is 200 kN in compression. 200 kNMember 1 Member 2 Member 3 Which row of the table identifies the magnitude and nature of the forces in Member 2 and Member 3? A. B.C.D.Force in Member 2 Force in Member 3 200 kN (compression) 0 kN 200 kN (tension) 0 kN 100 kN (compression) 100 kN (tension) 100 kN (tension) 100 kN (compression) 8 A gear system is shown. Gear 1 Driving 80 teeth Gear 2 Driven 25 teeth What is the velocity ratio of this gear system? A. 0.3125 B. 0.320C. 3.125D. 3.20 9 A pitot tube supplies two pressure readings, total pressure and static pressure. These pressure readings are then used to determine theA. sealed pressure. B. dynamic pressure. C. standard pressure.D. hydrostatic pressure. 10 The diagram illustrates a method of forming a thermosetting polymer. Thermosetting polymer Ejector pin Ejector pin Which method is illustrated? A. Extrusion B. CalenderingC. Injection mouldingD. Compression moulding 11 Which radio transmission method is most likely to have static interference? A. Amplitude modulation (AM) B. Frequency modulation (FM)C. Digital audio broadcast (DAB)D. Pulse width modulation (PWM) 12 The stress−strain diagram shown is being used to calculate a material property. s e 0.2% What material property can be calculated by using the dotted lines shown in this diagram? A. Hardness B. ToughnessC. Proof stressD. Ultimate tensile stress 13 Two identical aircraft, Q and R, are travelling at 500 km per hour. Aircraft Q is at an altitude of 1000 m and aircraft R is at an altitude of 10 000 m. Compared to aircraft Q, aircraft R generatesA. less lift and less drag. B. less lift and more drag.C. more lift and less drag.D. more lift and more drag. 14 The diagram shows a beam. 3000 160 65 30 6530 30140 The beam’s second moment of area is 76.96 × 106 mm4. It is subjected to a maximum bending moment of 250 kNm. What is the maximum bending stress of the beam?A. 227.4 MPa B. 324.8 MPaC. 649.7 MPaD. 9745.3 MPa 15 Which of the following would be the most suitable material to use for a spring in a telecommunication component? A. Annealed copper zinc alloy B. Electrolytic tough pitch copper C. Age hardened aluminium silicon alloyD. Age hardened copper–beryllium alloy 16 The circuit diagram shown includes two transistors in its configuration. –+Input Input AB What type of logic gate has the same function as this pair of transistors in the circuit? A. OR gate B. NOR gate C. AND gateD. NAND gate 17 Which of the following is a specialised test used to determine the compressive strength of cured concrete? A. Slump test B. Janka hardness testC. Shore hardness testD. Rebound hammer test 18 The diagram shows a simplified circuit of an electric scooter."
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "past-2021-q3",
+    "year": 2021,
+    "questionNumber": 3,
+    "question": "Which of the following is used to transmit data in a fibre optic cable?",
+    "options": [
+      "Air pressure",
+      "Infrared light",
+      "Plasma radiation",
+      "Electrical voltage 4 Which engineering drawing shows a bracket correctly dimensioned to AS 1100 drawing standards? A. B. C. D. 20 32251136 11251120 36 11 3220 36 R 5.5 11 1325 25 20 36 11 11 13 5 One of the key responsibilities of a qualified professional aeronautical engineer is to ensure that A. flight schedules at an airport are optimised. B. airport runways are constructed to standard.C. baggage carousels undergo routine maintenance. D. aircraft design minimises the noise heard at ground level. 6 A train has a total mass of 400 tonnes. It accelerates from rest to a speed of 25 m/s. What is the kinetic energy of the train at the speed of 25 m/s? A. 125 × 103 J B. 250 × 103 J C. 125 × 106 J D. 250 × 106 J 7 The diagram shows a section of a pin jointed truss in equilibrium. The force in Member 1 is 200 kN in compression. 200 kNMember 1 Member 2 Member 3 Which row of the table identifies the magnitude and nature of the forces in Member 2 and Member 3? A. B.C.D.Force in Member 2 Force in Member 3 200 kN (compression) 0 kN 200 kN (tension) 0 kN 100 kN (compression) 100 kN (tension) 100 kN (tension) 100 kN (compression) 8 A gear system is shown. Gear 1 Driving 80 teeth Gear 2 Driven 25 teeth What is the velocity ratio of this gear system? A. 0.3125 B. 0.320C. 3.125D. 3.20 9 A pitot tube supplies two pressure readings, total pressure and static pressure. These pressure readings are then used to determine theA. sealed pressure. B. dynamic pressure. C. standard pressure.D. hydrostatic pressure. 10 The diagram illustrates a method of forming a thermosetting polymer. Thermosetting polymer Ejector pin Ejector pin Which method is illustrated? A. Extrusion B. CalenderingC. Injection mouldingD. Compression moulding 11 Which radio transmission method is most likely to have static interference? A. Amplitude modulation (AM) B. Frequency modulation (FM)C. Digital audio broadcast (DAB)D. Pulse width modulation (PWM) 12 The stress−strain diagram shown is being used to calculate a material property. s e 0.2% What material property can be calculated by using the dotted lines shown in this diagram? A. Hardness B. ToughnessC. Proof stressD. Ultimate tensile stress 13 Two identical aircraft, Q and R, are travelling at 500 km per hour. Aircraft Q is at an altitude of 1000 m and aircraft R is at an altitude of 10 000 m. Compared to aircraft Q, aircraft R generatesA. less lift and less drag. B. less lift and more drag.C. more lift and less drag.D. more lift and more drag. 14 The diagram shows a beam. 3000 160 65 30 6530 30140 The beam’s second moment of area is 76.96 × 106 mm4. It is subjected to a maximum bending moment of 250 kNm. What is the maximum bending stress of the beam?A. 227.4 MPa B. 324.8 MPaC. 649.7 MPaD. 9745.3 MPa 15 Which of the following would be the most suitable material to use for a spring in a telecommunication component? A. Annealed copper zinc alloy B. Electrolytic tough pitch copper C. Age hardened aluminium silicon alloyD. Age hardened copper–beryllium alloy 16 The circuit diagram shown includes two transistors in its configuration. –+Input Input AB What type of logic gate has the same function as this pair of transistors in the circuit? A. OR gate B. NOR gate C. AND gateD. NAND gate 17 Which of the following is a specialised test used to determine the compressive strength of cured concrete? A. Slump test B. Janka hardness testC. Shore hardness testD. Rebound hammer test 18 The diagram shows a simplified circuit of an electric scooter. 2 W 1 W18 V 3 WA What would be the reading of the ammeter in this circuit? A. 3.0 A B. 6.0 A C. 12.0 AD. 26.9 A 19 The diagram shows a simply supported beam in equilibrium. It is loaded with a single force (F) as shown. TO SCALEF Which of the following angles is closest to the angle of the reaction force to the horizontal at the fixed bearing? A. 7° B. 14°C. 31°D. 90° 20 The galvanic table below shows the relative corrosion potential of a metal when it is in contact with another metal in an aqueous environment. Anodic end Magnesium AluminiumZincIronTinLeadCopperSilverGold Cathodic end In which of the following situations is the steel component likely to corrode in the shortest amount of time? Steel sheetsAluminium rivetA. Steel rivetB. Copper rivetC. Steel rivetD. Aluminium sheets Copper sheets Steel sheets © 2021 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2021 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "past-2021-q5",
+    "year": 2021,
+    "questionNumber": 5,
+    "question": "One of the key responsibilities of a qualified professional aeronautical engineer is to ensure that",
+    "options": [
+      "flight schedules at an airport are optimised.",
+      "airport runways are constructed to standard.",
+      "baggage carousels undergo routine maintenance.",
+      "aircraft design minimises the noise heard at ground level. 6 A train has a total mass of 400 tonnes. It accelerates from rest to a speed of 25 m/s. What is the kinetic energy of the train at the speed of 25 m/s? A. 125 × 103 J B. 250 × 103 J C. 125 × 106 J D. 250 × 106 J 7 The diagram shows a section of a pin jointed truss in equilibrium. The force in Member 1 is 200 kN in compression. 200 kNMember 1 Member 2 Member 3 Which row of the table identifies the magnitude and nature of the forces in Member 2 and Member 3? A. B.C.D.Force in Member 2 Force in Member 3 200 kN (compression) 0 kN 200 kN (tension) 0 kN 100 kN (compression) 100 kN (tension) 100 kN (tension) 100 kN (compression) 8 A gear system is shown. Gear 1 Driving 80 teeth Gear 2 Driven 25 teeth What is the velocity ratio of this gear system? A. 0.3125 B. 0.320C. 3.125D. 3.20 9 A pitot tube supplies two pressure readings, total pressure and static pressure. These pressure readings are then used to determine theA. sealed pressure. B. dynamic pressure. C. standard pressure.D. hydrostatic pressure. 10 The diagram illustrates a method of forming a thermosetting polymer. Thermosetting polymer Ejector pin Ejector pin Which method is illustrated? A. Extrusion B. CalenderingC. Injection mouldingD. Compression moulding 11 Which radio transmission method is most likely to have static interference? A. Amplitude modulation (AM) B. Frequency modulation (FM)C. Digital audio broadcast (DAB)D. Pulse width modulation (PWM) 12 The stress−strain diagram shown is being used to calculate a material property. s e 0.2% What material property can be calculated by using the dotted lines shown in this diagram? A. Hardness B. ToughnessC. Proof stressD. Ultimate tensile stress 13 Two identical aircraft, Q and R, are travelling at 500 km per hour. Aircraft Q is at an altitude of 1000 m and aircraft R is at an altitude of 10 000 m. Compared to aircraft Q, aircraft R generatesA. less lift and less drag. B. less lift and more drag.C. more lift and less drag.D. more lift and more drag. 14 The diagram shows a beam. 3000 160 65 30 6530 30140 The beam’s second moment of area is 76.96 × 106 mm4. It is subjected to a maximum bending moment of 250 kNm. What is the maximum bending stress of the beam?A. 227.4 MPa B. 324.8 MPaC. 649.7 MPaD. 9745.3 MPa 15 Which of the following would be the most suitable material to use for a spring in a telecommunication component? A. Annealed copper zinc alloy B. Electrolytic tough pitch copper C. Age hardened aluminium silicon alloyD. Age hardened copper–beryllium alloy 16 The circuit diagram shown includes two transistors in its configuration. –+Input Input AB What type of logic gate has the same function as this pair of transistors in the circuit? A. OR gate B. NOR gate C. AND gateD. NAND gate 17 Which of the following is a specialised test used to determine the compressive strength of cured concrete? A. Slump test B. Janka hardness testC. Shore hardness testD. Rebound hammer test 18 The diagram shows a simplified circuit of an electric scooter. 2 W 1 W18 V 3 WA What would be the reading of the ammeter in this circuit? A. 3.0 A B. 6.0 A C. 12.0 AD. 26.9 A 19 The diagram shows a simply supported beam in equilibrium. It is loaded with a single force (F) as shown. TO SCALEF Which of the following angles is closest to the angle of the reaction force to the horizontal at the fixed bearing? A. 7° B. 14°C. 31°D. 90° 20 The galvanic table below shows the relative corrosion potential of a metal when it is in contact with another metal in an aqueous environment. Anodic end Magnesium AluminiumZincIronTinLeadCopperSilverGold Cathodic end In which of the following situations is the steel component likely to corrode in the shortest amount of time? Steel sheetsAluminium rivetA. Steel rivetB. Copper rivetC. Steel rivetD. Aluminium sheets Copper sheets Steel sheets © 2021 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2021 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies"
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "past-2021-q7",
+    "year": 2021,
+    "questionNumber": 7,
+    "question": "The diagram shows a section of a pin jointed truss in equilibrium. The force in Member 1 is 200 kN in compression. 200 kNMember 1 Member 2 Member 3 Which row of the table identifies the magnitude and nature of the forces in Member 2 and Member 3?",
+    "options": [
+      "B.C.D.Force in Member 2 Force in Member 3 200 kN (compression) 0 kN 200 kN (tension) 0 kN 100 kN (compression) 100 kN (tension) 100 kN (tension) 100 kN (compression) 8 A gear system is shown. Gear 1 Driving 80 teeth Gear 2 Driven 25 teeth What is the velocity ratio of this gear system? A. 0.3125",
+      "C.D.Force in Member 2 Force in Member 3 200 kN (compression) 0 kN 200 kN (tension) 0 kN 100 kN (compression) 100 kN (tension) 100 kN (tension) 100 kN (compression) 8 A gear system is shown. Gear 1 Driving 80 teeth Gear 2 Driven 25 teeth What is the velocity ratio of this gear system? A. 0.3125 B. 0.320",
+      "D.Force in Member 2 Force in Member 3 200 kN (compression) 0 kN 200 kN (tension) 0 kN 100 kN (compression) 100 kN (tension) 100 kN (tension) 100 kN (compression) 8 A gear system is shown. Gear 1 Driving 80 teeth Gear 2 Driven 25 teeth What is the velocity ratio of this gear system? A. 0.3125 B. 0.320C. 3.125",
+      "Force in Member 2 Force in Member 3 200 kN (compression) 0 kN 200 kN (tension) 0 kN 100 kN (compression) 100 kN (tension) 100 kN (tension) 100 kN (compression) 8 A gear system is shown. Gear 1 Driving 80 teeth Gear 2 Driven 25 teeth What is the velocity ratio of this gear system? A. 0.3125 B. 0.320C. 3.125D. 3.20 9 A pitot tube supplies two pressure readings, total pressure and static pressure. These pressure readings are then used to determine theA. sealed pressure. B. dynamic pressure. C. standard pressure.D. hydrostatic pressure. 10 The diagram illustrates a method of forming a thermosetting polymer. Thermosetting polymer Ejector pin Ejector pin Which method is illustrated? A. Extrusion B. CalenderingC. Injection mouldingD. Compression moulding 11 Which radio transmission method is most likely to have static interference? A. Amplitude modulation (AM) B. Frequency modulation (FM)C. Digital audio broadcast (DAB)D. Pulse width modulation (PWM) 12 The stress−strain diagram shown is being used to calculate a material property. s e 0.2% What material property can be calculated by using the dotted lines shown in this diagram? A. Hardness B. ToughnessC. Proof stressD. Ultimate tensile stress 13 Two identical aircraft, Q and R, are travelling at 500 km per hour. Aircraft Q is at an altitude of 1000 m and aircraft R is at an altitude of 10 000 m. Compared to aircraft Q, aircraft R generatesA. less lift and less drag. B. less lift and more drag.C. more lift and less drag.D. more lift and more drag. 14 The diagram shows a beam. 3000 160 65 30 6530 30140 The beam’s second moment of area is 76.96 × 106 mm4. It is subjected to a maximum bending moment of 250 kNm. What is the maximum bending stress of the beam?A. 227.4 MPa B. 324.8 MPaC. 649.7 MPaD. 9745.3 MPa 15 Which of the following would be the most suitable material to use for a spring in a telecommunication component? A. Annealed copper zinc alloy B. Electrolytic tough pitch copper C. Age hardened aluminium silicon alloyD. Age hardened copper–beryllium alloy 16 The circuit diagram shown includes two transistors in its configuration. –+Input Input AB What type of logic gate has the same function as this pair of transistors in the circuit? A. OR gate B. NOR gate C. AND gateD. NAND gate 17 Which of the following is a specialised test used to determine the compressive strength of cured concrete? A. Slump test B. Janka hardness testC. Shore hardness testD. Rebound hammer test 18 The diagram shows a simplified circuit of an electric scooter. 2 W 1 W18 V 3 WA What would be the reading of the ammeter in this circuit? A. 3.0 A B. 6.0 A C. 12.0 AD. 26.9 A 19 The diagram shows a simply supported beam in equilibrium. It is loaded with a single force (F) as shown. TO SCALEF Which of the following angles is closest to the angle of the reaction force to the horizontal at the fixed bearing? A. 7° B. 14°C. 31°D. 90° 20 The galvanic table below shows the relative corrosion potential of a metal when it is in contact with another metal in an aqueous environment. Anodic end Magnesium AluminiumZincIronTinLeadCopperSilverGold Cathodic end In which of the following situations is the steel component likely to corrode in the shortest amount of time? Steel sheetsAluminium rivetA. Steel rivetB. Copper rivetC. Steel rivetD. Aluminium sheets Copper sheets Steel sheets © 2021 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2021 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "past-2021-q9",
+    "year": 2021,
+    "questionNumber": 9,
+    "question": "A pitot tube supplies two pressure readings, total pressure and static pressure. These pressure readings are then used to determine the",
+    "options": [
+      "sealed pressure.",
+      "dynamic pressure.",
+      "standard pressure.",
+      "hydrostatic pressure. 10 The diagram illustrates a method of forming a thermosetting polymer. Thermosetting polymer Ejector pin Ejector pin Which method is illustrated? A. Extrusion B. CalenderingC. Injection mouldingD. Compression moulding 11 Which radio transmission method is most likely to have static interference? A. Amplitude modulation (AM) B. Frequency modulation (FM)C. Digital audio broadcast (DAB)D. Pulse width modulation (PWM) 12 The stress−strain diagram shown is being used to calculate a material property. s e 0.2% What material property can be calculated by using the dotted lines shown in this diagram? A. Hardness B. ToughnessC. Proof stressD. Ultimate tensile stress 13 Two identical aircraft, Q and R, are travelling at 500 km per hour. Aircraft Q is at an altitude of 1000 m and aircraft R is at an altitude of 10 000 m. Compared to aircraft Q, aircraft R generatesA. less lift and less drag. B. less lift and more drag.C. more lift and less drag.D. more lift and more drag. 14 The diagram shows a beam. 3000 160 65 30 6530 30140 The beam’s second moment of area is 76.96 × 106 mm4. It is subjected to a maximum bending moment of 250 kNm. What is the maximum bending stress of the beam?A. 227.4 MPa B. 324.8 MPaC. 649.7 MPaD. 9745.3 MPa 15 Which of the following would be the most suitable material to use for a spring in a telecommunication component? A. Annealed copper zinc alloy B. Electrolytic tough pitch copper C. Age hardened aluminium silicon alloyD. Age hardened copper–beryllium alloy 16 The circuit diagram shown includes two transistors in its configuration. –+Input Input AB What type of logic gate has the same function as this pair of transistors in the circuit? A. OR gate B. NOR gate C. AND gateD. NAND gate 17 Which of the following is a specialised test used to determine the compressive strength of cured concrete? A. Slump test B. Janka hardness testC. Shore hardness testD. Rebound hammer test 18 The diagram shows a simplified circuit of an electric scooter. 2 W 1 W18 V 3 WA What would be the reading of the ammeter in this circuit? A. 3.0 A B. 6.0 A C. 12.0 AD. 26.9 A 19 The diagram shows a simply supported beam in equilibrium. It is loaded with a single force (F) as shown. TO SCALEF Which of the following angles is closest to the angle of the reaction force to the horizontal at the fixed bearing? A. 7° B. 14°C. 31°D. 90° 20 The galvanic table below shows the relative corrosion potential of a metal when it is in contact with another metal in an aqueous environment. Anodic end Magnesium AluminiumZincIronTinLeadCopperSilverGold Cathodic end In which of the following situations is the steel component likely to corrode in the shortest amount of time? Steel sheetsAluminium rivetA. Steel rivetB. Copper rivetC. Steel rivetD. Aluminium sheets Copper sheets Steel sheets © 2021 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2021 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "past-2021-q11",
+    "year": 2021,
+    "questionNumber": 11,
+    "question": "3220 36 R 5.5 11 1325 25 20 36 11 11 13 5 One of the key responsibilities of a qualified professional aeronautical engineer is to ensure that",
+    "options": [
+      "flight schedules at an airport are optimised.",
+      "airport runways are constructed to standard.",
+      "baggage carousels undergo routine maintenance.",
+      "aircraft design minimises the noise heard at ground level. 6 A train has a total mass of 400 tonnes. It accelerates from rest to a speed of 25 m/s. What is the kinetic energy of the train at the speed of 25 m/s? A. 125 × 103 J B. 250 × 103 J C. 125 × 106 J D. 250 × 106 J 7 The diagram shows a section of a pin jointed truss in equilibrium. The force in Member 1 is 200 kN in compression. 200 kNMember 1 Member 2 Member 3 Which row of the table identifies the magnitude and nature of the forces in Member 2 and Member 3? A. B.C.D.Force in Member 2 Force in Member 3 200 kN (compression) 0 kN 200 kN (tension) 0 kN 100 kN (compression) 100 kN (tension) 100 kN (tension) 100 kN (compression) 8 A gear system is shown. Gear 1 Driving 80 teeth Gear 2 Driven 25 teeth What is the velocity ratio of this gear system? A. 0.3125 B. 0.320C. 3.125D. 3.20 9 A pitot tube supplies two pressure readings, total pressure and static pressure. These pressure readings are then used to determine theA. sealed pressure. B. dynamic pressure. C. standard pressure.D. hydrostatic pressure. 10 The diagram illustrates a method of forming a thermosetting polymer. Thermosetting polymer Ejector pin Ejector pin Which method is illustrated? A. Extrusion B. CalenderingC. Injection mouldingD. Compression moulding 11 Which radio transmission method is most likely to have static interference? A. Amplitude modulation (AM) B. Frequency modulation (FM)C. Digital audio broadcast (DAB)D. Pulse width modulation (PWM) 12 The stress−strain diagram shown is being used to calculate a material property. s e 0.2% What material property can be calculated by using the dotted lines shown in this diagram? A. Hardness B. ToughnessC. Proof stressD. Ultimate tensile stress 13 Two identical aircraft, Q and R, are travelling at 500 km per hour. Aircraft Q is at an altitude of 1000 m and aircraft R is at an altitude of 10 000 m. Compared to aircraft Q, aircraft R generatesA. less lift and less drag. B. less lift and more drag.C. more lift and less drag.D. more lift and more drag. 14 The diagram shows a beam. 3000 160 65 30 6530 30140 The beam’s second moment of area is 76.96 × 106 mm4. It is subjected to a maximum bending moment of 250 kNm. What is the maximum bending stress of the beam?A. 227.4 MPa B. 324.8 MPaC. 649.7 MPaD. 9745.3 MPa 15 Which of the following would be the most suitable material to use for a spring in a telecommunication component? A. Annealed copper zinc alloy B. Electrolytic tough pitch copper C. Age hardened aluminium silicon alloyD. Age hardened copper–beryllium alloy 16 The circuit diagram shown includes two transistors in its configuration. –+Input Input AB What type of logic gate has the same function as this pair of transistors in the circuit? A. OR gate B. NOR gate C. AND gateD. NAND gate 17 Which of the following is a specialised test used to determine the compressive strength of cured concrete? A. Slump test B. Janka hardness testC. Shore hardness testD. Rebound hammer test 18 The diagram shows a simplified circuit of an electric scooter. 2 W 1 W18 V 3 WA What would be the reading of the ammeter in this circuit? A. 3.0 A B. 6.0 A C. 12.0 AD. 26.9 A 19 The diagram shows a simply supported beam in equilibrium. It is loaded with a single force (F) as shown. TO SCALEF Which of the following angles is closest to the angle of the reaction force to the horizontal at the fixed bearing? A. 7° B. 14°C. 31°D. 90° 20 The galvanic table below shows the relative corrosion potential of a metal when it is in contact with another metal in an aqueous environment. Anodic end Magnesium AluminiumZincIronTinLeadCopperSilverGold Cathodic end In which of the following situations is the steel component likely to corrode in the shortest amount of time? Steel sheetsAluminium rivetA. Steel rivetB. Copper rivetC. Steel rivetD. Aluminium sheets Copper sheets Steel sheets © 2021 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2021 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "past-2021-q13",
+    "year": 2021,
+    "questionNumber": 13,
+    "question": "Two identical aircraft, Q and R, are travelling at 500 km per hour. Aircraft Q is at an altitude of 1000 m and aircraft R is at an altitude of 10 000 m. Compared to aircraft Q, aircraft R generates",
+    "options": [
+      "less lift and less drag.",
+      "less lift and more drag.",
+      "more lift and less drag.",
+      "more lift and more drag. 14 The diagram shows a beam. 3000 160 65 30 6530 30140 The beam’s second moment of area is 76.96 × 106 mm4. It is subjected to a maximum bending moment of 250 kNm. What is the maximum bending stress of the beam?A. 227.4 MPa B. 324.8 MPaC. 649.7 MPaD. 9745.3 MPa 15 Which of the following would be the most suitable material to use for a spring in a telecommunication component? A. Annealed copper zinc alloy B. Electrolytic tough pitch copper C. Age hardened aluminium silicon alloyD. Age hardened copper–beryllium alloy 16 The circuit diagram shown includes two transistors in its configuration. –+Input Input AB What type of logic gate has the same function as this pair of transistors in the circuit? A. OR gate B. NOR gate C. AND gateD. NAND gate 17 Which of the following is a specialised test used to determine the compressive strength of cured concrete? A. Slump test B. Janka hardness testC. Shore hardness testD. Rebound hammer test 18 The diagram shows a simplified circuit of an electric scooter. 2 W 1 W18 V 3 WA What would be the reading of the ammeter in this circuit? A. 3.0 A B. 6.0 A C. 12.0 AD. 26.9 A 19 The diagram shows a simply supported beam in equilibrium. It is loaded with a single force (F) as shown. TO SCALEF Which of the following angles is closest to the angle of the reaction force to the horizontal at the fixed bearing? A. 7° B. 14°C. 31°D. 90° 20 The galvanic table below shows the relative corrosion potential of a metal when it is in contact with another metal in an aqueous environment. Anodic end Magnesium AluminiumZincIronTinLeadCopperSilverGold Cathodic end In which of the following situations is the steel component likely to corrode in the shortest amount of time? Steel sheetsAluminium rivetA. Steel rivetB. Copper rivetC. Steel rivetD. Aluminium sheets Copper sheets Steel sheets © 2021 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2021 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "past-2021-q15",
+    "year": 2021,
+    "questionNumber": 15,
+    "question": "Which of the following would be the most suitable material to use for a spring in a telecommunication component?",
+    "options": [
+      "Annealed copper zinc alloy",
+      "Electrolytic tough pitch copper",
+      "Age hardened aluminium silicon alloy",
+      "Age hardened copper–beryllium alloy 16 The circuit diagram shown includes two transistors in its configuration. –+Input Input AB What type of logic gate has the same function as this pair of transistors in the circuit? A. OR gate B. NOR gate C. AND gateD. NAND gate 17 Which of the following is a specialised test used to determine the compressive strength of cured concrete? A. Slump test B. Janka hardness testC. Shore hardness testD. Rebound hammer test 18 The diagram shows a simplified circuit of an electric scooter. 2 W 1 W18 V 3 WA What would be the reading of the ammeter in this circuit? A. 3.0 A B. 6.0 A C. 12.0 AD. 26.9 A 19 The diagram shows a simply supported beam in equilibrium. It is loaded with a single force (F) as shown. TO SCALEF Which of the following angles is closest to the angle of the reaction force to the horizontal at the fixed bearing? A. 7° B. 14°C. 31°D. 90° 20 The galvanic table below shows the relative corrosion potential of a metal when it is in contact with another metal in an aqueous environment. Anodic end Magnesium AluminiumZincIronTinLeadCopperSilverGold Cathodic end In which of the following situations is the steel component likely to corrode in the shortest amount of time? Steel sheetsAluminium rivetA. Steel rivetB. Copper rivetC. Steel rivetD. Aluminium sheets Copper sheets Steel sheets © 2021 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2021 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies"
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "past-2021-q17",
+    "year": 2021,
+    "questionNumber": 17,
+    "question": "Which of the following is a specialised test used to determine the compressive strength of cured concrete?",
+    "options": [
+      "Slump test",
+      "Janka hardness test",
+      "Shore hardness test",
+      "Rebound hammer test 18 The diagram shows a simplified circuit of an electric scooter. 2 W 1 W18 V 3 WA What would be the reading of the ammeter in this circuit? A. 3.0 A B. 6.0 A C. 12.0 AD. 26.9 A 19 The diagram shows a simply supported beam in equilibrium. It is loaded with a single force (F) as shown. TO SCALEF Which of the following angles is closest to the angle of the reaction force to the horizontal at the fixed bearing? A. 7° B. 14°C. 31°D. 90° 20 The galvanic table below shows the relative corrosion potential of a metal when it is in contact with another metal in an aqueous environment. Anodic end Magnesium AluminiumZincIronTinLeadCopperSilverGold Cathodic end In which of the following situations is the steel component likely to corrode in the shortest amount of time? Steel sheetsAluminium rivetA. Steel rivetB. Copper rivetC. Steel rivetD. Aluminium sheets Copper sheets Steel sheets © 2021 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2021 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies"
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "past-2021-q19",
+    "year": 2021,
+    "questionNumber": 19,
+    "question": "The diagram shows a simply supported beam in equilibrium. It is loaded with a single force (F) as shown. TO SCALEF Which of the following angles is closest to the angle of the reaction force to the horizontal at the fixed bearing?",
+    "options": [
+      "7°",
+      "14°",
+      "31°",
+      "90° 20 The galvanic table below shows the relative corrosion potential of a metal when it is in contact with another metal in an aqueous environment. Anodic end Magnesium AluminiumZincIronTinLeadCopperSilverGold Cathodic end In which of the following situations is the steel component likely to corrode in the shortest amount of time? Steel sheetsAluminium rivetA. Steel rivetB. Copper rivetC. Steel rivetD. Aluminium sheets Copper sheets Steel sheets © 2021 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2021 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "past-2021-q20",
+    "year": 2021,
+    "questionNumber": 20,
+    "question": "marks Attempt Questions 1–20Allow about 30 minutes for this section Use the multiple-choice answer sheet for Questions 1–20. 1 The diagram shows the rear and front views of a bracket. FRONT REAR Which of the following shows the bracket in third angle projection?",
+    "options": [
+      "B. C. D. 2 The flight recorder, commonly know as the ‘black box’, was developed in Australia in the 1950s to assist in air crash investigations. How does a black box assist in an air crash investigation?A. It contains aircraft maintenance history.",
+      "C. D. 2 The flight recorder, commonly know as the ‘black box’, was developed in Australia in the 1950s to assist in air crash investigations. How does a black box assist in an air crash investigation?A. It contains aircraft maintenance history. B. It holds passenger details and conversations.",
+      "D. 2 The flight recorder, commonly know as the ‘black box’, was developed in Australia in the 1950s to assist in air crash investigations. How does a black box assist in an air crash investigation?A. It contains aircraft maintenance history. B. It holds passenger details and conversations. C. It keeps details of flight data and cockpit conversations.",
+      "2 The flight recorder, commonly know as the ‘black box’, was developed in Australia in the 1950s to assist in air crash investigations. How does a black box assist in an air crash investigation?A. It contains aircraft maintenance history. B. It holds passenger details and conversations. C. It keeps details of flight data and cockpit conversations.D. It retains details of baggage weight and flight crew rosters. 3 Which of the following is used to transmit data in a fibre optic cable? A. Air pressure B. Infrared light C. Plasma radiationD. Electrical voltage 4 Which engineering drawing shows a bracket correctly dimensioned to AS 1100 drawing standards? A. B. C. D. 20 32251136 11251120 36 11 3220 36 R 5.5 11 1325 25 20 36 11 11 13 5 One of the key responsibilities of a qualified professional aeronautical engineer is to ensure that A. flight schedules at an airport are optimised. B. airport runways are constructed to standard.C. baggage carousels undergo routine maintenance. D. aircraft design minimises the noise heard at ground level. 6 A train has a total mass of 400 tonnes. It accelerates from rest to a speed of 25 m/s. What is the kinetic energy of the train at the speed of 25 m/s? A. 125 × 103 J B. 250 × 103 J C. 125 × 106 J D. 250 × 106 J 7 The diagram shows a section of a pin jointed truss in equilibrium. The force in Member 1 is 200 kN in compression. 200 kNMember 1 Member 2 Member 3 Which row of the table identifies the magnitude and nature of the forces in Member 2 and Member 3? A. B.C.D.Force in Member 2 Force in Member 3 200 kN (compression) 0 kN 200 kN (tension) 0 kN 100 kN (compression) 100 kN (tension) 100 kN (tension) 100 kN (compression) 8 A gear system is shown. Gear 1 Driving 80 teeth Gear 2 Driven 25 teeth What is the velocity ratio of this gear system? A. 0.3125 B. 0.320C. 3.125D. 3.20 9 A pitot tube supplies two pressure readings, total pressure and static pressure. These pressure readings are then used to determine theA. sealed pressure. B. dynamic pressure. C. standard pressure.D. hydrostatic pressure. 10 The diagram illustrates a method of forming a thermosetting polymer. Thermosetting polymer Ejector pin Ejector pin Which method is illustrated? A. Extrusion B. CalenderingC. Injection mouldingD. Compression moulding 11 Which radio transmission method is most likely to have static interference? A. Amplitude modulation (AM) B. Frequency modulation (FM)C. Digital audio broadcast (DAB)D. Pulse width modulation (PWM) 12 The stress−strain diagram shown is being used to calculate a material property. s e 0.2% What material property can be calculated by using the dotted lines shown in this diagram? A. Hardness B. ToughnessC. Proof stressD. Ultimate tensile stress 13 Two identical aircraft, Q and R, are travelling at 500 km per hour. Aircraft Q is at an altitude of 1000 m and aircraft R is at an altitude of 10 000 m. Compared to aircraft Q, aircraft R generatesA. less lift and less drag. B. less lift and more drag.C. more lift and less drag.D. more lift and more drag. 14 The diagram shows a beam. 3000 160 65 30 6530 30140 The beam’s second moment of area is 76.96 × 106 mm4. It is subjected to a maximum bending moment of 250 kNm. What is the maximum bending stress of the beam?A. 227.4 MPa B. 324.8 MPaC. 649.7 MPaD. 9745.3 MPa 15 Which of the following would be the most suitable material to use for a spring in a telecommunication component? A. Annealed copper zinc alloy B. Electrolytic tough pitch copper C. Age hardened aluminium silicon alloyD. Age hardened copper–beryllium alloy 16 The circuit diagram shown includes two transistors in its configuration. –+Input Input AB What type of logic gate has the same function as this pair of transistors in the circuit? A. OR gate B. NOR gate C. AND gateD. NAND gate 17 Which of the following is a specialised test used to determine the compressive strength of cured concrete? A. Slump test B. Janka hardness testC. Shore hardness testD. Rebound hammer test 18 The diagram shows a simplified circuit of an electric scooter. 2 W 1 W18 V 3 WA What would be the reading of the ammeter in this circuit? A. 3.0 A B. 6.0 A C. 12.0 AD. 26.9 A 19 The diagram shows a simply supported beam in equilibrium. It is loaded with a single force (F) as shown. TO SCALEF Which of the following angles is closest to the angle of the reaction force to the horizontal at the fixed bearing? A. 7° B. 14°C. 31°D. 90° 20 The galvanic table below shows the relative corrosion potential of a metal when it is in contact with another metal in an aqueous environment. Anodic end Magnesium AluminiumZincIronTinLeadCopperSilverGold Cathodic end In which of the following situations is the steel component likely to corrode in the shortest amount of time? Steel sheetsAluminium rivetA. Steel rivetB. Copper rivetC. Steel rivetD. Aluminium sheets Copper sheets Steel sheets © 2021 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2021 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies"
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "past-2022-q1",
+    "year": 2022,
+    "questionNumber": 1,
+    "question": "What property of a material can be measured by testing its resistance to scratching?",
+    "options": [
+      "Hardness",
+      "Stiffness",
+      "Strength",
+      "Toughness"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "past-2022-q2",
+    "year": 2022,
+    "questionNumber": 2,
+    "question": "Which of the following best describes the change in battery-powered telecommunications products since the introduction of semiconductors?",
+    "options": [
+      "Larger and use less power",
+      "Smaller and use less power",
+      "Larger and use more power",
+      "Smaller and use more power"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "past-2022-q3",
+    "year": 2022,
+    "questionNumber": 3,
+    "question": "Which of the following is the AS 1100 standard for drawing a break line?",
+    "options": [
+      "B. C. D. 4 The diagram shows a box being pulled along a horizontal surface at angle q to the horizontal. W NqP Which equation is correct for N ? A. N = W – P cos q",
+      "C. D. 4 The diagram shows a box being pulled along a horizontal surface at angle q to the horizontal. W NqP Which equation is correct for N ? A. N = W – P cos q B. N = W + P cos q",
+      "D. 4 The diagram shows a box being pulled along a horizontal surface at angle q to the horizontal. W NqP Which equation is correct for N ? A. N = W – P cos q B. N = W + P cos q C. N = W – P sin q",
+      "4 The diagram shows a box being pulled along a horizontal surface at angle q to the horizontal. W NqP Which equation is correct for N ? A. N = W – P cos q B. N = W + P cos q C. N = W – P sin q D. N = W + P sin q 5 Contemporary aircraft construction includes the use of alloys and composite materials. Which of the following statements is NOT true for composite materials used in aircraft? A. They are generally corrosion resistant. B. They can be made into complex shapes.C. They have a high strength-to-weight ratio.D. They generally cost less than other materials. 6 The diagram shows a steel plate with a crack developing. Which of the following would best prevent the crack from growing? A. Welding the crack B. Riveting a plate over the crack C. Drilling a hole at the end of the crackD. Filling the crack with an industrial adhesive 7 What is the thickness of a standard nut that fits a M20 × 2 bolt? A. 10 mmB. 16 mmC. 18 mmD. 20 mm 8 It is appropriate to produce a half development of a transition piece when the piece A. is very large. B. is symmetrical.C. is very complex.D. needs to be produced quickly. 9 Which of the following is an advantage of modelling in 3D computer aided drawing (CAD)? A. It allows for rapid prototyping. B. The design process is automated.C. The models can be intricate and complicated. D. It allows for finer tolerances than instrument drawing. 10 Which of the following identifies two causes of parasitic drag? A. Aircraft lift, angle of attack B. Aircraft lift, material of aircraft skin C. The movement of air over the wing, angle of attackD. The movement of air over the wing, material of aircraft skin 11 A diode bridge is used to convert AC to DC current. What type of conversion is this known as?A. Partial rectification B. Inverse rectificationC. Full wave rectificationD. Half wave rectification 12 A geotextile is to be used in a retaining wall for a public green space project. When selecting a suitable geotextile, which set of material properties should be considered? A. Colour, opacity and filtration B. Colour, permeability and rigidity C. Tensile strength, opacity and rigidityD. Tensile strength, permeability and filtration 13 Four students (A, B, C, D) completed a table regarding the orbit of a GPS satellite. Which student is correct? A. B.C.D.THE ORBIT OF A GPS SATELLITE Matches Earth’s rotation?Is above the equator? Yes Yes Yes No No No No Yes 14 What feature of fibre optic cables has made them a suitable replacement for traditional copper-based cables? A. Lower bandwidth B. Higher attenuationC. Do not need repeaters over long distances D. Not susceptible to electromagnetic interference 15 The terms roll , yaw and pitch describe an aircraft’s movements. Each movement is controlled by a specific component of the aircraft. In which row of the table is each movement correctly matched to the component which controls it? A. B.C.D.Roll Yaw Pitch Ailerons Rudder Elevators Rudder Ailerons Elevators Ailerons Rudder Flaps Rudder Ailerons Flaps 16 The diagram shows a circuit. The diode causes a voltage drop of 0.7 volts. 12 V 22 W10 W What is the current flowing in this circuit? A. 0.35 A B. 0.38 A C. 0.40 AD. 0.51 A 17 During routine maintenance, ultrasonic testing is performed on some aircraft components such as aircraft landing gear. What is the reason for performing this test?A. It can be performed quickly. B. It reveals any surface defects.C. It reveals any hidden internal faults.D. It can be carried out using simple techniques. 18 A pictorial view of a machine component is shown. A When viewed from the direction of arrow A, which drawing correctly shows the half-sectional view? A. B. C. D. 19 A gear system for a machine is shown. Driven gear 60 teeth Driving gear15 teeth45 teeth 15 teeth What is the speed, in revolutions per minute (rpm), of the driven gear when the driving gear rotates at 1800 rpm? A. 150 rpm B. 450 rpmC. 600 rpmD. 1800 rpm 20 For a particular material, specimens of different sizes were tested. A load−extension diagram and a stress−strain diagram are to be drawn for each specimen. The shape of which diagram(s) will be affected by the size of the specimen tested?A. Both diagrams B. Neither diagramC. The stress−strain diagram onlyD. The load−extension diagram only © 2022 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2022 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies Centre Number Student Number 6936310424"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2022-q5",
+    "year": 2022,
+    "questionNumber": 5,
+    "question": "Contemporary aircraft construction includes the use of alloys and composite materials. Which of the following statements is NOT true for composite materials used in aircraft?",
+    "options": [
+      "They are generally corrosion resistant.",
+      "They can be made into complex shapes.",
+      "They have a high strength-to-weight ratio.",
+      "They generally cost less than other materials. 6 The diagram shows a steel plate with a crack developing. Which of the following would best prevent the crack from growing? A. Welding the crack B. Riveting a plate over the crack C. Drilling a hole at the end of the crackD. Filling the crack with an industrial adhesive 7 What is the thickness of a standard nut that fits a M20 × 2 bolt? A. 10 mmB. 16 mmC. 18 mmD. 20 mm 8 It is appropriate to produce a half development of a transition piece when the piece A. is very large. B. is symmetrical.C. is very complex.D. needs to be produced quickly. 9 Which of the following is an advantage of modelling in 3D computer aided drawing (CAD)? A. It allows for rapid prototyping. B. The design process is automated.C. The models can be intricate and complicated. D. It allows for finer tolerances than instrument drawing. 10 Which of the following identifies two causes of parasitic drag? A. Aircraft lift, angle of attack B. Aircraft lift, material of aircraft skin C. The movement of air over the wing, angle of attackD. The movement of air over the wing, material of aircraft skin 11 A diode bridge is used to convert AC to DC current. What type of conversion is this known as?A. Partial rectification B. Inverse rectificationC. Full wave rectificationD. Half wave rectification 12 A geotextile is to be used in a retaining wall for a public green space project. When selecting a suitable geotextile, which set of material properties should be considered? A. Colour, opacity and filtration B. Colour, permeability and rigidity C. Tensile strength, opacity and rigidityD. Tensile strength, permeability and filtration 13 Four students (A, B, C, D) completed a table regarding the orbit of a GPS satellite. Which student is correct? A. B.C.D.THE ORBIT OF A GPS SATELLITE Matches Earth’s rotation?Is above the equator? Yes Yes Yes No No No No Yes 14 What feature of fibre optic cables has made them a suitable replacement for traditional copper-based cables? A. Lower bandwidth B. Higher attenuationC. Do not need repeaters over long distances D. Not susceptible to electromagnetic interference 15 The terms roll , yaw and pitch describe an aircraft’s movements. Each movement is controlled by a specific component of the aircraft. In which row of the table is each movement correctly matched to the component which controls it? A. B.C.D.Roll Yaw Pitch Ailerons Rudder Elevators Rudder Ailerons Elevators Ailerons Rudder Flaps Rudder Ailerons Flaps 16 The diagram shows a circuit. The diode causes a voltage drop of 0.7 volts. 12 V 22 W10 W What is the current flowing in this circuit? A. 0.35 A B. 0.38 A C. 0.40 AD. 0.51 A 17 During routine maintenance, ultrasonic testing is performed on some aircraft components such as aircraft landing gear. What is the reason for performing this test?A. It can be performed quickly. B. It reveals any surface defects.C. It reveals any hidden internal faults.D. It can be carried out using simple techniques. 18 A pictorial view of a machine component is shown. A When viewed from the direction of arrow A, which drawing correctly shows the half-sectional view? A. B. C. D. 19 A gear system for a machine is shown. Driven gear 60 teeth Driving gear15 teeth45 teeth 15 teeth What is the speed, in revolutions per minute (rpm), of the driven gear when the driving gear rotates at 1800 rpm? A. 150 rpm B. 450 rpmC. 600 rpmD. 1800 rpm 20 For a particular material, specimens of different sizes were tested. A load−extension diagram and a stress−strain diagram are to be drawn for each specimen. The shape of which diagram(s) will be affected by the size of the specimen tested?A. Both diagrams B. Neither diagramC. The stress−strain diagram onlyD. The load−extension diagram only © 2022 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2022 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies Centre Number Student Number 6936310424"
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "past-2022-q7",
+    "year": 2022,
+    "questionNumber": 7,
+    "question": "What is the thickness of a standard nut that fits a M20 × 2 bolt?",
+    "options": [
+      "10 mm",
+      "16 mm",
+      "18 mm",
+      "20 mm"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "past-2022-q8",
+    "year": 2022,
+    "questionNumber": 8,
+    "question": "It is appropriate to produce a half development of a transition piece when the piece",
+    "options": [
+      "is very large.",
+      "is symmetrical.",
+      "is very complex.",
+      "needs to be produced quickly."
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "past-2022-q9",
+    "year": 2022,
+    "questionNumber": 9,
+    "question": "Which of the following is an advantage of modelling in 3D computer aided drawing (CAD)?",
+    "options": [
+      "It allows for rapid prototyping.",
+      "The design process is automated.",
+      "The models can be intricate and complicated.",
+      "? A. It allows for rapid prototyping. B. The design process is automated.C. The models can be intricate and complicated. D. It allows for finer tolerances than instrument drawing. 10 Which of the following identifies two causes of parasitic drag? A. Aircraft lift, angle of attack B. Aircraft lift, material of aircraft skin C. The movement of air over the wing, angle of attackD. The movement of air over the wing, material of aircraft skin 11 A diode bridge is used to convert AC to DC current. What type of conversion is this known as?A. Partial rectification B. Inverse rectificationC. Full wave rectificationD. Half wave rectification 12 A geotextile is to be used in a retaining wall for a public green space project. When selecting a suitable geotextile, which set of material properties should be considered? A. Colour, opacity and filtration B. Colour, permeability and rigidity C. Tensile strength, opacity and rigidityD. Tensile strength, permeability and filtration 13 Four students (A, B, C, D) completed a table regarding the orbit of a GPS satellite. Which student is correct? A. B.C.D.THE ORBIT OF A GPS SATELLITE Matches Earth’s rotation?Is above the equator? Yes Yes Yes No No No No Yes 14 What feature of fibre optic cables has made them a suitable replacement for traditional copper-based cables? A. Lower bandwidth B. Higher attenuationC. Do not need repeaters over long distances D. Not susceptible to electromagnetic interference 15 The terms roll , yaw and pitch describe an aircraft’s movements. Each movement is controlled by a specific component of the aircraft. In which row of the table is each movement correctly matched to the component which controls it? A. B.C.D.Roll Yaw Pitch Ailerons Rudder Elevators Rudder Ailerons Elevators Ailerons Rudder Flaps Rudder Ailerons Flaps 16 The diagram shows a circuit. The diode causes a voltage drop of 0.7 volts. 12 V 22 W10 W What is the current flowing in this circuit? A. 0.35 A B. 0.38 A C. 0.40 AD. 0.51 A 17 During routine maintenance, ultrasonic testing is performed on some aircraft components such as aircraft landing gear. What is the reason for performing this test?A. It can be performed quickly. B. It reveals any surface defects.C. It reveals any hidden internal faults.D. It can be carried out using simple techniques. 18 A pictorial view of a machine component is shown. A When viewed from the direction of arrow A, which drawing correctly shows the half-sectional view? A. B. C. D. 19 A gear system for a machine is shown. Driven gear 60 teeth Driving gear15 teeth45 teeth 15 teeth What is the speed, in revolutions per minute (rpm), of the driven gear when the driving gear rotates at 1800 rpm? A. 150 rpm B. 450 rpmC. 600 rpmD. 1800 rpm 20 For a particular material, specimens of different sizes were tested. A load−extension diagram and a stress−strain diagram are to be drawn for each specimen. The shape of which diagram(s) will be affected by the size of the specimen tested?A. Both diagrams B. Neither diagramC. The stress−strain diagram onlyD. The load−extension diagram only © 2022 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2022 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies Centre Number Student Number 6936310424"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "past-2022-q11",
+    "year": 2022,
+    "questionNumber": 11,
+    "question": "A diode bridge is used to convert AC to DC current. What type of conversion is this known as?",
+    "options": [
+      "Partial rectification",
+      "Inverse rectification",
+      "Full wave rectification",
+      "Half wave rectification"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2022-q12",
+    "year": 2022,
+    "questionNumber": 12,
+    "question": "A geotextile is to be used in a retaining wall for a public green space project. When selecting a suitable geotextile, which set of material properties should be considered?",
+    "options": [
+      "Colour, opacity and filtration",
+      "Colour, permeability and rigidity",
+      "Tensile strength, opacity and rigidity",
+      "Tensile strength, permeability and filtration"
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "past-2022-q13",
+    "year": 2022,
+    "questionNumber": 13,
+    "question": "Four students (A, B, C, D) completed a table regarding the orbit of a GPS satellite. Which student is correct?",
+    "options": [
+      "B.C.D.THE ORBIT OF A GPS SATELLITE Matches Earth’s rotation?Is above the equator? Yes Yes Yes No No No No Yes 14 What feature of fibre optic cables has made them a suitable replacement for traditional copper-based cables? A. Lower bandwidth",
+      "C.D.THE ORBIT OF A GPS SATELLITE Matches Earth’s rotation?Is above the equator? Yes Yes Yes No No No No Yes 14 What feature of fibre optic cables has made them a suitable replacement for traditional copper-based cables? A. Lower bandwidth B. Higher attenuation",
+      "D.THE ORBIT OF A GPS SATELLITE Matches Earth’s rotation?Is above the equator? Yes Yes Yes No No No No Yes 14 What feature of fibre optic cables has made them a suitable replacement for traditional copper-based cables? A. Lower bandwidth B. Higher attenuationC. Do not need repeaters over long distances",
+      "completed a table regarding the orbit of a GPS satellite. Which student is correct? A. B.C.D.THE ORBIT OF A GPS SATELLITE Matches Earth’s rotation?Is above the equator? Yes Yes Yes No No No No Yes 14 What feature of fibre optic cables has made them a suitable replacement for traditional copper-based cables? A. Lower bandwidth B. Higher attenuationC. Do not need repeaters over long distances D. Not susceptible to electromagnetic interference 15 The terms roll , yaw and pitch describe an aircraft’s movements. Each movement is controlled by a specific component of the aircraft. In which row of the table is each movement correctly matched to the component which controls it? A. B.C.D.Roll Yaw Pitch Ailerons Rudder Elevators Rudder Ailerons Elevators Ailerons Rudder Flaps Rudder Ailerons Flaps 16 The diagram shows a circuit. The diode causes a voltage drop of 0.7 volts. 12 V 22 W10 W What is the current flowing in this circuit? A. 0.35 A B. 0.38 A C. 0.40 AD. 0.51 A 17 During routine maintenance, ultrasonic testing is performed on some aircraft components such as aircraft landing gear. What is the reason for performing this test?A. It can be performed quickly. B. It reveals any surface defects.C. It reveals any hidden internal faults.D. It can be carried out using simple techniques. 18 A pictorial view of a machine component is shown. A When viewed from the direction of arrow A, which drawing correctly shows the half-sectional view? A. B. C. D. 19 A gear system for a machine is shown. Driven gear 60 teeth Driving gear15 teeth45 teeth 15 teeth What is the speed, in revolutions per minute (rpm), of the driven gear when the driving gear rotates at 1800 rpm? A. 150 rpm B. 450 rpmC. 600 rpmD. 1800 rpm 20 For a particular material, specimens of different sizes were tested. A load−extension diagram and a stress−strain diagram are to be drawn for each specimen. The shape of which diagram(s) will be affected by the size of the specimen tested?A. Both diagrams B. Neither diagramC. The stress−strain diagram onlyD. The load−extension diagram only © 2022 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2022 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies Centre Number Student Number 6936310424"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2022-q16",
+    "year": 2022,
+    "questionNumber": 16,
+    "question": "The diagram shows a circuit. The diode causes a voltage drop of 0.7 volts. 12 V 22 W10 W What is the current flowing in this circuit?",
+    "options": [
+      "0.35 A",
+      "0.38 A",
+      "0.40 A",
+      "0.51 A 17 During routine maintenance, ultrasonic testing is performed on some aircraft components such as aircraft landing gear. What is the reason for performing this test?A. It can be performed quickly. B. It reveals any surface defects.C. It reveals any hidden internal faults.D. It can be carried out using simple techniques. 18 A pictorial view of a machine component is shown. A When viewed from the direction of arrow A, which drawing correctly shows the half-sectional view? A. B. C. D. 19 A gear system for a machine is shown. Driven gear 60 teeth Driving gear15 teeth45 teeth 15 teeth What is the speed, in revolutions per minute (rpm), of the driven gear when the driving gear rotates at 1800 rpm? A. 150 rpm B. 450 rpmC. 600 rpmD. 1800 rpm 20 For a particular material, specimens of different sizes were tested. A load−extension diagram and a stress−strain diagram are to be drawn for each specimen. The shape of which diagram(s) will be affected by the size of the specimen tested?A. Both diagrams B. Neither diagramC. The stress−strain diagram onlyD. The load−extension diagram only © 2022 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2022 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies Centre Number Student Number 6936310424"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "past-2022-q18",
+    "year": 2022,
+    "questionNumber": 18,
+    "question": "A pictorial view of a machine component is shown. A When viewed from the direction of arrow A, which drawing correctly shows the half-sectional view?",
+    "options": [
+      "B. C. D. 19 A gear system for a machine is shown. Driven gear 60 teeth Driving gear15 teeth45 teeth 15 teeth What is the speed, in revolutions per minute (rpm), of the driven gear when the driving gear rotates at 1800 rpm? A. 150 rpm",
+      "C. D. 19 A gear system for a machine is shown. Driven gear 60 teeth Driving gear15 teeth45 teeth 15 teeth What is the speed, in revolutions per minute (rpm), of the driven gear when the driving gear rotates at 1800 rpm? A. 150 rpm B. 450 rpm",
+      "D. 19 A gear system for a machine is shown. Driven gear 60 teeth Driving gear15 teeth45 teeth 15 teeth What is the speed, in revolutions per minute (rpm), of the driven gear when the driving gear rotates at 1800 rpm? A. 150 rpm B. 450 rpmC. 600 rpm",
+      "19 A gear system for a machine is shown. Driven gear 60 teeth Driving gear15 teeth45 teeth 15 teeth What is the speed, in revolutions per minute (rpm), of the driven gear when the driving gear rotates at 1800 rpm? A. 150 rpm B. 450 rpmC. 600 rpmD. 1800 rpm 20 For a particular material, specimens of different sizes were tested. A load−extension diagram and a stress−strain diagram are to be drawn for each specimen. The shape of which diagram(s) will be affected by the size of the specimen tested?A. Both diagrams B. Neither diagramC. The stress−strain diagram onlyD. The load−extension diagram only © 2022 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2022 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies Centre Number Student Number 6936310424"
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "past-2022-q20",
+    "year": 2022,
+    "questionNumber": 20,
+    "question": "marks Attempt Questions 1–20Allow about 30 minutes for this section Use the multiple-choice answer sheet for Questions 1–20. 1 What property of a material can be measured by testing its resistance to scratching?",
+    "options": [
+      "Hardness",
+      "Stiffness",
+      "Strength",
+      "Toughness 2 Which of the following best describes the change in battery-powered telecommunications products since the introduction of semiconductors? A. Larger and use less power B. Smaller and use less power C. Larger and use more powerD. Smaller and use more power 3 Which of the following is the AS 1100 standard for drawing a break line? A. B. C. D. 4 The diagram shows a box being pulled along a horizontal surface at angle q to the horizontal. W NqP Which equation is correct for N ? A. N = W – P cos q B. N = W + P cos q C. N = W – P sin q D. N = W + P sin q 5 Contemporary aircraft construction includes the use of alloys and composite materials. Which of the following statements is NOT true for composite materials used in aircraft? A. They are generally corrosion resistant. B. They can be made into complex shapes.C. They have a high strength-to-weight ratio.D. They generally cost less than other materials. 6 The diagram shows a steel plate with a crack developing. Which of the following would best prevent the crack from growing? A. Welding the crack B. Riveting a plate over the crack C. Drilling a hole at the end of the crackD. Filling the crack with an industrial adhesive 7 What is the thickness of a standard nut that fits a M20 × 2 bolt? A. 10 mmB. 16 mmC. 18 mmD. 20 mm 8 It is appropriate to produce a half development of a transition piece when the piece A. is very large. B. is symmetrical.C. is very complex.D. needs to be produced quickly. 9 Which of the following is an advantage of modelling in 3D computer aided drawing (CAD)? A. It allows for rapid prototyping. B. The design process is automated.C. The models can be intricate and complicated. D. It allows for finer tolerances than instrument drawing. 10 Which of the following identifies two causes of parasitic drag? A. Aircraft lift, angle of attack B. Aircraft lift, material of aircraft skin C. The movement of air over the wing, angle of attackD. The movement of air over the wing, material of aircraft skin 11 A diode bridge is used to convert AC to DC current. What type of conversion is this known as?A. Partial rectification B. Inverse rectificationC. Full wave rectificationD. Half wave rectification 12 A geotextile is to be used in a retaining wall for a public green space project. When selecting a suitable geotextile, which set of material properties should be considered? A. Colour, opacity and filtration B. Colour, permeability and rigidity C. Tensile strength, opacity and rigidityD. Tensile strength, permeability and filtration 13 Four students (A, B, C, D) completed a table regarding the orbit of a GPS satellite. Which student is correct? A. B.C.D.THE ORBIT OF A GPS SATELLITE Matches Earth’s rotation?Is above the equator? Yes Yes Yes No No No No Yes 14 What feature of fibre optic cables has made them a suitable replacement for traditional copper-based cables? A. Lower bandwidth B. Higher attenuationC. Do not need repeaters over long distances D. Not susceptible to electromagnetic interference 15 The terms roll , yaw and pitch describe an aircraft’s movements. Each movement is controlled by a specific component of the aircraft. In which row of the table is each movement correctly matched to the component which controls it? A. B.C.D.Roll Yaw Pitch Ailerons Rudder Elevators Rudder Ailerons Elevators Ailerons Rudder Flaps Rudder Ailerons Flaps 16 The diagram shows a circuit. The diode causes a voltage drop of 0.7 volts. 12 V 22 W10 W What is the current flowing in this circuit? A. 0.35 A B. 0.38 A C. 0.40 AD. 0.51 A 17 During routine maintenance, ultrasonic testing is performed on some aircraft components such as aircraft landing gear. What is the reason for performing this test?A. It can be performed quickly. B. It reveals any surface defects.C. It reveals any hidden internal faults.D. It can be carried out using simple techniques. 18 A pictorial view of a machine component is shown. A When viewed from the direction of arrow A, which drawing correctly shows the half-sectional view? A. B. C. D. 19 A gear system for a machine is shown. Driven gear 60 teeth Driving gear15 teeth45 teeth 15 teeth What is the speed, in revolutions per minute (rpm), of the driven gear when the driving gear rotates at 1800 rpm? A. 150 rpm B. 450 rpmC. 600 rpmD. 1800 rpm 20 For a particular material, specimens of different sizes were tested. A load−extension diagram and a stress−strain diagram are to be drawn for each specimen. The shape of which diagram(s) will be affected by the size of the specimen tested?A. Both diagrams B. Neither diagramC. The stress−strain diagram onlyD. The load−extension diagram only © 2022 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2022 HIGHER SCHOOL CERTIFICATE EXAMINATION Engineering Studies Centre Number Student Number 6936310424"
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "past-2024-q1",
+    "year": 2024,
+    "questionNumber": 1,
+    "question": "A common house brick is shown. Which forming process was used to manufacture the brick?",
+    "options": [
+      "Forging",
+      "Extrusion",
+      "Slip casting",
+      "Shell moulding 2 A load-extension diagram for a mild steel specimen is shown. Load (kN) Extension (mm)ABC D Which letters indicate the area under the curve in which the specimen will permanently change its size and shape? A. AB B. AC C. BD D. CD 3 A simplified image of a bicycle chain drive is shown. Driver 42 teethDriven 13 teeth If a cyclist is pedalling at 70 revolutions per minute (RPM), what is the RPM of the driven wheel? A. 3.2 B. 21.7C. 226.2D. 546.0 4 Which row of the table correctly identifies characteristics of analogue and digital communications? Analogue Digital A.Continuous (varying) signalLess susceptible to signal degradationDiscrete (binary) signalMore susceptible to signal degradation B.Continuous (varying) signalMore susceptible to signal degradationDiscrete (binary) signalLess susceptible to signal degradation C.Discrete (binary) signalLess susceptible to signal degradationContinuous (varying) signalMore susceptible to signal degradation D.Discrete (binary) signalMore susceptible to signal degradationContinuous (varying) signalLess susceptible to signal degradation 5 Which waveform diagram depicts an AM radio signal? A. B. C. D. 6 A shear force diagram is shown. SF+ 0 – Which of the following beams is represented in the shear force diagram? A. A cantilevered beam with a point load B. A simply supported beam with a point load C. A cantilevered beam with a uniformly distributed loadD. A simply supported beam with a uniformly distributed load 7 Which row of the table correctly identifies the types of cables? A. Coaxial Fibre optic High voltage Twisted pair transmission B. High voltage Twisted pair Fibre optic Coaxial transmission C. Coaxial Twisted pair High voltage Fibre optic transmission D. High voltage Fibre optic Coaxial Twisted pair transmission 8 The cross-section of a tapered tube is shown. Pressure gauge A Pressure gauge B Low velocity air flowHigh velocity air flow What are the pressure readings at both gauge A and at gauge B as the air flows through the tube? Pressure at gauge A Pressure at gauge B A. High High B. High Low C. Low Low D. Low High 9 When producing glass, what molten material is the glass floated on in order to obtain a smooth surface? A. Aluminium B. BronzeC. SteelD. Tin 10 An inclined plane is 5 metres long and 2 metres high. A force of 50 N is required to push a box up along the length of the slope. 5 m 50 N"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "past-2024-q2",
+    "year": 2024,
+    "questionNumber": 2,
+    "question": "m Assuming no friction and 100% efficiency, what is the mass of the box to the nearest kilogram?",
+    "options": [
+      "5",
+      "13",
+      "20",
+      "125 11 Why are gap joints strategically placed in pedestrian footpaths? A. To improve visual appeal B. To improve wheelchair accessC. To allow for contraction and movementD. To allow for movement of debris and water 12 What is the effect of increasing the angle of attack on the lift and induced drag of an aircraft? Lift Induced drag A. Decreases Decreases B. Decreases Increases C. Increases Decreases D. Increases Increases 13 What is the primary function of GPS satellites? A. Receiving magnetic field data for accuracy of location B. Receiving signals from GPS devices to determine distance C. Transmitting signals that provide accurate timing and positioning dataD. Transmitting weather system data to ground-based stations for tracking 14 Which propulsion system requires fuel and an oxidiser such as liquid oxygen to be carried on board? A. Ramjet B. RocketC. TurbofanD. Turboprop 15 Which property is necessary in the manufacture of a sheet steel car door panel? A. Fatigue B. DuctilityC. ElasticityD. Corrosion resistance 16 An I-beam is loaded as shown. LOAD C D BA The load is then increased. Which increase in dimension would provide the most resistance to bending?A. A B. B C. C D. D 17 Why is single-mode cable used for long distance telecommunications rather than other fibre optic cables?A. It has lower power consumption. B. It has greater attenuation over distance.C It has a higher transmission rate and bandwidth.D. It has a greater change to the index of refraction. 18 A transition duct in an aircraft air conditioning system is shown. 4, 35, 1, 2 e, a, b d, cda ec 1 5 43b 2 Which is the correct shape and size for side 1, a, b , 2 of the transition piece? A. 1 ab2 B. 1 2 ab C. 12 abD. 12 a b 19 Which is the correct angle of repose for rock fill, used on a highway construction, that has a coefficient of friction of 0.84? A. 20° B. 30°C. 40°D. 50° 20 A cross-section of a beam is shown. 75 300 Which of the following is the maximum stress in the beam if the maximum bending moment is 200 kN m and I is 168.75 × 10–6 m4?xx A. 177.8 MPa B. 177.8 GPaC. 355.6 MPaD. 355.6 GPa BLANK PAGE © 2024 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2024 HIGHER SCHOOL CERTIFICATE EXAMINATION Centre Number Student Number 7178310434 2071 15120Engineering Studies"
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "past-2024-q4",
+    "year": 2024,
+    "questionNumber": 4,
+    "question": "Which row of the table correctly identifies characteristics of analogue and digital communications? Analogue Digital",
+    "options": [
+      "Continuous (varying) signalLess susceptible to signal degradationDiscrete (binary) signalMore susceptible to signal degradation",
+      "Continuous (varying) signalMore susceptible to signal degradationDiscrete (binary) signalLess susceptible to signal degradation",
+      "Discrete (binary) signalLess susceptible to signal degradationContinuous (varying) signalMore susceptible to signal degradation",
+      "Discrete (binary) signalMore susceptible to signal degradationContinuous (varying) signalLess susceptible to signal degradation 5 Which waveform diagram depicts an AM radio signal? A. B. C. D. 6 A shear force diagram is shown. SF+ 0 – Which of the following beams is represented in the shear force diagram? A. A cantilevered beam with a point load B. A simply supported beam with a point load C. A cantilevered beam with a uniformly distributed loadD. A simply supported beam with a uniformly distributed load 7 Which row of the table correctly identifies the types of cables? A. Coaxial Fibre optic High voltage Twisted pair transmission B. High voltage Twisted pair Fibre optic Coaxial transmission C. Coaxial Twisted pair High voltage Fibre optic transmission D. High voltage Fibre optic Coaxial Twisted pair transmission 8 The cross-section of a tapered tube is shown. Pressure gauge A Pressure gauge B Low velocity air flowHigh velocity air flow What are the pressure readings at both gauge A and at gauge B as the air flows through the tube? Pressure at gauge A Pressure at gauge B A. High High B. High Low C. Low Low D. Low High 9 When producing glass, what molten material is the glass floated on in order to obtain a smooth surface? A. Aluminium B. BronzeC. SteelD. Tin 10 An inclined plane is 5 metres long and 2 metres high. A force of 50 N is required to push a box up along the length of the slope."
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "past-2024-q5",
+    "year": 2024,
+    "questionNumber": 5,
+    "question": "m 50 N 2 m Assuming no friction and 100% efficiency, what is the mass of the box to the nearest kilogram?",
+    "options": [
+      "5",
+      "13",
+      "20",
+      "125 11 Why are gap joints strategically placed in pedestrian footpaths? A. To improve visual appeal B. To improve wheelchair accessC. To allow for contraction and movementD. To allow for movement of debris and water 12 What is the effect of increasing the angle of attack on the lift and induced drag of an aircraft? Lift Induced drag A. Decreases Decreases B. Decreases Increases C. Increases Decreases D. Increases Increases 13 What is the primary function of GPS satellites? A. Receiving magnetic field data for accuracy of location B. Receiving signals from GPS devices to determine distance C. Transmitting signals that provide accurate timing and positioning dataD. Transmitting weather system data to ground-based stations for tracking 14 Which propulsion system requires fuel and an oxidiser such as liquid oxygen to be carried on board? A. Ramjet B. RocketC. TurbofanD. Turboprop 15 Which property is necessary in the manufacture of a sheet steel car door panel? A. Fatigue B. DuctilityC. ElasticityD. Corrosion resistance 16 An I-beam is loaded as shown. LOAD C D BA The load is then increased. Which increase in dimension would provide the most resistance to bending?A. A B. B C. C D. D 17 Why is single-mode cable used for long distance telecommunications rather than other fibre optic cables?A. It has lower power consumption. B. It has greater attenuation over distance.C It has a higher transmission rate and bandwidth.D. It has a greater change to the index of refraction. 18 A transition duct in an aircraft air conditioning system is shown. 4, 35, 1, 2 e, a, b d, cda ec 1 5 43b 2 Which is the correct shape and size for side 1, a, b , 2 of the transition piece? A. 1 ab2 B. 1 2 ab C. 12 abD. 12 a b 19 Which is the correct angle of repose for rock fill, used on a highway construction, that has a coefficient of friction of 0.84? A. 20° B. 30°C. 40°D. 50° 20 A cross-section of a beam is shown. 75 300 Which of the following is the maximum stress in the beam if the maximum bending moment is 200 kN m and I is 168.75 × 10–6 m4?xx A. 177.8 MPa B. 177.8 GPaC. 355.6 MPaD. 355.6 GPa BLANK PAGE © 2024 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2024 HIGHER SCHOOL CERTIFICATE EXAMINATION Centre Number Student Number 7178310434 2071 15120Engineering Studies"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2024-q6",
+    "year": 2024,
+    "questionNumber": 6,
+    "question": "A shear force diagram is shown. SF+ 0 – Which of the following beams is represented in the shear force diagram?",
+    "options": [
+      "A cantilevered beam with a point load",
+      "A simply supported beam with a point load",
+      "A cantilevered beam with a uniformly distributed load",
+      "A simply supported beam with a uniformly distributed load 7 Which row of the table correctly identifies the types of cables? A. Coaxial Fibre optic High voltage Twisted pair transmission B. High voltage Twisted pair Fibre optic Coaxial transmission C. Coaxial Twisted pair High voltage Fibre optic transmission D. High voltage Fibre optic Coaxial Twisted pair transmission 8 The cross-section of a tapered tube is shown. Pressure gauge A Pressure gauge B Low velocity air flowHigh velocity air flow What are the pressure readings at both gauge A and at gauge B as the air flows through the tube? Pressure at gauge A Pressure at gauge B A. High High B. High Low C. Low Low D. Low High 9 When producing glass, what molten material is the glass floated on in order to obtain a smooth surface? A. Aluminium B. BronzeC. SteelD. Tin 10 An inclined plane is 5 metres long and 2 metres high. A force of 50 N is required to push a box up along the length of the slope. 5 m 50 N 2 m Assuming no friction and 100% efficiency, what is the mass of the box to the nearest kilogram? A. 5 B. 13C. 20D. 125 11 Why are gap joints strategically placed in pedestrian footpaths? A. To improve visual appeal B. To improve wheelchair accessC. To allow for contraction and movementD. To allow for movement of debris and water 12 What is the effect of increasing the angle of attack on the lift and induced drag of an aircraft? Lift Induced drag A. Decreases Decreases B. Decreases Increases C. Increases Decreases D. Increases Increases 13 What is the primary function of GPS satellites? A. Receiving magnetic field data for accuracy of location B. Receiving signals from GPS devices to determine distance C. Transmitting signals that provide accurate timing and positioning dataD. Transmitting weather system data to ground-based stations for tracking 14 Which propulsion system requires fuel and an oxidiser such as liquid oxygen to be carried on board? A. Ramjet B. RocketC. TurbofanD. Turboprop 15 Which property is necessary in the manufacture of a sheet steel car door panel? A. Fatigue B. DuctilityC. ElasticityD. Corrosion resistance 16 An I-beam is loaded as shown. LOAD C D BA The load is then increased. Which increase in dimension would provide the most resistance to bending?A. A B. B C. C D. D 17 Why is single-mode cable used for long distance telecommunications rather than other fibre optic cables?A. It has lower power consumption. B. It has greater attenuation over distance.C It has a higher transmission rate and bandwidth.D. It has a greater change to the index of refraction. 18 A transition duct in an aircraft air conditioning system is shown. 4, 35, 1, 2 e, a, b d, cda ec 1 5 43b 2 Which is the correct shape and size for side 1, a, b , 2 of the transition piece? A. 1 ab2 B. 1 2 ab C. 12 abD. 12 a b 19 Which is the correct angle of repose for rock fill, used on a highway construction, that has a coefficient of friction of 0.84? A. 20° B. 30°C. 40°D. 50° 20 A cross-section of a beam is shown. 75 300 Which of the following is the maximum stress in the beam if the maximum bending moment is 200 kN m and I is 168.75 × 10–6 m4?xx A. 177.8 MPa B. 177.8 GPaC. 355.6 MPaD. 355.6 GPa BLANK PAGE © 2024 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2024 HIGHER SCHOOL CERTIFICATE EXAMINATION Centre Number Student Number 7178310434 2071 15120Engineering Studies"
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "past-2024-q8",
+    "year": 2024,
+    "questionNumber": 8,
+    "question": "The cross-section of a tapered tube is shown. Pressure gauge A Pressure gauge B Low velocity air flowHigh velocity air flow What are the pressure readings at both gauge A and at gauge B as the air flows through the tube? Pressure at gauge A Pressure at gauge B",
+    "options": [
+      "High High",
+      "High Low",
+      "Low Low",
+      "Low High 9 When producing glass, what molten material is the glass floated on in order to obtain a smooth surface? A. Aluminium B. BronzeC. SteelD. Tin 10 An inclined plane is 5 metres long and 2 metres high. A force of 50 N is required to push a box up along the length of the slope. 5 m 50 N 2 m Assuming no friction and 100% efficiency, what is the mass of the box to the nearest kilogram? A. 5 B. 13C. 20D. 125 11 Why are gap joints strategically placed in pedestrian footpaths? A. To improve visual appeal B. To improve wheelchair accessC. To allow for contraction and movementD. To allow for movement of debris and water 12 What is the effect of increasing the angle of attack on the lift and induced drag of an aircraft? Lift Induced drag A. Decreases Decreases B. Decreases Increases C. Increases Decreases D. Increases Increases 13 What is the primary function of GPS satellites? A. Receiving magnetic field data for accuracy of location B. Receiving signals from GPS devices to determine distance C. Transmitting signals that provide accurate timing and positioning dataD. Transmitting weather system data to ground-based stations for tracking 14 Which propulsion system requires fuel and an oxidiser such as liquid oxygen to be carried on board? A. Ramjet B. RocketC. TurbofanD. Turboprop 15 Which property is necessary in the manufacture of a sheet steel car door panel? A. Fatigue B. DuctilityC. ElasticityD. Corrosion resistance 16 An I-beam is loaded as shown. LOAD C D BA The load is then increased. Which increase in dimension would provide the most resistance to bending?A. A B. B C. C D. D 17 Why is single-mode cable used for long distance telecommunications rather than other fibre optic cables?A. It has lower power consumption. B. It has greater attenuation over distance.C It has a higher transmission rate and bandwidth.D. It has a greater change to the index of refraction. 18 A transition duct in an aircraft air conditioning system is shown. 4, 35, 1, 2 e, a, b d, cda ec 1 5 43b 2 Which is the correct shape and size for side 1, a, b , 2 of the transition piece? A. 1 ab2 B. 1 2 ab C. 12 abD. 12 a b 19 Which is the correct angle of repose for rock fill, used on a highway construction, that has a coefficient of friction of 0.84? A. 20° B. 30°C. 40°D. 50° 20 A cross-section of a beam is shown. 75 300 Which of the following is the maximum stress in the beam if the maximum bending moment is 200 kN m and I is 168.75 × 10–6 m4?xx A. 177.8 MPa B. 177.8 GPaC. 355.6 MPaD. 355.6 GPa BLANK PAGE © 2024 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2024 HIGHER SCHOOL CERTIFICATE EXAMINATION Centre Number Student Number 7178310434 2071 15120Engineering Studies"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "past-2024-q10",
+    "year": 2024,
+    "questionNumber": 10,
+    "question": "An inclined plane is 5 metres long and 2 metres high. A force of 50 N is required to push a box up along the length of the slope. 5 m 50 N 2 m Assuming no friction and 100% efficiency, what is the mass of the box to the nearest kilogram?",
+    "options": [
+      "5",
+      "13",
+      "20",
+      "125"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "past-2024-q11",
+    "year": 2024,
+    "questionNumber": 11,
+    "question": "Why are gap joints strategically placed in pedestrian footpaths?",
+    "options": [
+      "To improve visual appeal",
+      "To improve wheelchair access",
+      "To allow for contraction and movement",
+      "To allow for movement of debris and water 12 What is the effect of increasing the angle of attack on the lift and induced drag of an aircraft? Lift Induced drag A. Decreases Decreases B. Decreases Increases C. Increases Decreases D. Increases Increases 13 What is the primary function of GPS satellites? A. Receiving magnetic field data for accuracy of location B. Receiving signals from GPS devices to determine distance C. Transmitting signals that provide accurate timing and positioning dataD. Transmitting weather system data to ground-based stations for tracking 14 Which propulsion system requires fuel and an oxidiser such as liquid oxygen to be carried on board? A. Ramjet B. RocketC. TurbofanD. Turboprop 15 Which property is necessary in the manufacture of a sheet steel car door panel? A. Fatigue B. DuctilityC. ElasticityD. Corrosion resistance 16 An I-beam is loaded as shown. LOAD C D BA The load is then increased. Which increase in dimension would provide the most resistance to bending?A. A B. B C. C D. D 17 Why is single-mode cable used for long distance telecommunications rather than other fibre optic cables?A. It has lower power consumption. B. It has greater attenuation over distance.C It has a higher transmission rate and bandwidth.D. It has a greater change to the index of refraction. 18 A transition duct in an aircraft air conditioning system is shown. 4, 35, 1, 2 e, a, b d, cda ec 1 5 43b 2 Which is the correct shape and size for side 1, a, b , 2 of the transition piece? A. 1 ab2 B. 1 2 ab C. 12 abD. 12 a b 19 Which is the correct angle of repose for rock fill, used on a highway construction, that has a coefficient of friction of 0.84? A. 20° B. 30°C. 40°D. 50° 20 A cross-section of a beam is shown. 75 300 Which of the following is the maximum stress in the beam if the maximum bending moment is 200 kN m and I is 168.75 × 10–6 m4?xx A. 177.8 MPa B. 177.8 GPaC. 355.6 MPaD. 355.6 GPa BLANK PAGE © 2024 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2024 HIGHER SCHOOL CERTIFICATE EXAMINATION Centre Number Student Number 7178310434 2071 15120Engineering Studies"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2024-q13",
+    "year": 2024,
+    "questionNumber": 13,
+    "question": "teeth If a cyclist is pedalling at 70 revolutions per minute (RPM), what is the RPM of the driven wheel?",
+    "options": [
+      "3.2",
+      "21.7",
+      "226.2",
+      "546.0 4 Which row of the table correctly identifies characteristics of analogue and digital communications? Analogue Digital A.Continuous (varying) signalLess susceptible to signal degradationDiscrete (binary) signalMore susceptible to signal degradation B.Continuous (varying) signalMore susceptible to signal degradationDiscrete (binary) signalLess susceptible to signal degradation C.Discrete (binary) signalLess susceptible to signal degradationContinuous (varying) signalMore susceptible to signal degradation D.Discrete (binary) signalMore susceptible to signal degradationContinuous (varying) signalLess susceptible to signal degradation 5 Which waveform diagram depicts an AM radio signal? A. B. C. D. 6 A shear force diagram is shown. SF+ 0 – Which of the following beams is represented in the shear force diagram? A. A cantilevered beam with a point load B. A simply supported beam with a point load C. A cantilevered beam with a uniformly distributed loadD. A simply supported beam with a uniformly distributed load 7 Which row of the table correctly identifies the types of cables? A. Coaxial Fibre optic High voltage Twisted pair transmission B. High voltage Twisted pair Fibre optic Coaxial transmission C. Coaxial Twisted pair High voltage Fibre optic transmission D. High voltage Fibre optic Coaxial Twisted pair transmission 8 The cross-section of a tapered tube is shown. Pressure gauge A Pressure gauge B Low velocity air flowHigh velocity air flow What are the pressure readings at both gauge A and at gauge B as the air flows through the tube? Pressure at gauge A Pressure at gauge B A. High High B. High Low C. Low Low D. Low High 9 When producing glass, what molten material is the glass floated on in order to obtain a smooth surface? A. Aluminium B. BronzeC. SteelD. Tin 10 An inclined plane is 5 metres long and 2 metres high. A force of 50 N is required to push a box up along the length of the slope. 5 m 50 N 2 m Assuming no friction and 100% efficiency, what is the mass of the box to the nearest kilogram? A. 5 B. 13C. 20D. 125 11 Why are gap joints strategically placed in pedestrian footpaths? A. To improve visual appeal B. To improve wheelchair accessC. To allow for contraction and movementD. To allow for movement of debris and water 12 What is the effect of increasing the angle of attack on the lift and induced drag of an aircraft? Lift Induced drag A. Decreases Decreases B. Decreases Increases C. Increases Decreases D. Increases Increases 13 What is the primary function of GPS satellites? A. Receiving magnetic field data for accuracy of location B. Receiving signals from GPS devices to determine distance C. Transmitting signals that provide accurate timing and positioning dataD. Transmitting weather system data to ground-based stations for tracking"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2024-q14",
+    "year": 2024,
+    "questionNumber": 14,
+    "question": "Which propulsion system requires fuel and an oxidiser such as liquid oxygen to be carried on board?",
+    "options": [
+      "Ramjet",
+      "Rocket",
+      "Turbofan",
+      "Turboprop"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "past-2024-q15",
+    "year": 2024,
+    "questionNumber": 15,
+    "question": "Which property is necessary in the manufacture of a sheet steel car door panel?",
+    "options": [
+      "Fatigue",
+      "Ductility",
+      "Elasticity",
+      "Corrosion resistance 16 An I-beam is loaded as shown. LOAD C D BA The load is then increased. Which increase in dimension would provide the most resistance to bending?A. A B. B C. C D. D 17 Why is single-mode cable used for long distance telecommunications rather than other fibre optic cables?A. It has lower power consumption. B. It has greater attenuation over distance.C It has a higher transmission rate and bandwidth.D. It has a greater change to the index of refraction. 18 A transition duct in an aircraft air conditioning system is shown. 4, 35, 1, 2 e, a, b d, cda ec 1 5 43b 2 Which is the correct shape and size for side 1, a, b , 2 of the transition piece? A. 1 ab2 B. 1 2 ab C. 12 abD. 12 a b 19 Which is the correct angle of repose for rock fill, used on a highway construction, that has a coefficient of friction of 0.84? A. 20° B. 30°C. 40°D. 50° 20 A cross-section of a beam is shown. 75 300 Which of the following is the maximum stress in the beam if the maximum bending moment is 200 kN m and I is 168.75 × 10–6 m4?xx A. 177.8 MPa B. 177.8 GPaC. 355.6 MPaD. 355.6 GPa BLANK PAGE © 2024 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2024 HIGHER SCHOOL CERTIFICATE EXAMINATION Centre Number Student Number 7178310434 2071 15120Engineering Studies"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "past-2024-q17",
+    "year": 2024,
+    "questionNumber": 17,
+    "question": "Why is single-mode cable used for long distance telecommunications rather than other fibre optic cables?",
+    "options": [
+      "It has lower power consumption.",
+      "It has greater attenuation over distance.C It has a higher transmission rate and bandwidth.D. It has a greater change to the index of refraction. 18 A transition duct in an aircraft air conditioning system is shown. 4, 35, 1, 2 e, a, b d, cda ec 1 5 43b 2 Which is the correct shape and size for side 1, a, b , 2 of the transition piece? A. 1 ab2 B. 1 2 ab",
+      "12 ab",
+      "It has a greater change to the index of refraction. 18 A transition duct in an aircraft air conditioning system is shown. 4, 35, 1, 2 e, a, b d, cda ec 1 5 43b 2 Which is the correct shape and size for side 1, a, b , 2 of the transition piece? A. 1 ab2 B. 1 2 ab C. 12 abD. 12 a b 19 Which is the correct angle of repose for rock fill, used on a highway construction, that has a coefficient of friction of 0.84? A. 20° B. 30°C. 40°D. 50° 20 A cross-section of a beam is shown. 75 300 Which of the following is the maximum stress in the beam if the maximum bending moment is 200 kN m and I is 168.75 × 10–6 m4?xx A. 177.8 MPa B. 177.8 GPaC. 355.6 MPaD. 355.6 GPa BLANK PAGE © 2024 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2024 HIGHER SCHOOL CERTIFICATE EXAMINATION Centre Number Student Number 7178310434 2071 15120Engineering Studies"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2024-q20",
+    "year": 2024,
+    "questionNumber": 20,
+    "question": "marks Attempt Questions 1–20Allow about 30 minutes for this section Use the multiple-choice answer sheet for Questions 1–20. 1 A common house brick is shown. Which forming process was used to manufacture the brick?",
+    "options": [
+      "Forging",
+      "Extrusion",
+      "Slip casting",
+      "Shell moulding 2 A load-extension diagram for a mild steel specimen is shown. Load (kN) Extension (mm)ABC D Which letters indicate the area under the curve in which the specimen will permanently change its size and shape? A. AB B. AC C. BD D. CD 3 A simplified image of a bicycle chain drive is shown. Driver 42 teethDriven 13 teeth If a cyclist is pedalling at 70 revolutions per minute (RPM), what is the RPM of the driven wheel? A. 3.2 B. 21.7C. 226.2D. 546.0 4 Which row of the table correctly identifies characteristics of analogue and digital communications? Analogue Digital A.Continuous (varying) signalLess susceptible to signal degradationDiscrete (binary) signalMore susceptible to signal degradation B.Continuous (varying) signalMore susceptible to signal degradationDiscrete (binary) signalLess susceptible to signal degradation C.Discrete (binary) signalLess susceptible to signal degradationContinuous (varying) signalMore susceptible to signal degradation D.Discrete (binary) signalMore susceptible to signal degradationContinuous (varying) signalLess susceptible to signal degradation 5 Which waveform diagram depicts an AM radio signal? A. B. C. D. 6 A shear force diagram is shown. SF+ 0 – Which of the following beams is represented in the shear force diagram? A. A cantilevered beam with a point load B. A simply supported beam with a point load C. A cantilevered beam with a uniformly distributed loadD. A simply supported beam with a uniformly distributed load 7 Which row of the table correctly identifies the types of cables? A. Coaxial Fibre optic High voltage Twisted pair transmission B. High voltage Twisted pair Fibre optic Coaxial transmission C. Coaxial Twisted pair High voltage Fibre optic transmission D. High voltage Fibre optic Coaxial Twisted pair transmission 8 The cross-section of a tapered tube is shown. Pressure gauge A Pressure gauge B Low velocity air flowHigh velocity air flow What are the pressure readings at both gauge A and at gauge B as the air flows through the tube? Pressure at gauge A Pressure at gauge B A. High High B. High Low C. Low Low D. Low High 9 When producing glass, what molten material is the glass floated on in order to obtain a smooth surface? A. Aluminium B. BronzeC. SteelD. Tin 10 An inclined plane is 5 metres long and 2 metres high. A force of 50 N is required to push a box up along the length of the slope. 5 m 50 N 2 m Assuming no friction and 100% efficiency, what is the mass of the box to the nearest kilogram? A. 5 B. 13C. 20D. 125 11 Why are gap joints strategically placed in pedestrian footpaths? A. To improve visual appeal B. To improve wheelchair accessC. To allow for contraction and movementD. To allow for movement of debris and water 12 What is the effect of increasing the angle of attack on the lift and induced drag of an aircraft? Lift Induced drag A. Decreases Decreases B. Decreases Increases C. Increases Decreases D. Increases Increases 13 What is the primary function of GPS satellites? A. Receiving magnetic field data for accuracy of location B. Receiving signals from GPS devices to determine distance C. Transmitting signals that provide accurate timing and positioning dataD. Transmitting weather system data to ground-based stations for tracking 14 Which propulsion system requires fuel and an oxidiser such as liquid oxygen to be carried on board? A. Ramjet B. RocketC. TurbofanD. Turboprop 15 Which property is necessary in the manufacture of a sheet steel car door panel? A. Fatigue B. DuctilityC. ElasticityD. Corrosion resistance 16 An I-beam is loaded as shown. LOAD C D BA The load is then increased. Which increase in dimension would provide the most resistance to bending?A. A B. B C. C D. D 17 Why is single-mode cable used for long distance telecommunications rather than other fibre optic cables?A. It has lower power consumption. B. It has greater attenuation over distance.C It has a higher transmission rate and bandwidth.D. It has a greater change to the index of refraction. 18 A transition duct in an aircraft air conditioning system is shown. 4, 35, 1, 2 e, a, b d, cda ec 1 5 43b 2 Which is the correct shape and size for side 1, a, b , 2 of the transition piece? A. 1 ab2 B. 1 2 ab C. 12 abD. 12 a b 19 Which is the correct angle of repose for rock fill, used on a highway construction, that has a coefficient of friction of 0.84? A. 20° B. 30°C. 40°D. 50° 20 A cross-section of a beam is shown. 75 300 Which of the following is the maximum stress in the beam if the maximum bending moment is 200 kN m and I is 168.75 × 10–6 m4?xx A. 177.8 MPa B. 177.8 GPaC. 355.6 MPaD. 355.6 GPa BLANK PAGE © 2024 NSW Education Standards Authority Office Use Only – Do NOT write anything, or make any marks below this line.Do NOT write in this area.2024 HIGHER SCHOOL CERTIFICATE EXAMINATION Centre Number Student Number 7178310434 2071 15120Engineering Studies"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "past-2025-q1",
+    "year": 2025,
+    "questionNumber": 1,
+    "question": "A diagram of an aircraft engine is shown. Inlet flow Adapted from turbofan engine diagram © Vectorstock What type of engine is this?",
+    "options": [
+      "Piston",
+      "Ramjet",
+      "Turbofan",
+      "Turboprop"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2025-q3",
+    "year": 2025,
+    "questionNumber": 3,
+    "question": "The truth table represents the basic operation of a logic gate. Input A Input B Output 1 1 1 1 0 1 0 1 1 0 0 0 What is the logic gate?",
+    "options": [
+      "AND",
+      "NAND",
+      "NOR",
+      "OR"
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "past-2025-q4",
+    "year": 2025,
+    "questionNumber": 4,
+    "question": "The screens of black and white cathode ray tube televisions were coated with a material that produced light when struck by electrons. What was the material?",
+    "options": [
+      "Plasma",
+      "Phosphor",
+      "Lead oxide",
+      "Magnesium oxide  ============================================================ PAGE 4 ============================================================"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "past-2025-q5",
+    "year": 2025,
+    "questionNumber": 5,
+    "question": "A mass-produced automotive side-view mirror casing is shown. Which manufacturing process is most commonly used to produce this polymer component?",
+    "options": [
+      "Extrusion",
+      "Blow moulding",
+      "Injection moulding",
+      "Compression moulding"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2025-q6",
+    "year": 2025,
+    "questionNumber": 6,
+    "question": "The diagram shows a 100 kg crate which is being pulled horizontally 10 metres along level ground. The tension in the tow rope is 600 N and the rope is inclined at 60 degrees to the ground on a frictionless surface. 600 N 60° 100 kg What is the work done in joules?",
+    "options": [
+      "100 × 10",
+      "600 × 10",
+      "600 sin 60° × 10",
+      "600 cos 60° × 10  ============================================================ PAGE 5 ============================================================"
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "past-2025-q8",
+    "year": 2025,
+    "questionNumber": 8,
+    "question": "Which of the following is a key benefit of engineers adhering to AS 1100 when producing engineering drawings?",
+    "options": [
+      "It ensures consistency in drawings across different teams and industries.",
+      "It reduces the cost of materials in design and manufacture of engineering parts.",
+      "It simplifies the manufacturing process by eliminating the need for detailed drawings.",
+      "It allows for the use of advanced 3D printing technologies in all stages of production.  ============================================================ PAGE 6 ============================================================"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "past-2025-q9",
+    "year": 2025,
+    "questionNumber": 9,
+    "question": "The diagram shows an aircraft in ascent. a flight path d b c horizon © International Journal of Advance Research Ideas and Innovations in Technology Which letter indicates the angle of attack of the aircraft?",
+    "options": [
+      "a",
+      "b",
+      "c",
+      "d"
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "past-2025-q10",
+    "year": 2025,
+    "questionNumber": 10,
+    "question": "Which mechanical property of a thermosetting polymer increases when the number of cross-links between the polymer chains is increased?",
+    "options": [
+      "Ductility",
+      "Flexibility",
+      "Stiffness",
+      "Toughness  ============================================================ PAGE 7 ============================================================"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2025-q11",
+    "year": 2025,
+    "questionNumber": 11,
+    "question": "Which of the following is true of cathodic protection?",
+    "options": [
+      "It uses high temperatures to preserve metals.",
+      "It uses a polymer coating to prevent corrosion.",
+      "It uses heat treatment to improve the tensile strength.",
+      "It uses an electric current to prevent corrosion of metals."
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "past-2025-q12",
+    "year": 2025,
+    "questionNumber": 12,
+    "question": "An image of a screw jack is shown. The tommy bar is used to operate the screw jack. © Cable Drum Jacks The screw jack has a pitch of 8 mm, and the force on the tommy bar is applied 400 mm from the axis of the screw. What is the velocity ratio (VR) of the screw jack?",
+    "options": [
+      "50",
+      "157",
+      "314",
+      "628  ============================================================ PAGE 8 ============================================================"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2025-q13",
+    "year": 2025,
+    "questionNumber": 13,
+    "question": "Which row of the table correctly identifies the materials represented by the microstructures shown in the top row of the table? a Pearlite Pearlite Fe C Pearlite 3 Graphite a Pearlite flakes",
+    "options": [
+      "White cast iron High carbon steel Grey cast iron Mild steel",
+      "High carbon steel Mild steel Grey cast iron White cast iron",
+      "Mild steel High carbon steel White cast iron Grey cast iron",
+      "Mild steel Grey cast iron High carbon steel White cast iron"
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "past-2025-q14",
+    "year": 2025,
+    "questionNumber": 14,
+    "question": "An image of a shaft and its end view are shown. A A Which drawing correctly represents section A–A?",
+    "options": [
+      "",
+      "",
+      "",
+      "============================================================ PAGE 9 ============================================================"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2025-q16",
+    "year": 2025,
+    "questionNumber": 16,
+    "question": "A simply supported beam with a vertical point load is shown. A Which row of the table correctly describes the shear force and the bending moment diagrams at point A? Shear force Bending moment",
+    "options": [
+      "Minimum Maximum",
+      "Maximum Maximum",
+      "Maximum Minimum",
+      "Minimum Minimum"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "past-2025-q17",
+    "year": 2025,
+    "questionNumber": 17,
+    "question": "An aircraft is flying at a cruising altitude where the external atmospheric pressure is 20 kPa. Inside the aircraft’s fuel tank, a column of aviation fuel has a density of 800 kg/m3 with a height of 1.5 m. What is the pressure at the bottom of the fuel column?",
+    "options": [
+      "10 940 Pa",
+      "20 813 Pa",
+      "32 000 Pa",
+      "300 800 Pa"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2025-q18",
+    "year": 2025,
+    "questionNumber": 18,
+    "question": "A 9 V battery is used to power a simple series circuit. The circuit has one 2.1 V LED with a maximum allowable current of 50 m",
+    "options": [
+      "Which resistor would be the most suitable option to ensure the LED operates at maximum brightness (without failure)? A. 38 W",
+      "42 W",
+      "138 W",
+      "180 W  ============================================================ PAGE 11 ============================================================"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "past-2025-q19",
+    "year": 2025,
+    "questionNumber": 19,
+    "question": "The orthographic views of a part are shown. What is the total number of true lengths that are visible in ALL three views?",
+    "options": [
+      "9",
+      "10",
+      "12",
+      "15"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "past-2025-q20",
+    "year": 2025,
+    "questionNumber": 20,
+    "question": "marks Attempt Questions 1–20 Allow about 30 minutes for this section Use the multiple-choice answer sheet for Questions 1–20. 1 A diagram of an aircraft engine is shown. Inlet flow Adapted from turbofan engine diagram © Vectorstock What type of engine is this?",
+    "options": [
+      "Piston",
+      "Ramjet",
+      "Turbofan",
+      "Turboprop 2 An image of a steel engine part is shown. Courtesy of Race Winning Brands, JE Pistons Based on the grain structure, what forming method was used to manufacture the engine part? A Cast B Forged C Machined D Rolled  ============================================================ PAGE 3 ============================================================ 3 The truth table represents the basic operation of a logic gate. Input A Input B Output 1 1 1 1 0 1 0 1 1 0 0 0 What is the logic gate? A. AND B. NAND C. NOR D. OR 4 The screens of black and white cathode ray tube televisions were coated with a material that produced light when struck by electrons. What was the material? A. Plasma B. Phosphor C. Lead oxide D. Magnesium oxide  ============================================================ PAGE 4 ============================================================ 5 A mass-produced automotive side-view mirror casing is shown. Which manufacturing process is most commonly used to produce this polymer component? A. Extrusion B. Blow moulding C. Injection moulding D. Compression moulding 6 The diagram shows a 100 kg crate which is being pulled horizontally 10 metres along level ground. The tension in the tow rope is 600 N and the rope is inclined at 60 degrees to the ground on a frictionless surface. 600 N 60° 100 kg What is the work done in joules? A. 100 × 10 B. 600 × 10 C. 600 sin 60° × 10 D. 600 cos 60° × 10  ============================================================ PAGE 5 ============================================================ 7 Which of the pictorial drawings is an example of isometric drawing? A. B. C. D. 8 Which of the following is a key benefit of engineers adhering to AS 1100 when producing engineering drawings? A. It ensures consistency in drawings across different teams and industries. B. It reduces the cost of materials in design and manufacture of engineering parts. C. It simplifies the manufacturing process by eliminating the need for detailed drawings. D. It allows for the use of advanced 3D printing technologies in all stages of production.  ============================================================ PAGE 6 ============================================================ 9 The diagram shows an aircraft in ascent. a flight path d b c horizon © International Journal of Advance Research Ideas and Innovations in Technology Which letter indicates the angle of attack of the aircraft? A. a B. b C. c D. d 10 Which mechanical property of a thermosetting polymer increases when the number of cross-links between the polymer chains is increased? A. Ductility B. Flexibility C. Stiffness D. Toughness  ============================================================ PAGE 7 ============================================================ 11 Which of the following is true of cathodic protection? A. It uses high temperatures to preserve metals. B. It uses a polymer coating to prevent corrosion. C. It uses heat treatment to improve the tensile strength. D. It uses an electric current to prevent corrosion of metals. 12 An image of a screw jack is shown. The tommy bar is used to operate the screw jack. © Cable Drum Jacks The screw jack has a pitch of 8 mm, and the force on the tommy bar is applied 400 mm from the axis of the screw. What is the velocity ratio (VR) of the screw jack? A. 50 B. 157 C. 314 D. 628  ============================================================ PAGE 8 ============================================================ 13 Which row of the table correctly identifies the materials represented by the microstructures shown in the top row of the table? a Pearlite Pearlite Fe C Pearlite 3 Graphite a Pearlite flakes A. White cast iron High carbon steel Grey cast iron Mild steel B. High carbon steel Mild steel Grey cast iron White cast iron C. Mild steel High carbon steel White cast iron Grey cast iron D. Mild steel Grey cast iron High carbon steel White cast iron 14 An image of a shaft and its end view are shown. A A Which drawing correctly represents section A–A? A. B. C. D.  ============================================================ PAGE 9 ============================================================ 15 A data signal and a carrier wave are combined to form the modulated signal shown. Data signal Carrier wave Modulated signal © Wikipedia.org What type of modulation is depicted? A Amplitude modulation B Frequency modulation C Phase shift key modulation D Frequency shift key modulation  ============================================================ PAGE 10 ============================================================ 16 A simply supported beam with a vertical point load is shown. A Which row of the table correctly describes the shear force and the bending moment diagrams at point A? Shear force Bending moment A. Minimum Maximum B. Maximum Maximum C. Maximum Minimum D. Minimum Minimum 17 An aircraft is flying at a cruising altitude where the external atmospheric pressure is 20 kPa. Inside the aircraft’s fuel tank, a column of aviation fuel has a density of 800 kg/m3 with a height of 1.5 m. What is the pressure at the bottom of the fuel column? A. 10 940 Pa B. 20 813 Pa C. 32 000 Pa D. 300 800 Pa 18 A 9 V battery is used to power a simple series circuit. The circuit has one 2.1 V LED with a maximum allowable current of 50 mA. Which resistor would be the most suitable option to ensure the LED operates at maximum brightness (without failure)? A. 38 W B. 42 W C. 138 W D. 180 W  ============================================================ PAGE 11 ============================================================ 19 The orthographic views of a part are shown. What is the total number of true lengths that are visible in ALL three views? A. 9 B. 10 C. 12 D. 15 20 A cable with an initial length of 15 m and a cross-sectional area of 300 × 10–6 m2 is subjected to a tensile force of 75 000 N, causing an elongation of 0.01 m and a decrease in cross-sectional area to 280 × 10–6 m2. Assuming the deformation occurs within the elastic region, what is the Young’s Modulus of the cable? A. 402 GPa B. 375 GPa C. 268 MPa D. 250 MPa  ============================================================ PAGE 12 ============================================================ BLANK PAGE  © © 22002255 NNSSWW EEdduuccaattiioonn SSttaannddaarrddss AAuutthhoorriittyy ============================================================ PAGE 13 ============================================================ .aera siht ni etirw TON oD 2025 HIGHER SCHOOL CERTIFICATE EXAMINATION Centre Number Engineering Studies Student Number"
+    ],
+    "correctAnswer": 1
+  }
+]
