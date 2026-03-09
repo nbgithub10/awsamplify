@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const SectionSelector = ({ onSectionSelect }) => {
   const [view, setView] = useState('main'); // 'main', 'studocu', or 'aiGenerated'
-  const [showAllQuestions, setShowAllQuestions] = useState(false);
+  const [showAllQuestions, setShowAllQuestions] = useState(true);
 
   // Studocu topics organized by category
   const studocuCategories = [
