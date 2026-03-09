@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const SectionSelector = ({ onSectionSelect }) => {
-  const [view, setView] = useState('main'); // 'main' or 'studocu'
+  const [view, setView] = useState('main'); // 'main', 'studocu', or 'aiGenerated'
   const [showAllQuestions, setShowAllQuestions] = useState(false);
 
   // Studocu topics organized by category
@@ -9,51 +9,51 @@ const SectionSelector = ({ onSectionSelect }) => {
     {
       category: 'MATERIALS',
       topics: [
-        { id: 'metals', title: 'Metals' },
-        { id: 'polymersElastomers', title: 'Polymers & Elastomers' },
-        { id: 'ceramics', title: 'Ceramics' },
-        { id: 'composites', title: 'Composites' },
+        { id: 'metals', title: 'Metals', count: 22 },
+        { id: 'polymersElastomers', title: 'Polymers & Elastomers', count: 15 },
+        { id: 'ceramics', title: 'Ceramics', count: 13 },
+        { id: 'composites', title: 'Composites', count: 21 },
       ]
     },
     {
       category: 'CIVIL ENGINEERING',
       topics: [
-        { id: 'civilTesting', title: 'Civil Testing Methods' },
-        { id: 'crackTheory', title: 'Crack Theory' },
-        { id: 'corrosion', title: 'Corrosion' },
-        { id: 'recyclability', title: 'Recyclability' },
+        { id: 'civilTesting', title: 'Civil Testing Methods', count: 27 },
+        { id: 'crackTheory', title: 'Crack Theory', count: 22 },
+        { id: 'corrosion', title: 'Corrosion', count: 25 },
+        { id: 'recyclability', title: 'Recyclability', count: 16 },
       ]
     },
     {
       category: 'TESTING METHODS',
       topics: [
-        { id: 'hardnessImpactTesting', title: 'Hardness & Impact Testing' },
-        { id: 'visualRadiographicTesting', title: 'Visual & Radiographic Testing' },
-        { id: 'ultrasonicTesting', title: 'Ultrasonic Testing' },
+        { id: 'hardnessImpactTesting', title: 'Hardness & Impact Testing', count: 22 },
+        { id: 'visualRadiographicTesting', title: 'Visual & Radiographic Testing', count: 18 },
+        { id: 'ultrasonicTesting', title: 'Ultrasonic Testing', count: 11 },
       ]
     },
     {
       category: 'ADVANCED MATERIALS',
       topics: [
-        { id: 'advancedCeramics', title: 'Advanced Ceramics' },
-        { id: 'advancedComposites', title: 'Advanced Composites' },
-        { id: 'glassSemiconductors', title: 'Glass & Semiconductors' },
+        { id: 'advancedCeramics', title: 'Advanced Ceramics', count: 18 },
+        { id: 'advancedComposites', title: 'Advanced Composites', count: 29 },
+        { id: 'glassSemiconductors', title: 'Glass & Semiconductors', count: 23 },
       ]
     },
     {
       category: 'MANUFACTURING',
       topics: [
-        { id: 'heatTreatment', title: 'Heat Treatment' },
-        { id: 'ferrousManufacturing', title: 'Ferrous Manufacturing' },
-        { id: 'nonFerrousManufacturing', title: 'Non-Ferrous Manufacturing' },
-        { id: 'polymerManufacturing', title: 'Polymer Manufacturing' },
+        { id: 'heatTreatment', title: 'Heat Treatment', count: 33 },
+        { id: 'ferrousManufacturing', title: 'Ferrous Manufacturing', count: 44 },
+        { id: 'nonFerrousManufacturing', title: 'Non-Ferrous Manufacturing', count: 29 },
+        { id: 'polymerManufacturing', title: 'Polymer Manufacturing', count: 26 },
       ]
     },
     {
       category: 'ENGINEERING APPLICATIONS',
       topics: [
-        { id: 'aeronauticalEngineering', title: 'Aeronautical Engineering' },
-        { id: 'telecommunications', title: 'Telecommunications' },
+        { id: 'aeronauticalEngineering', title: 'Aeronautical Engineering', count: 30 },
+        { id: 'telecommunications', title: 'Telecommunications', count: 38 },
       ]
     },
   ];
@@ -61,6 +61,45 @@ const SectionSelector = ({ onSectionSelect }) => {
   const handleStudocuTopicSelect = (topicId) => {
     onSectionSelect(`studocu-${topicId}`, showAllQuestions);
   };
+
+  // AI Generated Content sections
+  const aiGeneratedSections = [
+    { id: 'civil', title: 'Civil Structures', count: 25 },
+    { id: 'transport', title: 'Personal & Public Transport', count: 25 },
+    { id: 'all', title: 'All Questions', count: 72 },
+  ];
+
+  if (view === 'aiGenerated') {
+    return (
+      <div style={styles.container}>
+        <button
+          style={styles.backButton}
+          onClick={() => setView('main')}
+          onMouseEnter={(e) => e.target.style.backgroundColor = '#e0e0e0'}
+          onMouseLeave={(e) => e.target.style.backgroundColor = '#f5f5f5'}
+        >
+          ← Back to Main Menu
+        </button>
+        <h1 style={styles.title}>AI Generated Content</h1>
+        <p style={styles.instructions}>
+          Choose a section to practice
+        </p>
+        <div style={styles.categoryButtonContainer}>
+          {aiGeneratedSections.map((section) => (
+            <button
+              key={section.id}
+              style={{...styles.topicButton, backgroundColor: '#007bff'}}
+              onClick={() => onSectionSelect(section.id, showAllQuestions)}
+              onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
+              onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
+            >
+              {section.title} ({section.count})
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   if (view === 'studocu') {
     return (
@@ -90,7 +129,7 @@ const SectionSelector = ({ onSectionSelect }) => {
                     onMouseEnter={(e) => e.target.style.backgroundColor = '#ea580c'}
                     onMouseLeave={(e) => e.target.style.backgroundColor = '#f97316'}
                   >
-                    {topic.title}
+                    {topic.title} ({topic.count})
                   </button>
                 ))}
               </div>
@@ -125,19 +164,11 @@ const SectionSelector = ({ onSectionSelect }) => {
       <div style={styles.buttonContainer}>
         <button
           style={styles.button}
-          onClick={() => onSectionSelect('civil', showAllQuestions)}
+          onClick={() => setView('aiGenerated')}
           onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
           onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
         >
-          Civil Structures
-        </button>
-        <button
-          style={styles.button}
-          onClick={() => onSectionSelect('transport', showAllQuestions)}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
-        >
-          Personal & Public Transport
+          AI Generated Content
         </button>
         <button
           style={{...styles.button, backgroundColor: '#28a745'}}
@@ -145,15 +176,15 @@ const SectionSelector = ({ onSectionSelect }) => {
           onMouseEnter={(e) => e.target.style.backgroundColor = '#218838'}
           onMouseLeave={(e) => e.target.style.backgroundColor = '#28a745'}
         >
-          Past Papers (2020-2025)
+          Past Papers (2020-2025) (22)
         </button>
         <button
-          style={styles.button}
-          onClick={() => onSectionSelect('all', showAllQuestions)}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
+          style={{...styles.button, backgroundColor: '#6366f1'}}
+          onClick={() => onSectionSelect('enggPaper2020', showAllQuestions)}
+          onMouseEnter={(e) => e.target.style.backgroundColor = '#4f46e5'}
+          onMouseLeave={(e) => e.target.style.backgroundColor = '#6366f1'}
         >
-          All Questions
+          Engg Paper 2020 (9)
         </button>
         <button
           style={{...styles.button, backgroundColor: '#f97316'}}
@@ -181,7 +212,7 @@ const styles = {
   title: {
     fontSize: '2.5rem',
     marginBottom: '1.5rem',
-    color: '#333',
+    color: '#ffffff',
   },
   infoContainer: {
     marginBottom: '2rem',

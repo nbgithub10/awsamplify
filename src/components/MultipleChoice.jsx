@@ -32,6 +32,31 @@ const MultipleChoice = ({ question, selectedAnswer, onSelectAnswer, showFeedback
       
       <h2 className="question-text">{question.question}</h2>
       
+      {/* Render image if present */}
+      {question.image && (
+        <div style={{ 
+          marginTop: '20px',
+          marginBottom: '20px',
+          textAlign: 'center'
+        }}>
+          <img 
+            src={question.image} 
+            alt="Question reference diagram"
+            style={{ 
+              maxWidth: '100%', 
+              height: 'auto',
+              borderRadius: '8px',
+              border: '2px solid #e0e0e0',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+            }}
+            onError={(e) => {
+              e.target.style.display = 'none';
+              console.error('Failed to load image:', question.image);
+            }}
+          />
+        </div>
+      )}
+      
       <div className="options-container">
         {question.options.map((option, index) => (
           <button
