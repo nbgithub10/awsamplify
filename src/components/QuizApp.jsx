@@ -6,6 +6,7 @@ import QuizNav from './QuizNav';
 import ProgressBar from './ProgressBar';
 import Results from './Results';
 import { quizData } from '../data/quizData';
+import { studocuQuizData } from '../data/studocu/index';
 
 const QuizApp = () => {
   const [mode, setMode] = useState('section-select');
@@ -17,6 +18,19 @@ const QuizApp = () => {
   // Build complete questions array based on selected section
   const questions = useMemo(() => {
     if (!section) return [];
+    
+    // Check if it's a Studocu section
+    if (section.startsWith('studocu-')) {
+      const studocuSection = section.replace('studocu-', '');
+      const sectionData = studocuQuizData.sections[studocuSection];
+      if (sectionData) {
+        return [
+          ...sectionData.multipleChoice,
+          ...sectionData.shortAnswer,
+        ];
+      }
+      return [];
+    }
     
     if (section === 'all') {
       // Combine all sections: civil MC, transport MC, past papers MC, civil SA, transport SA
@@ -39,6 +53,13 @@ const QuizApp = () => {
   // Determine total MC questions for the selected section
   const totalMCQuestions = useMemo(() => {
     if (!section) return 0;
+    
+    // Check if it's a Studocu section
+    if (section.startsWith('studocu-')) {
+      const studocuSection = section.replace('studocu-', '');
+      const sectionData = studocuQuizData.sections[studocuSection];
+      return sectionData ? sectionData.multipleChoice.length : 0;
+    }
     
     if (section === 'all') {
       return quizData.sections.civil.multipleChoice.length + 
