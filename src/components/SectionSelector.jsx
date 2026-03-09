@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 const SectionSelector = ({ onSectionSelect }) => {
   const [view, setView] = useState('main'); // 'main' or 'studocu'
+  const [showAllQuestions, setShowAllQuestions] = useState(false);
 
   // Studocu topics organized by category
   const studocuCategories = [
@@ -58,7 +59,7 @@ const SectionSelector = ({ onSectionSelect }) => {
   ];
 
   const handleStudocuTopicSelect = (topicId) => {
-    onSectionSelect(`studocu-${topicId}`);
+    onSectionSelect(`studocu-${topicId}`, showAllQuestions);
   };
 
   if (view === 'studocu') {
@@ -103,13 +104,28 @@ const SectionSelector = ({ onSectionSelect }) => {
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>HSC Engineering Quiz</h1>
-      <p style={styles.instructions}>
-        Select a section to begin your practice quiz
-      </p>
+      
+      {/* Combined instructions and toggle section */}
+      <div style={styles.infoContainer}>
+        <div style={styles.infoItem}>
+          <span style={styles.infoText}>Select a section to begin your practice quiz</span>
+        </div>
+        <div style={styles.divider}></div>
+        <label style={styles.toggleLabel}>
+          <input
+            type="checkbox"
+            checked={showAllQuestions}
+            onChange={(e) => setShowAllQuestions(e.target.checked)}
+            style={styles.checkbox}
+          />
+          <span style={styles.toggleText}>Show all questions on single page</span>
+        </label>
+      </div>
+
       <div style={styles.buttonContainer}>
         <button
           style={styles.button}
-          onClick={() => onSectionSelect('civil')}
+          onClick={() => onSectionSelect('civil', showAllQuestions)}
           onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
           onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
         >
@@ -117,7 +133,7 @@ const SectionSelector = ({ onSectionSelect }) => {
         </button>
         <button
           style={styles.button}
-          onClick={() => onSectionSelect('transport')}
+          onClick={() => onSectionSelect('transport', showAllQuestions)}
           onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
           onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
         >
@@ -125,7 +141,7 @@ const SectionSelector = ({ onSectionSelect }) => {
         </button>
         <button
           style={{...styles.button, backgroundColor: '#28a745'}}
-          onClick={() => onSectionSelect('pastPapers')}
+          onClick={() => onSectionSelect('pastPapers', showAllQuestions)}
           onMouseEnter={(e) => e.target.style.backgroundColor = '#218838'}
           onMouseLeave={(e) => e.target.style.backgroundColor = '#28a745'}
         >
@@ -133,7 +149,7 @@ const SectionSelector = ({ onSectionSelect }) => {
         </button>
         <button
           style={styles.button}
-          onClick={() => onSectionSelect('all')}
+          onClick={() => onSectionSelect('all', showAllQuestions)}
           onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
           onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
         >
@@ -164,13 +180,47 @@ const styles = {
   },
   title: {
     fontSize: '2.5rem',
-    marginBottom: '1rem',
+    marginBottom: '1.5rem',
     color: '#333',
   },
-  instructions: {
-    fontSize: '1.2rem',
+  infoContainer: {
     marginBottom: '2rem',
-    color: '#666',
+    padding: '1rem 1.5rem',
+    backgroundColor: '#f8f9fa',
+    borderRadius: '8px',
+    border: '2px solid #e0e0e0',
+    width: '100%',
+    maxWidth: '400px',
+  },
+  infoItem: {
+    marginBottom: '0.75rem',
+  },
+  infoText: {
+    fontSize: '1rem',
+    color: '#333',
+    fontWeight: '500',
+  },
+  divider: {
+    height: '1px',
+    backgroundColor: '#d0d0d0',
+    marginBottom: '0.75rem',
+  },
+  toggleLabel: {
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+    fontSize: '1rem',
+  },
+  checkbox: {
+    width: '18px',
+    height: '18px',
+    marginRight: '10px',
+    cursor: 'pointer',
+  },
+  toggleText: {
+    color: '#333',
+    fontWeight: '500',
+    userSelect: 'none',
   },
   buttonContainer: {
     display: 'flex',

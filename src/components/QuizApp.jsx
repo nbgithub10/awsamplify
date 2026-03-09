@@ -14,6 +14,7 @@ const QuizApp = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState(new Map());
   const [revealedShortAnswers, setRevealedShortAnswers] = useState(new Set());
+  const [showAllQuestions, setShowAllQuestions] = useState(false);
 
   // Build complete questions array based on selected section
   const questions = useMemo(() => {
@@ -74,8 +75,9 @@ const QuizApp = () => {
   const isMultipleChoice = currentQuestionIndex < totalMCQuestions;
   const currentQuestion = questions[currentQuestionIndex];
 
-  const handleSectionSelect = (selectedSection) => {
+  const handleSectionSelect = (selectedSection, showAll = false) => {
     setSection(selectedSection);
+    setShowAllQuestions(showAll);
     setMode('quiz');
     setCurrentQuestionIndex(0);
     setUserAnswers(new Map());
@@ -124,36 +126,89 @@ const QuizApp = () => {
 
       {mode === 'quiz' && (
         <div className="quiz-container">
-          <ProgressBar
-            currentIndex={currentQuestionIndex}
-            totalQuestions={questions.length}
-          />
+          {!showAllQuestions && (
+            <ProgressBar
+              currentIndex={currentQuestionIndex}
+              totalQuestions={questions.length}
+            />
+          )}
           
-          <div className="question-container">
-            {/* Render only ONE question component at a time based on question type */}
-            {isMultipleChoice ? (
-              <MultipleChoice
-                question={currentQuestion}
-                selectedAnswer={userAnswers.get(currentQuestion.id)}
-                onSelectAnswer={(answer) => handleAnswerChange(currentQuestion.id, answer)}
-                showFeedback={userAnswers.has(currentQuestion.id)}
-              />
-            ) : (
-              <ShortAnswer
-                question={currentQuestion}
-                isRevealed={revealedShortAnswers.has(currentQuestion.id)}
-                onToggleReveal={() => handleToggleReveal(currentQuestion.id)}
-              />
-            )}
-          </div>
+          {showAllQuestions ? (
+            // Show ALL questions on single page
+            <div className="all-questions-container">
+              <div style={styles.allQuestionsHeader}>
+                <h2 style={styles.headerTitle}>All Questions</h2>
+                <p style={styles.headerSubtitle}>
+                  Scroll through all {questions.length} questions. Answer at your own pace.
+                </p>
+              </div>
+              
+              {questions.map((question, index) => {
+                const isMC = index < totalMCQuestions;
+                return (
+                  <div key={question.id} style={styles.questionWrapper}>
+                    <div style={styles.questionNumber}>
+                      Question {index + 1} of {questions.length}
+                    </div>
+                    {isMC ? (
+                      <MultipleChoice
+                        question={question}
+                        selectedAnswer={userAnswers.get(question.id)}
+                        onSelectAnswer={(answer) => handleAnswerChange(question.id, answer)}
+                        showFeedback={userAnswers.has(question.id)}
+                      />
+                    ) : (
+                      <ShortAnswer
+                        question={question}
+                        isRevealed={revealedShortAnswers.has(question.id)}
+                        onToggleReveal={() => handleToggleReveal(question.id)}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+              
+              <div style={styles.finishButtonContainer}>
+                <button
+                  style={styles.finishButton}
+                  onClick={handleSubmit}
+                  onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
+                  onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
+                >
+                  Finish Quiz
+                </button>
+              </div>
+            </div>
+          ) : (
+            // Show SINGLE question with navigation (original behavior)
+            <>
+              <div className="question-container">
+                {/* Render only ONE question component at a time based on question type */}
+                {isMultipleChoice ? (
+                  <MultipleChoice
+                    question={currentQuestion}
+                    selectedAnswer={userAnswers.get(currentQuestion.id)}
+                    onSelectAnswer={(answer) => handleAnswerChange(currentQuestion.id, answer)}
+                    showFeedback={userAnswers.has(currentQuestion.id)}
+                  />
+                ) : (
+                  <ShortAnswer
+                    question={currentQuestion}
+                    isRevealed={revealedShortAnswers.has(currentQuestion.id)}
+                    onToggleReveal={() => handleToggleReveal(currentQuestion.id)}
+                  />
+                )}
+              </div>
 
-          <QuizNav
-            currentIndex={currentQuestionIndex}
-            totalQuestions={questions.length}
-            onPrev={handlePrevious}
-            onNext={handleNext}
-            onFinish={handleSubmit}
-          />
+              <QuizNav
+                currentIndex={currentQuestionIndex}
+                totalQuestions={questions.length}
+                onPrev={handlePrevious}
+                onNext={handleNext}
+                onFinish={handleSubmit}
+              />
+            </>
+          )}
         </div>
       )}
 
@@ -168,6 +223,61 @@ const QuizApp = () => {
       )}
     </div>
   );
+};
+
+const styles = {
+  allQuestionsHeader: {
+    textAlign: 'center',
+    marginBottom: '2rem',
+    padding: '1.5rem',
+    backgroundColor: '#f8f9fa',
+    borderRadius: '8px',
+    border: '2px solid #e0e0e0',
+  },
+  headerTitle: {
+    fontSize: '2rem',
+    color: '#333',
+    marginBottom: '0.5rem',
+  },
+  headerSubtitle: {
+    fontSize: '1.1rem',
+    color: '#666',
+    margin: 0,
+  },
+  questionWrapper: {
+    marginBottom: '2.5rem',
+    padding: '1.5rem',
+    backgroundColor: '#ffffff',
+    borderRadius: '10px',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+    border: '1px solid #e0e0e0',
+  },
+  questionNumber: {
+    fontSize: '0.9rem',
+    fontWeight: 'bold',
+    color: '#007bff',
+    marginBottom: '1rem',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+  },
+  finishButtonContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '3rem',
+    marginBottom: '2rem',
+  },
+  finishButton: {
+    padding: '1rem 3rem',
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+    backgroundColor: '#007bff',
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    transition: 'background-color 0.2s',
+    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+  },
 };
 
 export default QuizApp;
