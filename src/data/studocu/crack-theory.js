@@ -10,7 +10,7 @@ export const crackTheoryData = {
         "Fatigue failure",
         "Creep failure"
       ],
-      correct: 1,
+      correctAnswer: 1,
       explanation: "Crack formation and growth is a method of brittle failure, where materials break suddenly without significant deformation."
     },
     {
@@ -22,7 +22,7 @@ export const crackTheoryData = {
         "It increases throughout the entire material",
         "It is converted to kinetic energy"
       ],
-      correct: 1,
+      correctAnswer: 1,
       explanation: "When a crack forms, strain energy is retained but released from the area adjacent to the crack, allowing the crack to propagate."
     },
     {
@@ -34,7 +34,7 @@ export const crackTheoryData = {
         "More brittle materials have shorter critical crack lengths",
         "Only ductile materials have critical crack lengths"
       ],
-      correct: 2,
+      correctAnswer: 2,
       explanation: "More brittle materials have shorter critical crack lengths, meaning they fail with smaller cracks compared to less brittle materials."
     },
     {
@@ -46,7 +46,7 @@ export const crackTheoryData = {
         "Failure is inevitable",
         "The crack heals naturally"
       ],
-      correct: 2,
+      correctAnswer: 2,
       explanation: "When critical crack length is exceeded and stress levels are maintained, failure becomes inevitable as the crack will continue to propagate uncontrollably."
     },
     {
@@ -58,7 +58,7 @@ export const crackTheoryData = {
         "Welding",
         "Replacement only"
       ],
-      correct: 2,
+      correctAnswer: 2,
       explanation: "Welding is the primary repair method for metals, though it changes the microstructure and may create a weaker material that might need heat treatment."
     },
     {
@@ -70,7 +70,7 @@ export const crackTheoryData = {
         "It cannot bond metal surfaces",
         "It only works on aluminum"
       ],
-      correct: 1,
+      correctAnswer: 1,
       explanation: "Welding repairs the crack but changes the microstructure, resulting in weaker material. Heat treatment might be needed to address this issue."
     },
     {
@@ -82,7 +82,7 @@ export const crackTheoryData = {
         "Adhesives",
         "Soldering"
       ],
-      correct: 2,
+      correctAnswer: 2,
       explanation: "Adhesives are used for repairing polymer materials. The specific approach depends on whether the polymer is thermoset or thermoplastic."
     },
     {
@@ -94,7 +94,7 @@ export const crackTheoryData = {
         "Replacement of material",
         "Use polymer welding"
       ],
-      correct: 2,
+      correctAnswer: 2,
       explanation: "If failure occurs in a thermoset polymer and no adhesive is available, replacement of the material is the recommended approach."
     },
     {
@@ -106,7 +106,7 @@ export const crackTheoryData = {
         "Metal welding",
         "Cement application"
       ],
-      correct: 1,
+      correctAnswer: 1,
       explanation: "Polymer welding can be used for thermoplastic materials and provides strength close to the parent material."
     },
     {
@@ -118,7 +118,7 @@ export const crackTheoryData = {
         "Glue or cement",
         "Heat treatment"
       ],
-      correct: 2,
+      correctAnswer: 2,
       explanation: "Glue or cement is used for ceramic materials, though repairs in stone and concrete are particularly difficult."
     },
     {
@@ -130,7 +130,7 @@ export const crackTheoryData = {
         "They require specialized welding equipment",
         "They melt at low temperatures"
       ],
-      correct: 1,
+      correctAnswer: 1,
       explanation: "Repairs in stone and concrete are difficult to perform effectively, making replacement often the better option."
     },
     {
@@ -142,7 +142,7 @@ export const crackTheoryData = {
         "Replacement",
         "Cement application"
       ],
-      correct: 2,
+      correctAnswer: 2,
       explanation: "Replacement is the only efficient way to repair composite materials due to their complex structure."
     },
     {
@@ -154,7 +154,7 @@ export const crackTheoryData = {
         "They are difficult to manufacture",
         "They increase material weight"
       ],
-      correct: 1,
+      correctAnswer: 1,
       explanation: "Sharp corners should be avoided in design because they concentrate stress, making them sites for crack initiation and growth."
     },
     {
@@ -166,7 +166,7 @@ export const crackTheoryData = {
         "To block crack growth and prevent it from reaching critical length",
         "To increase thermal conductivity"
       ],
-      correct: 2,
+      correctAnswer: 2,
       explanation: "An interface is a weaker area that runs perpendicular to crack growth. When a crack travels through the material, it gets blocked and never reaches critical crack length."
     },
     {
@@ -178,7 +178,7 @@ export const crackTheoryData = {
         "Perpendicular to crack growth",
         "Randomly oriented"
       ],
-      correct: 2,
+      correctAnswer: 2,
       explanation: "The interface should run perpendicular to the growth of the crack so that it effectively blocks the crack from propagating to critical length."
     },
     {
@@ -190,7 +190,7 @@ export const crackTheoryData = {
         "It is weaker than the surrounding material",
         "It is made of a different phase of matter"
       ],
-      correct: 2,
+      correctAnswer: 2,
       explanation: "The interface is an area within a material that is weaker than the surrounding area, designed to absorb and block crack propagation."
     },
     {
@@ -202,7 +202,7 @@ export const crackTheoryData = {
         "Ceramic cementing",
         "Composite replacement"
       ],
-      correct: 1,
+      correctAnswer: 1,
       explanation: "Metal welding might need heat treatment to address the microstructure changes and weakness introduced by the welding process."
     },
     {
@@ -214,7 +214,7 @@ export const crackTheoryData = {
         "Stress concentration promotes crack initiation at corners",
         "Stress concentration only affects ductile materials"
       ],
-      correct: 2,
+      correctAnswer: 2,
       explanation: "Sharp corners concentrate stress, which promotes crack initiation. This is why designing without sharp corners is an important crack elimination strategy."
     }
   ],
