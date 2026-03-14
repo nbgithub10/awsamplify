@@ -8,6 +8,7 @@ import Results from './Results';
 import { quizData } from '../data/quizData';
 import { studocuQuizData } from '../data/studocu/index';
 import { enggPaper2020 } from '../data/engg_papers/2020';
+import { pastPapersRegistry } from '../data/past_papers/index';
 
 const QuizApp = () => {
   const [mode, setMode] = useState('section-select');
@@ -27,6 +28,23 @@ const QuizApp = () => {
         ...enggPaper2020.multipleChoice,
         ...enggPaper2020.shortAnswer,
       ];
+    }
+    
+    // Check if it's a Past Papers section
+    if (section.startsWith('pastPaper-')) {
+      // Pattern: pastPaper-[subject]-[paper] where paper starts with a digit (e.g., 2022-hsc)
+      const match = section.match(/^pastPaper-(.+)-(\d+.*)$/);
+      if (match) {
+        const [, subjectSlug, paperSlug] = match;
+        const paper = pastPapersRegistry[subjectSlug]?.papers[paperSlug];
+        if (paper && paper.data) {
+          return [
+            ...paper.data.multipleChoice,
+            ...paper.data.shortAnswer,
+          ];
+        }
+      }
+      return [];
     }
     
     // Check if it's a Studocu section
@@ -67,6 +85,17 @@ const QuizApp = () => {
     // Handle Engineering Paper 2020
     if (section === 'enggPaper2020') {
       return enggPaper2020.multipleChoice.length;
+    }
+    
+    // Check if it's a Past Papers section
+    if (section.startsWith('pastPaper-')) {
+      const match = section.match(/^pastPaper-(.+)-(\d+.*)$/);
+      if (match) {
+        const [, subjectSlug, paperSlug] = match;
+        const paper = pastPapersRegistry[subjectSlug]?.papers[paperSlug];
+        return paper && paper.data ? paper.data.multipleChoice.length : 0;
+      }
+      return 0;
     }
     
     // Check if it's a Studocu section

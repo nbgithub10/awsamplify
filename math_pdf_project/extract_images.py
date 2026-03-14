@@ -30,13 +30,20 @@ def capture_pages_as_images(pdf_path, output_folder):
     print(f"Done rendering {len(doc)} pages.")
     doc.close()
 
+import sys
+
 # --- RUN SCRIPT ---
-pdf_files = [f for f in os.listdir('.') if f.lower().endswith('.pdf')]
 output_dir = "rendered_math_pages"
 
+# Use arguments passed from the shell script instead of searching the directory
+pdf_files = sys.argv[1:]
+
 if not pdf_files:
-    print("No PDFs found!")
+    print("No PDFs provided via arguments!")
 else:
     for pdf in pdf_files:
-        capture_pages_as_images(pdf, output_dir)
+        if os.path.exists(pdf):
+            capture_pages_as_images(pdf, output_dir)
+        else:
+            print(f"Warning: PDF file not found: {pdf}")
     print(f"\nSuccess! Full page images are in '{output_dir}'.")

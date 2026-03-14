@@ -48,8 +48,26 @@ const ShortAnswer = ({ question, isRevealed, onToggleReveal }) => {
     color: '#555'
   };
 
+  const imageStyle = {
+    maxWidth: '100%',
+    marginTop: '15px',
+    borderRadius: '4px',
+    border: '1px solid #ddd'
+  };
+
   return (
     <div style={containerStyle}>
+      {question.image && (
+        <img 
+          src={question.image} 
+          alt="Question" 
+          style={imageStyle}
+          onError={(e) => {
+            e.target.style.display = 'none';
+            console.error('Failed to load question image:', question.image);
+          }}
+        />
+      )}
       <div style={questionTextStyle}>{question.question}</div>
       
       <button 
@@ -62,7 +80,22 @@ const ShortAnswer = ({ question, isRevealed, onToggleReveal }) => {
       {isRevealed && (
         <div style={modelAnswerStyle}>
           <h4 style={headingStyle}>Model Answer:</h4>
-          <p style={paragraphStyle}>{question.modelAnswer}</p>
+          {question.answer && (
+            <p style={paragraphStyle}>{question.answer}</p>
+          )}
+          {question.answerImage && (
+            <div style={{ marginTop: '15px' }}>
+              <img 
+                src={question.answerImage} 
+                alt="Answer" 
+                style={{ maxWidth: '100%', borderRadius: '4px' }}
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  console.error('Failed to load answer image:', question.answerImage);
+                }}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>

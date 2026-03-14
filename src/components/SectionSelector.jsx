@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { pastPapersRegistry } from '../data/past_papers/index';
 
 const SectionSelector = ({ onSectionSelect }) => {
-  const [view, setView] = useState('main'); // 'main', 'studocu', or 'aiGenerated'
+  const [view, setView] = useState('main'); // 'main', 'studocu', 'aiGenerated', 'pastPapers'
   const [showAllQuestions, setShowAllQuestions] = useState(true);
 
   // Studocu topics organized by category
@@ -62,12 +63,27 @@ const SectionSelector = ({ onSectionSelect }) => {
     onSectionSelect(`studocu-${topicId}`, showAllQuestions);
   };
 
+  const handlePastPaperSelect = (subjectSlug, paperSlug) => {
+    onSectionSelect(`pastPaper-${subjectSlug}-${paperSlug}`, showAllQuestions);
+  };
+
   // AI Generated Content sections
   const aiGeneratedSections = [
     { id: 'civil', title: 'Civil Structures', count: 25 },
     { id: 'transport', title: 'Personal & Public Transport', count: 25 },
     { id: 'all', title: 'All Questions', count: 72 },
   ];
+
+  // Build past papers subjects from registry
+  const pastPapersSubjects = Object.entries(pastPapersRegistry).map(([slug, data]) => ({
+    slug,
+    title: data.title,
+    papers: Object.entries(data.papers || {}).map(([paperSlug, paperData]) => ({
+      slug: paperSlug,
+      title: paperData.title,
+      count: (paperData.data?.multipleChoice?.length || 0) + (paperData.data?.shortAnswer?.length || 0)
+    }))
+  })).filter(subject => subject.papers.length > 0);
 
   if (view === 'aiGenerated') {
     return (
@@ -140,6 +156,55 @@ const SectionSelector = ({ onSectionSelect }) => {
     );
   }
 
+  if (view === 'pastPapers') {
+    const hasPapers = pastPapersSubjects.length > 0;
+    
+    return (
+      <div style={styles.container}>
+        <button
+          style={styles.backButton}
+          onClick={() => setView('main')}
+          onMouseEnter={(e) => e.target.style.backgroundColor = '#e0e0e0'}
+          onMouseLeave={(e) => e.target.style.backgroundColor = '#f5f5f5'}
+        >
+          ← Back to Main Menu
+        </button>
+        <h1 style={styles.title}>Past Papers</h1>
+        <p style={styles.instructions}>
+          Choose a past paper to practice
+        </p>
+        
+        {!hasPapers ? (
+          <div style={styles.noPapersContainer}>
+            <p style={styles.noPapersText}>No past papers available.</p>
+            <p style={styles.noPapersSubtext}>Run the PDF processing script to generate past papers.</p>
+          </div>
+        ) : (
+          <div style={styles.scrollContainer}>
+            {pastPapersSubjects.map((subject) => (
+              <div key={subject.slug} style={styles.categoryGroup}>
+                <h3 style={{...styles.categoryTitle, borderBottomColor: '#28a745'}}>{subject.title}</h3>
+                <div style={styles.categoryButtonContainer}>
+                  {subject.papers.map((paper) => (
+                    <button
+                      key={paper.slug}
+                      style={{...styles.topicButton, backgroundColor: '#28a745'}}
+                      onClick={() => handlePastPaperSelect(subject.slug, paper.slug)}
+                      onMouseEnter={(e) => e.target.style.backgroundColor = '#218838'}
+                      onMouseLeave={(e) => e.target.style.backgroundColor = '#28a745'}
+                    >
+                      {paper.title} ({paper.count})
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div style={styles.container}>
       <h1 style={styles.title}>HSC Engineering Quiz</h1>
@@ -172,11 +237,11 @@ const SectionSelector = ({ onSectionSelect }) => {
         </button>
         <button
           style={{...styles.button, backgroundColor: '#28a745'}}
-          onClick={() => onSectionSelect('pastPapers', showAllQuestions)}
+          onClick={() => setView('pastPapers')}
           onMouseEnter={(e) => e.target.style.backgroundColor = '#218838'}
           onMouseLeave={(e) => e.target.style.backgroundColor = '#28a745'}
         >
-          Past Papers (2020-2025) (22)
+          Past Papers
         </button>
         <button
           style={{...styles.button, backgroundColor: '#6366f1'}}
@@ -319,6 +384,23 @@ const styles = {
     cursor: 'pointer',
     transition: 'background-color 0.2s',
     textAlign: 'center',
+  },
+  noPapersContainer: {
+    padding: '2rem',
+    textAlign: 'center',
+    backgroundColor: '#f8f9fa',
+    borderRadius: '8px',
+    border: '2px solid #e0e0e0',
+    marginTop: '1rem',
+  },
+  noPapersText: {
+    fontSize: '1.1rem',
+    color: '#666',
+    marginBottom: '0.5rem',
+  },
+  noPapersSubtext: {
+    fontSize: '0.9rem',
+    color: '#999',
   },
 };
 
