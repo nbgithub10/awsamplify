@@ -1,4 +1,11 @@
-import { paperData as _paperData } from './engineering-studies/2022-hsc.js';
+import { paperData as _paperData0 } from './engineering-studies/2020-hsc-engineering-studies.js';
+import { paperData as _paperData1 } from './engineering-studies/2022-hsc-engineering-studies.js';
+import { paperData as _paperData2 } from './earth-and-environmental-science/2019-hsc-earth-and-environmental-science.js';
+import { paperData as _paperData3 } from './earth-and-environmental-science/2020-hsc-earth-and-environmental-science.js';
+import { paperData as _paperData4 } from './earth-and-environmental-science/2021-hsc-earth-and-environmental-science.js';
+import { paperData as _paperData5 } from './earth-and-environmental-science/2022-hsc-earth-and-environmental-science.js';
+import { paperData as _paperData6 } from './earth-and-environmental-science/2023-hsc-earth-and-environmental-science.js';
+import { paperData as _paperData7 } from './earth-and-environmental-science/2024-hsc-earth-and-environmental-science.js';
 
 const modules = import.meta.glob('./*/*.js', { eager: true });
 

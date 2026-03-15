@@ -97,24 +97,34 @@ export const paperData = {
       \"question\": \"[question text]\",
       \"options\": [\"option A\", \"option B\", \"option C\", \"option D\"],
       \"correctAnswer\": [0-3],
-      \"image\": \"../rendered_math_pages/[basename]/[question_page_image]\",
-      \"answerImage\": \"../rendered_math_pages/[basename]/[answer_page_image]\",
+      \"image\": \"[question_page_image]\",
+      \"answerImage\": \"[answer_page_image]\",
       \"pageNo\": \"[page number]\"
     }
   ],
   \"shortAnswer\": [
     {
-      \"id\": \"[slug]-q[number][part]\",
+      \"id\": \"[slug]-q[number]\",
       \"question\": \"[question text]\",
       \"answer\": \"[answer text]\",
-      \"image\": \"../rendered_math_pages/[basename]/[question_page_image]\",
-      \"answerImage\": \"../rendered_math_pages/[basename]/[answer_page_image]\",
+      \"image\": \"[question_page_image]\",
+      \"answerImage\": \"[answer_page_image]\",
       \"pageNo\": \"[page number]\"
     }
   ]
 }
 
- For multiple choice questions (typically Q1-Q20), extract the 4 options and determine the correct answer index (0=A, 1=B, 2=C, 3=D). For short answer questions (Q21+), extract the full question and answer text. Use the images to ensure mathematical diagrams are referenced accurately. Save the output as a .js file in ./json-output/ named ${basename}.js."
+IMPORTANT - Question Numbering Format:
+- The question ID should EXACTLY match how the question appears in the PDF image
+- Use this format WITH parentheses exactly as shown:
+  - Q22(a) in image → use \"q22(a)\"
+  - Q21(a-i) in image → use \"q21(a-i)\" 
+  - Q21(a-ii) in image → use \"q21(a-ii)\" (use ii for second sub-part)
+  - Q26(a), Q26(b), etc. → use \"q26(a)\", \"q26(b)\"
+- The ID MUST match exactly - including parentheses and hyphens where they appear in the PDF
+- For image paths, just use the filename like \"[basename]_Page_22.png\" (no folder paths)
+
+For multiple choice questions (typically Q1-Q20), extract the 4 options and determine the correct answer index (0=A, 1=B, 2=C, 3=D). For short answer questions (Q21+), extract the full question and answer text. Use the images to ensure mathematical diagrams are referenced accurately. Save the output as a .js file in ./json-output/ named ${basename}.js."
     
     echo "[OPENCODE] Invoking model with prompt..."
     opencode run --model google/gemini-3-flash-preview --print-logs --log-level INFO "$prompt"
@@ -166,23 +176,6 @@ export const paperData = {
     echo "[OPENCODE] Model: google/gemini-2.0-flash"
     echo "[OPENCODE] Timestamp: $(date)"
     echo "=========================================="
-    
-    integration_prompt="I have generated a new quiz data file at ./math_pdf_project/json-output/${basename}.js. You must integrate this into the React application following these exact steps:
-    1. Read the JS file. Infer the 'Subject' and 'Paper Name' from the filename '${basename}'. (e.g. '2020-hsc-engineering-studies' -> Subject: 'Engineering Studies', Paper: '2020 HSC').
-    2. Copy the JS file to 'src/data/past_papers/[subject-slug]/[paper-slug].js'. Update or create 'src/data/past_papers/index.js' to export a registry of all available past papers, organized by Subject -> Paper.
-    3. Modify 'src/components/SectionSelector.jsx'. Create a new view state 'pastPapers' (similar to the 'studocu' view). When the user clicks the 'Past Papers' button on the main menu, it should switch to this view. In this view, render the Subjects as headers and the Papers as buttons beneath them using the registry. The button should trigger onSectionSelect('pastPaper-[subject-slug]-[paper-slug]').
-    4. Modify 'src/components/QuizApp.jsx' to intercept sections starting with 'pastPaper-'. Parse the subject and paper slug from the section string, retrieve the corresponding data from the registry, and return the combined multipleChoice/shortAnswer arrays and the total MC length.
-    Ensure all existing application functionality remains intact."
-
-    echo "[OPENCODE] Invoking integration prompt..."
-#    opencode run --model google/gemini-2.0-flash "$integration_prompt"
-#    integration_exit_code=$?
-#
-#    echo "=========================================="
-#    echo "[OPENCODE] React app integration completed"
-#    echo "[OPENCODE] Exit code: $integration_exit_code"
-#    echo "[OPENCODE] Timestamp: $(date)"
-#    echo "=========================================="
 
     # Delete PDFs and rendered images from processing
 #    rm -f "./processing/${basename}.pdf"

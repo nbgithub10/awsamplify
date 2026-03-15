@@ -80,7 +80,7 @@ const SectionSelector = ({ onSectionSelect }) => {
     title: data.title,
     papers: Object.entries(data.papers || {}).map(([paperSlug, paperData]) => ({
       slug: paperSlug,
-      title: paperData.title,
+      title: paperSlug.split('-')[0],
       count: (paperData.data?.multipleChoice?.length || 0) + (paperData.data?.shortAnswer?.length || 0)
     }))
   })).filter(subject => subject.papers.length > 0);
@@ -183,7 +183,7 @@ const SectionSelector = ({ onSectionSelect }) => {
           <div style={styles.scrollContainer}>
             {pastPapersSubjects.map((subject) => (
               <div key={subject.slug} style={styles.categoryGroup}>
-                <h3 style={{...styles.categoryTitle, borderBottomColor: '#28a745'}}>{subject.title}</h3>
+                <h3 style={{...styles.categoryTitle, borderBottomColor: '#28a745', color: 'white'}}>{subject.title}</h3>
                 <div style={styles.categoryButtonContainer}>
                   {subject.papers.map((paper) => (
                     <button

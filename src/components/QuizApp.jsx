@@ -161,6 +161,14 @@ const QuizApp = () => {
     setRevealedShortAnswers(new Set());
   };
 
+  const handleMainMenu = () => {
+    setMode('section-select');
+    setSection(null);
+    setCurrentQuestionIndex(0);
+    setUserAnswers(new Map());
+    setRevealedShortAnswers(new Set());
+  };
+
   return (
     <div className="quiz-app">
       {mode === 'section-select' && (
@@ -169,6 +177,16 @@ const QuizApp = () => {
 
       {mode === 'quiz' && (
         <div className="quiz-container">
+          <div style={styles.mainMenuButtonContainer}>
+            <button
+              style={styles.mainMenuButton}
+              onClick={handleMainMenu}
+              onMouseEnter={(e) => e.target.style.backgroundColor = '#e0e0e0'}
+              onMouseLeave={(e) => e.target.style.backgroundColor = '#f5f5f5'}
+            >
+              ← Back to Main Menu
+            </button>
+          </div>
           {!showAllQuestions && (
             <ProgressBar
               currentIndex={currentQuestionIndex}
@@ -269,6 +287,20 @@ const QuizApp = () => {
 };
 
 const styles = {
+  mainMenuButtonContainer: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    marginBottom: '1rem',
+  },
+  mainMenuButton: {
+    padding: '0.5rem 1rem',
+    fontSize: '1rem',
+    backgroundColor: '#f5f5f5',
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    transition: 'background-color 0.2s',
+  },
   allQuestionsHeader: {
     textAlign: 'center',
     marginBottom: '2rem',

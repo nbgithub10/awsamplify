@@ -20,10 +20,10 @@ function parseFilename(filename) {
     let paperSlug = year;
     
     // If there's more after the year (like "hsc-engineering-studies"), extract subject
-    // paper slug should be "2022-hsc" if contains "hsc", otherwise just "2022"
+    // paper slug should include subject to match folder name (e.g., "2022-hsc-engineering-studies")
     const paperYearMatch = filename.match(/^(\d{4})-hsc-(.+)$/);
     if (paperYearMatch) {
-      paperSlug = `${paperYearMatch[1]}-hsc`;
+      paperSlug = `${paperYearMatch[1]}-hsc-${paperYearMatch[2]}`;  // Include subject in paperSlug
       subjectSlug = paperYearMatch[2];
     }
     
@@ -92,10 +92,18 @@ function processPaper(paperFolder) {
   const imageCount = copyImages(sourcePaperDir, paperSlug);
   console.log(`  Copied ${imageCount} images to public/past-papers-images/${paperSlug}/`);
   
-  // Replace all possible image path formats (only if not already replaced)
-  if (!jsContent.includes(`/past-papers-images/${paperSlug}/`)) {
-    jsContent = jsContent.replace(/\.\//g, `/past-papers-images/${paperSlug}/`);
-    jsContent = jsContent.replace(/\.\.\/rendered_math_pages\/[^\/]+\//g, `/past-papers-images/${paperSlug}/`);
+  // Replace all possible image path formats
+  // Handle: ./xxx.png, ../rendered_math_pages/xxx/, or bare filename.png
+  const paperSlugForPath = paperSlug;  // Use paperSlug which now includes subject
+  if (!jsContent.includes(`/past-papers-images/${paperSlugForPath}/`)) {
+    // Replace ./ with proper path
+    jsContent = jsContent.replace(/\.\//g, `/past-papers-images/${paperSlugForPath}/`);
+    // Replace ../rendered_math_pages/xxx/ with proper path
+    jsContent = jsContent.replace(/\.\.\/rendered_math_pages\/[^\/]+\//g, `/past-papers-images/${paperSlugForPath}/`);
+    // Replace bare filenames (just name.png) with proper path
+    // Match "image": "filename.png" where filename is just letters/numbers/dashes/underscores
+    jsContent = jsContent.replace(/"(image|answerImage)": "([a-zA-Z0-9_-]+\.png)"/g, 
+      `"$1": "/past-papers-images/${paperSlugForPath}/$2"`);
   }
   
   const subjectDir = path.join(DATA_DIR, subjectSlug);
@@ -132,7 +140,14 @@ function generateIndex(papers) {
     };
   }
   
-  const indexContent = `import { paperData as _paperData } from './engineering-studies/2022-hsc.js';
+  const indexContent = `import { paperData as _paperData0 } from './engineering-studies/2020-hsc-engineering-studies.js';
+import { paperData as _paperData1 } from './engineering-studies/2022-hsc-engineering-studies.js';
+import { paperData as _paperData2 } from './earth-and-environmental-science/2019-hsc-earth-and-environmental-science.js';
+import { paperData as _paperData3 } from './earth-and-environmental-science/2020-hsc-earth-and-environmental-science.js';
+import { paperData as _paperData4 } from './earth-and-environmental-science/2021-hsc-earth-and-environmental-science.js';
+import { paperData as _paperData5 } from './earth-and-environmental-science/2022-hsc-earth-and-environmental-science.js';
+import { paperData as _paperData6 } from './earth-and-environmental-science/2023-hsc-earth-and-environmental-science.js';
+import { paperData as _paperData7 } from './earth-and-environmental-science/2024-hsc-earth-and-environmental-science.js';
 
 const modules = import.meta.glob('./*/*.js', { eager: true });
 

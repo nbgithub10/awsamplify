@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const ShortAnswer = ({ question, isRevealed, onToggleReveal }) => {
+  const [showDiagram, setShowDiagram] = useState(false);
+
   const containerStyle = {
     padding: '20px',
     backgroundColor: '#f9f9f9',
@@ -23,6 +25,18 @@ const ShortAnswer = ({ question, isRevealed, onToggleReveal }) => {
     borderRadius: '4px',
     cursor: 'pointer',
     fontSize: '14px',
+    fontWeight: '500',
+    marginRight: '10px'
+  };
+
+  const diagramButtonStyle = {
+    padding: '8px 16px',
+    backgroundColor: '#6c757d',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    fontSize: '13px',
     fontWeight: '500'
   };
 
@@ -57,18 +71,29 @@ const ShortAnswer = ({ question, isRevealed, onToggleReveal }) => {
 
   return (
     <div style={containerStyle}>
-      {question.image && (
-        <img 
-          src={question.image} 
-          alt="Question" 
-          style={imageStyle}
-          onError={(e) => {
-            e.target.style.display = 'none';
-            console.error('Failed to load question image:', question.image);
-          }}
-        />
-      )}
       <div style={questionTextStyle}>{question.question}</div>
+      
+      {question.image && (
+        <div style={{ marginBottom: '15px' }}>
+          <button 
+            style={diagramButtonStyle}
+            onClick={() => setShowDiagram(!showDiagram)}
+          >
+            {showDiagram ? 'Hide Diagram' : 'Show Diagram'}
+          </button>
+          {showDiagram && (
+            <img 
+              src={question.image} 
+              alt="Question Diagram" 
+              style={imageStyle}
+              onError={(e) => {
+                e.target.style.display = 'none';
+                console.error('Failed to load question image:', question.image);
+              }}
+            />
+          )}
+        </div>
+      )}
       
       <button 
         style={buttonStyle}
@@ -80,15 +105,15 @@ const ShortAnswer = ({ question, isRevealed, onToggleReveal }) => {
       {isRevealed && (
         <div style={modelAnswerStyle}>
           <h4 style={headingStyle}>Model Answer:</h4>
-          {question.answer && (
-            <p style={paragraphStyle}>{question.answer}</p>
+          {(question.answer || question.modelAnswer || question.explanation) && (
+            <p style={paragraphStyle}>{question.answer || question.modelAnswer || question.explanation}</p>
           )}
           {question.answerImage && (
             <div style={{ marginTop: '15px' }}>
               <img 
                 src={question.answerImage} 
                 alt="Answer" 
-                style={{ maxWidth: '100%', borderRadius: '4px' }}
+                style={imageStyle}
                 onError={(e) => {
                   e.target.style.display = 'none';
                   console.error('Failed to load answer image:', question.answerImage);

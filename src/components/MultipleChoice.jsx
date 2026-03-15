@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const MultipleChoice = ({ question, selectedAnswer, onSelectAnswer, showFeedback }) => {
+  const [showDiagram, setShowDiagram] = useState(false);
   const optionLetters = ['A', 'B', 'C', 'D'];
 
   const getButtonClass = (index) => {
@@ -32,28 +33,47 @@ const MultipleChoice = ({ question, selectedAnswer, onSelectAnswer, showFeedback
       
       <h2 className="question-text">{question.question}</h2>
       
-      {/* Render image if present */}
+      {/* Show Diagram button if image is present */}
       {question.image && (
-        <div style={{ 
-          marginTop: '20px',
-          marginBottom: '20px',
-          textAlign: 'center'
-        }}>
-          <img 
-            src={question.image} 
-            alt="Question reference diagram"
-            style={{ 
-              maxWidth: '100%', 
-              height: 'auto',
-              borderRadius: '8px',
-              border: '2px solid #e0e0e0',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+        <div style={{ marginBottom: '15px' }}>
+          <button 
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#6c757d',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontSize: '13px',
+              fontWeight: '500'
             }}
-            onError={(e) => {
-              e.target.style.display = 'none';
-              console.error('Failed to load image:', question.image);
-            }}
-          />
+            onClick={() => setShowDiagram(!showDiagram)}
+          >
+            {showDiagram ? 'Hide Diagram' : 'Show Diagram'}
+          </button>
+          {showDiagram && (
+            <div style={{ 
+              marginTop: '20px',
+              marginBottom: '20px',
+              textAlign: 'center'
+            }}>
+              <img 
+                src={question.image} 
+                alt="Question reference diagram"
+                style={{ 
+                  maxWidth: '100%', 
+                  height: 'auto',
+                  borderRadius: '8px',
+                  border: '2px solid #e0e0e0',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                }}
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  console.error('Failed to load image:', question.image);
+                }}
+              />
+            </div>
+          )}
         </div>
       )}
       
