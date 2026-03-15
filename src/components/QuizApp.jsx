@@ -18,6 +18,43 @@ const QuizApp = () => {
   const [revealedShortAnswers, setRevealedShortAnswers] = useState(new Set());
   const [showAllQuestions, setShowAllQuestions] = useState(false);
 
+  // Get section title based on section ID
+  const sectionTitle = useMemo(() => {
+    if (!section) return '';
+    
+    // Handle Engineering Paper 2020
+    if (section === 'enggPaper2020') {
+      return 'Engineering Studies 2020 HSC';
+    }
+    
+    // Past Papers
+    if (section.startsWith('pastPaper-')) {
+      const match = section.match(/^pastPaper-(.+)-(\d+.*)$/);
+      if (match) {
+        const [, subjectSlug, paperSlug] = match;
+        const subject = pastPapersRegistry[subjectSlug];
+        if (subject) {
+          // Format: "Earth And Environmental Science 2024 HSC"
+          return `${subject.title} ${paperSlug.replace(/-/g, ' ').toUpperCase()}`;
+        }
+      }
+    }
+    
+    // Studocu sections
+    if (section.startsWith('studocu-')) {
+      const studocuSection = section.replace('studocu-', '');
+      return studocuQuizData.sections[studocuSection]?.title || studocuSection;
+    }
+    
+    // All sections
+    if (section === 'all') {
+      return 'All Questions';
+    }
+    
+    // Regular quiz sections
+    return quizData.sections[section]?.title || section;
+  }, [section]);
+
   // Build complete questions array based on selected section
   const questions = useMemo(() => {
     if (!section) return [];
@@ -187,6 +224,12 @@ const QuizApp = () => {
               ← Back to Main Menu
             </button>
           </div>
+          
+          {/* Section Title */}
+          <div style={styles.allQuestionsHeader}>
+            <h2 style={styles.headerTitle}>{sectionTitle}</h2>
+          </div>
+          
           {!showAllQuestions && (
             <ProgressBar
               currentIndex={currentQuestionIndex}

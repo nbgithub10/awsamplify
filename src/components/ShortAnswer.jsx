@@ -71,6 +71,12 @@ const ShortAnswer = ({ question, isRevealed, onToggleReveal }) => {
 
   return (
     <div style={containerStyle}>
+      <div style={{ marginBottom: '15px' }}>
+        <span style={{ color: '#667eea', fontSize: '0.9rem', fontWeight: '600' }}>
+          Question {question.id}
+        </span>
+      </div>
+      
       <div style={questionTextStyle}>{question.question}</div>
       
       {question.image && (
