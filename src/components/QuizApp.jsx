@@ -218,8 +218,8 @@ const QuizApp = () => {
             <button
               style={styles.mainMenuButton}
               onClick={handleMainMenu}
-              onMouseEnter={(e) => e.target.style.backgroundColor = '#e0e0e0'}
-              onMouseLeave={(e) => e.target.style.backgroundColor = '#f5f5f5'}
+              onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
+              onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
             >
               ← Back to Main Menu
             </button>
@@ -338,8 +338,9 @@ const styles = {
   mainMenuButton: {
     padding: '0.5rem 1rem',
     fontSize: '1rem',
-    backgroundColor: '#f5f5f5',
-    border: '1px solid #ccc',
+    backgroundColor: '#007bff',
+    color: '#ffffff',
+    border: 'none',
     borderRadius: '4px',
     cursor: 'pointer',
     transition: 'background-color 0.2s',

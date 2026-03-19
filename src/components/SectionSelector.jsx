@@ -91,8 +91,8 @@ const SectionSelector = ({ onSectionSelect }) => {
         <button
           style={styles.backButton}
           onClick={() => setView('main')}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#e0e0e0'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#f5f5f5'}
+          onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
+          onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
         >
           ← Back to Main Menu
         </button>
@@ -123,8 +123,8 @@ const SectionSelector = ({ onSectionSelect }) => {
         <button
           style={styles.backButton}
           onClick={() => setView('main')}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#e0e0e0'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#f5f5f5'}
+          onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
+          onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
         >
           ← Back to Main Menu
         </button>
@@ -164,8 +164,8 @@ const SectionSelector = ({ onSectionSelect }) => {
         <button
           style={styles.backButton}
           onClick={() => setView('main')}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#e0e0e0'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#f5f5f5'}
+          onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
+          onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
         >
           ← Back to Main Menu
         </button>
@@ -341,9 +341,9 @@ const styles = {
   backButton: {
     padding: '0.75rem 1.5rem',
     fontSize: '1rem',
-    backgroundColor: '#f5f5f5',
-    color: '#333',
-    border: '2px solid #ddd',
+    backgroundColor: '#007bff',
+    color: '#ffffff',
+    border: 'none',
     borderRadius: '8px',
     cursor: 'pointer',
     transition: 'background-color 0.2s',
