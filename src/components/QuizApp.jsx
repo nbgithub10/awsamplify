@@ -7,7 +7,6 @@ import ProgressBar from './ProgressBar';
 import Results from './Results';
 import { quizData } from '../data/quizData';
 import { studocuQuizData } from '../data/studocu/index';
-import { enggPaper2020 } from '../data/engg_papers/2020';
 import { pastPapersRegistry } from '../data/past_papers/index';
 
 const QuizApp = () => {
@@ -21,11 +20,6 @@ const QuizApp = () => {
   // Get section title based on section ID
   const sectionTitle = useMemo(() => {
     if (!section) return '';
-    
-    // Handle Engineering Paper 2020
-    if (section === 'enggPaper2020') {
-      return 'Engineering Studies 2020 HSC';
-    }
     
     // Past Papers
     if (section.startsWith('pastPaper-')) {
@@ -58,14 +52,6 @@ const QuizApp = () => {
   // Build complete questions array based on selected section
   const questions = useMemo(() => {
     if (!section) return [];
-    
-    // Handle Engineering Paper 2020
-    if (section === 'enggPaper2020') {
-      return [
-        ...enggPaper2020.multipleChoice,
-        ...enggPaper2020.shortAnswer,
-      ];
-    }
     
     // Check if it's a Past Papers section
     if (section.startsWith('pastPaper-')) {
@@ -118,11 +104,6 @@ const QuizApp = () => {
   // Determine total MC questions for the selected section
   const totalMCQuestions = useMemo(() => {
     if (!section) return 0;
-    
-    // Handle Engineering Paper 2020
-    if (section === 'enggPaper2020') {
-      return enggPaper2020.multipleChoice.length;
-    }
     
     // Check if it's a Past Papers section
     if (section.startsWith('pastPaper-')) {

@@ -4,6 +4,7 @@ import { pastPapersRegistry } from '../data/past_papers/index';
 const SectionSelector = ({ onSectionSelect }) => {
   const [view, setView] = useState('main'); // 'main', 'studocu', 'aiGenerated', 'pastPapers'
   const [showAllQuestions, setShowAllQuestions] = useState(true);
+  const [expandedSubjects, setExpandedSubjects] = useState({});
 
   // Studocu topics organized by category
   const studocuCategories = [
@@ -65,6 +66,13 @@ const SectionSelector = ({ onSectionSelect }) => {
 
   const handlePastPaperSelect = (subjectSlug, paperSlug) => {
     onSectionSelect(`pastPaper-${subjectSlug}-${paperSlug}`, showAllQuestions);
+  };
+
+  const toggleSubject = (slug) => {
+    setExpandedSubjects(prev => ({
+      ...prev,
+      [slug]: !prev[slug]
+    }));
   };
 
   // AI Generated Content sections
@@ -181,24 +189,40 @@ const SectionSelector = ({ onSectionSelect }) => {
           </div>
         ) : (
           <div style={styles.scrollContainer}>
-            {pastPapersSubjects.map((subject) => (
-              <div key={subject.slug} style={styles.categoryGroup}>
-                <h3 style={{...styles.categoryTitle, borderBottomColor: '#28a745', color: 'white'}}>{subject.title}</h3>
-                <div style={styles.categoryButtonContainer}>
-                  {subject.papers.map((paper) => (
-                    <button
-                      key={paper.slug}
-                      style={{...styles.topicButton, backgroundColor: '#28a745'}}
-                      onClick={() => handlePastPaperSelect(subject.slug, paper.slug)}
-                      onMouseEnter={(e) => e.target.style.backgroundColor = '#218838'}
-                      onMouseLeave={(e) => e.target.style.backgroundColor = '#28a745'}
-                    >
-                      {paper.title} ({paper.count})
-                    </button>
-                  ))}
+            {pastPapersSubjects.map((subject) => {
+              const isExpanded = expandedSubjects[subject.slug] === true;
+              return (
+                <div key={subject.slug} style={styles.collapsibleCategoryGroup}>
+                  <button
+                    style={styles.collapsibleHeader}
+                    onClick={() => toggleSubject(subject.slug)}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#1e7e34'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#28a745'}
+                  >
+                    <span style={styles.collapsibleTitle}>{subject.title}</span>
+                    <span style={styles.collapsibleCount}>({subject.papers.length} papers)</span>
+                    <span style={styles.collapsibleArrow}>{isExpanded ? '▼' : '▶'}</span>
+                  </button>
+                  {isExpanded && (
+                    <div style={styles.collapsibleContent}>
+                      <div style={styles.categoryButtonContainer}>
+                        {subject.papers.map((paper) => (
+                          <button
+                            key={paper.slug}
+                            style={{...styles.topicButton, backgroundColor: '#28a745'}}
+                            onClick={() => handlePastPaperSelect(subject.slug, paper.slug)}
+                            onMouseEnter={(e) => e.target.style.backgroundColor = '#218838'}
+                            onMouseLeave={(e) => e.target.style.backgroundColor = '#28a745'}
+                          >
+                            {paper.title} ({paper.count})
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>
@@ -243,14 +267,7 @@ const SectionSelector = ({ onSectionSelect }) => {
         >
           Past Papers
         </button>
-        <button
-          style={{...styles.button, backgroundColor: '#6366f1'}}
-          onClick={() => onSectionSelect('enggPaper2020', showAllQuestions)}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#4f46e5'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#6366f1'}
-        >
-          Engg Paper 2020 (9)
-        </button>
+
         <button
           style={{...styles.button, backgroundColor: '#f97316'}}
           onClick={() => setView('studocu')}
@@ -359,6 +376,44 @@ const styles = {
   },
   categoryGroup: {
     marginBottom: '2rem',
+  },
+  collapsibleCategoryGroup: {
+    marginBottom: '1rem',
+    borderRadius: '8px',
+    overflow: 'hidden',
+    backgroundColor: 'rgba(40, 167, 69, 0.1)',
+  },
+  collapsibleHeader: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '1rem 1.25rem',
+    fontSize: '1.1rem',
+    backgroundColor: '#28a745',
+    color: 'white',
+    border: 'none',
+    cursor: 'pointer',
+    transition: 'background-color 0.2s',
+    textAlign: 'left',
+  },
+  collapsibleTitle: {
+    fontWeight: 'bold',
+    fontSize: '1.2rem',
+  },
+  collapsibleCount: {
+    flex: 1,
+    marginLeft: '1rem',
+    fontSize: '0.9rem',
+    opacity: 0.9,
+  },
+  collapsibleArrow: {
+    fontSize: '0.9rem',
+    marginLeft: '0.5rem',
+  },
+  collapsibleContent: {
+    padding: '1rem',
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
   },
   categoryTitle: {
     fontSize: '1.3rem',

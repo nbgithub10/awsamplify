@@ -31,12 +31,11 @@ describe('SectionSelector Component', () => {
       expect(screen.getByText('Show all questions on single page')).toBeInTheDocument();
     });
 
-    it('should render all 4 main menu buttons', () => {
+    it('should render all 3 main menu buttons', () => {
       render(<SectionSelector onSectionSelect={mockOnSectionSelect} />);
       
       expect(screen.getByText('AI Generated Content')).toBeInTheDocument();
-      expect(screen.getByText('Past Papers (2020-2025) (22)')).toBeInTheDocument();
-      expect(screen.getByText('Engg Paper 2020 (9)')).toBeInTheDocument();
+      expect(screen.getByText('Past Papers')).toBeInTheDocument();
       expect(screen.getByText('Studocu - Engineering Materials')).toBeInTheDocument();
     });
   });
@@ -85,16 +84,6 @@ describe('SectionSelector Component', () => {
       fireEvent.click(button);
       
       expect(mockOnSectionSelect).toHaveBeenCalledWith('pastPapers', true);
-      expect(mockOnSectionSelect).toHaveBeenCalledTimes(1);
-    });
-
-    it('should call onSectionSelect with "enggPaper2020" when Engg Paper 2020 button clicked', () => {
-      render(<SectionSelector onSectionSelect={mockOnSectionSelect} />);
-      
-      const button = screen.getByText('Engg Paper 2020 (9)');
-      fireEvent.click(button);
-      
-      expect(mockOnSectionSelect).toHaveBeenCalledWith('enggPaper2020', true);
       expect(mockOnSectionSelect).toHaveBeenCalledTimes(1);
     });
 
