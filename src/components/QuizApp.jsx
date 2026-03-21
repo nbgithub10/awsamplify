@@ -176,7 +176,7 @@ const QuizApp = ({ onViewStats }) => {
       section,
       questions,
       score,
-      totalQuestions: questions.length,
+      totalQuestions: totalMCQuestions,
       totalMCQuestions,
     });
     clearScoresCache();

@@ -56,7 +56,7 @@ describe('persistenceService', () => {
       const body = JSON.parse(fetchCall[1].body);
       expect(body.entityType).toBe('QUIZ_ATTEMPT');
       expect(body.key1).toBe('PAST_PAPER');
-      expect(body.key2).toBe('maths');
+      expect(body.key2).toBe('pastPaper-maths-2021');
       expect(body.key3).toBe('2021');
       expect(body.payload.score).toBe(8);
       expect(body.payload.totalQuestions).toBe(10);
@@ -99,7 +99,7 @@ describe('persistenceService', () => {
       const fetchCall = global.fetch.mock.calls[0];
       const body = JSON.parse(fetchCall[1].body);
       expect(body.key1).toBe('STUDOCU');
-      expect(body.key2).toBe('metals');
+      expect(body.key2).toBe('studocu-metals');
     });
 
     it('should return error on failed save', async () => {
