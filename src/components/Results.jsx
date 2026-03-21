@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Results = ({ userAnswers, questions, totalMCQuestions, section, onRestart }) => {
+const Results = ({ userAnswers, questions, totalMCQuestions, section, onRestart, onViewStats }) => {
   // Get only the multiple choice questions (first totalMCQuestions in the array)
   const mcQuestions = questions.slice(0, totalMCQuestions);
   
@@ -163,6 +163,28 @@ const Results = ({ userAnswers, questions, totalMCQuestions, section, onRestart 
       transition: 'all 0.3s ease',
       boxShadow: '0 4px 12px rgba(102, 126, 234, 0.3)',
     },
+    buttonContainer: {
+      display: 'flex',
+      gap: '1rem',
+      justifyContent: 'center',
+      flexWrap: 'wrap',
+    },
+    viewStatsButton: {
+      display: 'block',
+      width: '100%',
+      maxWidth: '300px',
+      margin: '0 auto',
+      padding: '15px 30px',
+      fontSize: '1.2em',
+      fontWeight: 'bold',
+      color: 'white',
+      backgroundColor: '#28a745',
+      border: 'none',
+      borderRadius: '8px',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
+      boxShadow: '0 4px 12px rgba(40, 167, 69, 0.3)',
+    },
   };
 
   return (
@@ -221,22 +243,42 @@ const Results = ({ userAnswers, questions, totalMCQuestions, section, onRestart 
         </div>
       )}
 
-      <button 
-        style={styles.retryButton}
-        onClick={onRestart}
-        onMouseEnter={(e) => {
-          e.target.style.backgroundColor = '#5568d3';
-          e.target.style.transform = 'translateY(-2px)';
-          e.target.style.boxShadow = '0 6px 16px rgba(102, 126, 234, 0.4)';
-        }}
-        onMouseLeave={(e) => {
-          e.target.style.backgroundColor = '#667eea';
-          e.target.style.transform = 'translateY(0)';
-          e.target.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.3)';
-        }}
-      >
-        Retry Quiz
-      </button>
+      <div style={styles.buttonContainer}>
+        <button 
+          style={styles.retryButton}
+          onClick={onRestart}
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = '#5568d3';
+            e.target.style.transform = 'translateY(-2px)';
+            e.target.style.boxShadow = '0 6px 16px rgba(102, 126, 234, 0.4)';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = '#667eea';
+            e.target.style.transform = 'translateY(0)';
+            e.target.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.3)';
+          }}
+        >
+          Retry Quiz
+        </button>
+        {onViewStats && (
+          <button 
+            style={styles.viewStatsButton}
+            onClick={onViewStats}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = '#218838';
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.boxShadow = '0 6px 16px rgba(40, 167, 69, 0.4)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = '#28a745';
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.boxShadow = '0 4px 12px rgba(40, 167, 69, 0.3)';
+            }}
+          >
+            View Stats
+          </button>
+        )}
+      </div>
     </div>
   );
 };

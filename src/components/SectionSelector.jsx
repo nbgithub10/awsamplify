@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { pastPapersRegistry } from '../data/past_papers/index';
 
-const SectionSelector = ({ onSectionSelect }) => {
+const SectionSelector = ({ onSectionSelect, onViewStats }) => {
   const [view, setView] = useState('main'); // 'main', 'studocu', 'aiGenerated', 'pastPapers'
   const [showAllQuestions, setShowAllQuestions] = useState(true);
   const [expandedSubjects, setExpandedSubjects] = useState({});
@@ -276,6 +276,17 @@ const SectionSelector = ({ onSectionSelect }) => {
         >
           Studocu - Engineering Materials
         </button>
+
+        {onViewStats && (
+          <button
+            style={{...styles.button, backgroundColor: '#6c757d', marginTop: '1rem'}}
+            onClick={onViewStats}
+            onMouseEnter={(e) => e.target.style.backgroundColor = '#5a6268'}
+            onMouseLeave={(e) => e.target.style.backgroundColor = '#6c757d'}
+          >
+            View Stats
+          </button>
+        )}
       </div>
     </div>
   );

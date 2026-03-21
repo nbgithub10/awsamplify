@@ -8,14 +8,16 @@ import Results from './Results';
 import { quizData } from '../data/quizData';
 import { studocuQuizData } from '../data/studocu/index';
 import { pastPapersRegistry } from '../data/past_papers/index';
+import { useQuizPersistence } from '../hooks/useQuizPersistence';
 
-const QuizApp = () => {
+const QuizApp = ({ onViewStats }) => {
   const [mode, setMode] = useState('section-select');
   const [section, setSection] = useState(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState(new Map());
   const [revealedShortAnswers, setRevealedShortAnswers] = useState(new Set());
   const [showAllQuestions, setShowAllQuestions] = useState(false);
+  const { saveQuizAttempt, isSaving } = useQuizPersistence();
 
   // Get section title based on section ID
   const sectionTitle = useMemo(() => {
@@ -167,8 +169,29 @@ const QuizApp = () => {
     setCurrentQuestionIndex(currentQuestionIndex - 1);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const score = calculateScore();
+    await saveQuizAttempt({
+      section,
+      questions,
+      score,
+      totalQuestions: questions.length,
+      totalMCQuestions,
+    });
     setMode('results');
+  };
+
+  const calculateScore = () => {
+    let score = 0;
+    questions.forEach((question, index) => {
+      if (index < totalMCQuestions) {
+        const answer = userAnswers.get(question.id);
+        if (answer !== undefined && question.correctAnswer === answer) {
+          score++;
+        }
+      }
+    });
+    return score;
   };
 
   const handleRestart = () => {
@@ -190,7 +213,7 @@ const QuizApp = () => {
   return (
     <div className="quiz-app">
       {mode === 'section-select' && (
-        <SectionSelector onSectionSelect={handleSectionSelect} />
+        <SectionSelector onSectionSelect={handleSectionSelect} onViewStats={onViewStats} />
       )}
 
       {mode === 'quiz' && (
@@ -304,6 +327,7 @@ const QuizApp = () => {
           totalMCQuestions={totalMCQuestions}
           section={section}
           onRestart={handleRestart}
+          onViewStats={onViewStats}
         />
       )}
     </div>
