@@ -11,11 +11,10 @@ const SOURCE_MAP = {
 
 const extractCategory = (section) => {
   if (section.startsWith('pastPaper-')) {
-    const match = section.match(/^pastPaper-(.+)-(\d+.*)$/);
-    if (match) return match[1];
+    return section;
   }
   if (section.startsWith('studocu-')) {
-    return section.replace('studocu-', '');
+    return section;
   }
   return section;
 };

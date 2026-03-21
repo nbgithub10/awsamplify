@@ -15,6 +15,7 @@ const mockFetchError = (status = 500, message = 'Server Error') => {
     ok: false,
     status,
     json: () => Promise.resolve({ message }),
+    text: () => Promise.resolve(message),
   });
 };
 

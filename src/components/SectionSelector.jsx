@@ -1,12 +1,75 @@
 import React, { useState } from 'react';
 import { pastPapersRegistry } from '../data/past_papers/index';
+import { useQuizScores } from '../hooks/useQuizScores';
+
+const getScoreColor = (percentage) => {
+  if (percentage >= 80) return '#28a745';
+  if (percentage >= 60) return '#ffc107';
+  return '#dc3545';
+};
+
+const ScoreBadge = ({ score }) => {
+  if (!score) return null;
+  
+  return (
+    <span style={{
+      ...styles.scoreBadge,
+      backgroundColor: getScoreColor(score.percentage),
+    }}>
+      {score.percentage}%
+    </span>
+  );
+};
+
+const StatsBar = ({ stats, isLoading }) => {
+  if (isLoading) {
+    return (
+      <div style={styles.statsBar}>
+        <span style={styles.statsLoadingText}>Loading stats...</span>
+      </div>
+    );
+  }
+
+  return (
+    <div style={styles.statsBar}>
+      <div style={styles.statItem}>
+        <span style={styles.statValue}>{stats.attempted}</span>
+        <span style={styles.statLabel}>Attempted</span>
+      </div>
+      <div style={styles.statDivider} />
+      <div style={styles.statItem}>
+        <span style={styles.statValue}>{stats.notAttempted}</span>
+        <span style={styles.statLabel}>Not Attempted</span>
+      </div>
+      <div style={styles.statDivider} />
+      <div style={styles.statItem}>
+        <span style={{ 
+          ...styles.statValue, 
+          color: stats.averageScore > 0 ? getScoreColor(stats.averageScore) : '#666' 
+        }}>
+          {stats.averageScore > 0 ? `${stats.averageScore}%` : '-'}
+        </span>
+        <span style={styles.statLabel}>Avg Score</span>
+      </div>
+    </div>
+  );
+};
+
+const SectionButton = ({ title, score, onClick }) => {
+  return (
+    <button style={styles.sectionButton} onClick={onClick}>
+      <span style={styles.sectionButtonText}>{title}</span>
+      <ScoreBadge score={score} />
+    </button>
+  );
+};
 
 const SectionSelector = ({ onSectionSelect, onViewStats }) => {
-  const [view, setView] = useState('main'); // 'main', 'studocu', 'aiGenerated', 'pastPapers'
+  const [view, setView] = useState('main');
   const [showAllQuestions, setShowAllQuestions] = useState(true);
   const [expandedSubjects, setExpandedSubjects] = useState({});
+  const { stats, isLoading, getScoreForSection } = useQuizScores();
 
-  // Studocu topics organized by category
   const studocuCategories = [
     {
       category: 'MATERIALS',
@@ -75,14 +138,12 @@ const SectionSelector = ({ onSectionSelect, onViewStats }) => {
     }));
   };
 
-  // AI Generated Content sections
   const aiGeneratedSections = [
     { id: 'civil', title: 'Civil Structures', count: 25 },
     { id: 'transport', title: 'Personal & Public Transport', count: 25 },
     { id: 'all', title: 'All Questions', count: 72 },
   ];
 
-  // Build past papers subjects from registry
   const pastPapersSubjects = Object.entries(pastPapersRegistry).map(([slug, data]) => ({
     slug,
     title: data.title,
@@ -96,12 +157,7 @@ const SectionSelector = ({ onSectionSelect, onViewStats }) => {
   if (view === 'aiGenerated') {
     return (
       <div style={styles.container}>
-        <button
-          style={styles.backButton}
-          onClick={() => setView('main')}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
-        >
+        <button style={styles.backButton} onClick={() => setView('main')}>
           ← Back to Main Menu
         </button>
         <h1 style={styles.title}>AI Generated Content</h1>
@@ -110,15 +166,12 @@ const SectionSelector = ({ onSectionSelect, onViewStats }) => {
         </p>
         <div style={styles.categoryButtonContainer}>
           {aiGeneratedSections.map((section) => (
-            <button
+            <SectionButton
               key={section.id}
-              style={{...styles.topicButton, backgroundColor: '#007bff'}}
+              title={`${section.title} (${section.count})`}
+              score={getScoreForSection(section.id)}
               onClick={() => onSectionSelect(section.id, showAllQuestions)}
-              onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
-              onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
-            >
-              {section.title} ({section.count})
-            </button>
+            />
           ))}
         </div>
       </div>
@@ -128,17 +181,12 @@ const SectionSelector = ({ onSectionSelect, onViewStats }) => {
   if (view === 'studocu') {
     return (
       <div style={styles.container}>
-        <button
-          style={styles.backButton}
-          onClick={() => setView('main')}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
-        >
+        <button style={styles.backButton} onClick={() => setView('main')}>
           ← Back to Main Menu
         </button>
-        <h1 style={styles.title}>Select Engineering Topic</h1>
+        <h1 style={styles.title}>Studocu - Engineering Materials</h1>
         <p style={styles.instructions}>
-          Choose a topic from Engineering Materials
+          Choose a topic to practice
         </p>
         <div style={styles.scrollContainer}>
           {studocuCategories.map((categoryGroup, idx) => (
@@ -146,15 +194,12 @@ const SectionSelector = ({ onSectionSelect, onViewStats }) => {
               <h3 style={styles.categoryTitle}>{categoryGroup.category}</h3>
               <div style={styles.categoryButtonContainer}>
                 {categoryGroup.topics.map((topic) => (
-                  <button
+                  <SectionButton
                     key={topic.id}
-                    style={{...styles.topicButton, backgroundColor: '#f97316'}}
+                    title={`${topic.title} (${topic.count})`}
+                    score={getScoreForSection(`studocu-${topic.id}`)}
                     onClick={() => handleStudocuTopicSelect(topic.id)}
-                    onMouseEnter={(e) => e.target.style.backgroundColor = '#ea580c'}
-                    onMouseLeave={(e) => e.target.style.backgroundColor = '#f97316'}
-                  >
-                    {topic.title} ({topic.count})
-                  </button>
+                  />
                 ))}
               </div>
             </div>
@@ -169,12 +214,7 @@ const SectionSelector = ({ onSectionSelect, onViewStats }) => {
     
     return (
       <div style={styles.container}>
-        <button
-          style={styles.backButton}
-          onClick={() => setView('main')}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
-        >
+        <button style={styles.backButton} onClick={() => setView('main')}>
           ← Back to Main Menu
         </button>
         <h1 style={styles.title}>Past Papers</h1>
@@ -196,8 +236,6 @@ const SectionSelector = ({ onSectionSelect, onViewStats }) => {
                   <button
                     style={styles.collapsibleHeader}
                     onClick={() => toggleSubject(subject.slug)}
-                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#1e7e34'}
-                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#28a745'}
                   >
                     <span style={styles.collapsibleTitle}>{subject.title}</span>
                     <span style={styles.collapsibleCount}>({subject.papers.length} papers)</span>
@@ -207,15 +245,12 @@ const SectionSelector = ({ onSectionSelect, onViewStats }) => {
                     <div style={styles.collapsibleContent}>
                       <div style={styles.categoryButtonContainer}>
                         {subject.papers.map((paper) => (
-                          <button
+                          <SectionButton
                             key={paper.slug}
-                            style={{...styles.topicButton, backgroundColor: '#28a745'}}
+                            title={`${paper.title} (${paper.count})`}
+                            score={getScoreForSection(`pastPaper-${subject.slug}-${paper.slug}`)}
                             onClick={() => handlePastPaperSelect(subject.slug, paper.slug)}
-                            onMouseEnter={(e) => e.target.style.backgroundColor = '#218838'}
-                            onMouseLeave={(e) => e.target.style.backgroundColor = '#28a745'}
-                          >
-                            {paper.title} ({paper.count})
-                          </button>
+                          />
                         ))}
                       </div>
                     </div>
@@ -233,7 +268,6 @@ const SectionSelector = ({ onSectionSelect, onViewStats }) => {
     <div style={styles.container}>
       <h1 style={styles.title}>HSC Engineering Quiz</h1>
       
-      {/* Combined instructions and toggle section */}
       <div style={styles.infoContainer}>
         <div style={styles.infoItem}>
           <span style={styles.infoText}>Select a section to begin your practice quiz</span>
@@ -250,40 +284,24 @@ const SectionSelector = ({ onSectionSelect, onViewStats }) => {
         </label>
       </div>
 
-      <div style={styles.buttonContainer}>
-        <button
-          style={styles.button}
-          onClick={() => setView('aiGenerated')}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#0056b3'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#007bff'}
-        >
-          AI Generated Content
-        </button>
-        <button
-          style={{...styles.button, backgroundColor: '#28a745'}}
-          onClick={() => setView('pastPapers')}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#218838'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#28a745'}
-        >
-          Past Papers
-        </button>
+      <StatsBar stats={stats} isLoading={isLoading} />
 
-        <button
-          style={{...styles.button, backgroundColor: '#f97316'}}
+      <div style={styles.buttonContainer}>
+        <SectionButton
+          title="AI Generated Content"
+          onClick={() => setView('aiGenerated')}
+        />
+        <SectionButton
+          title="Past Papers"
+          onClick={() => setView('pastPapers')}
+        />
+        <SectionButton
+          title="Studocu - Engineering Materials"
           onClick={() => setView('studocu')}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#ea580c'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#f97316'}
-        >
-          Studocu - Engineering Materials
-        </button>
+        />
 
         {onViewStats && (
-          <button
-            style={{...styles.button, backgroundColor: '#6c757d', marginTop: '1rem'}}
-            onClick={onViewStats}
-            onMouseEnter={(e) => e.target.style.backgroundColor = '#5a6268'}
-            onMouseLeave={(e) => e.target.style.backgroundColor = '#6c757d'}
-          >
+          <button style={styles.statsButton} onClick={onViewStats}>
             View Stats
           </button>
         )}
@@ -308,11 +326,10 @@ const styles = {
     color: '#ffffff',
   },
   infoContainer: {
-    marginBottom: '2rem',
+    marginBottom: '1rem',
     padding: '1rem 1.5rem',
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#222',
     borderRadius: '8px',
-    border: '2px solid #e0e0e0',
     width: '100%',
     maxWidth: '400px',
   },
@@ -321,12 +338,12 @@ const styles = {
   },
   infoText: {
     fontSize: '1rem',
-    color: '#333',
+    color: '#fff',
     fontWeight: '500',
   },
   divider: {
     height: '1px',
-    backgroundColor: '#d0d0d0',
+    backgroundColor: '#555',
     marginBottom: '0.75rem',
   },
   toggleLabel: {
@@ -342,9 +359,46 @@ const styles = {
     cursor: 'pointer',
   },
   toggleText: {
-    color: '#333',
+    color: '#fff',
     fontWeight: '500',
     userSelect: 'none',
+  },
+  statsBar: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: '1rem',
+    padding: '0.75rem 1.5rem',
+    backgroundColor: '#222',
+    borderRadius: '8px',
+    marginBottom: '1.5rem',
+    width: '100%',
+    maxWidth: '450px',
+  },
+  statItem: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    minWidth: '80px',
+  },
+  statValue: {
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  statLabel: {
+    fontSize: '0.75rem',
+    color: '#aaa',
+    textTransform: 'uppercase',
+  },
+  statDivider: {
+    width: '1px',
+    height: '30px',
+    backgroundColor: '#555',
+  },
+  statsLoadingText: {
+    fontSize: '0.9rem',
+    color: '#aaa',
   },
   buttonContainer: {
     display: 'flex',
@@ -353,28 +407,49 @@ const styles = {
     width: '100%',
     maxWidth: '400px',
   },
-  button: {
+  sectionButton: {
+    position: 'relative',
     padding: '1rem 2rem',
     fontSize: '1.1rem',
-    backgroundColor: '#007bff',
-    color: 'white',
+    color: '#fff',
+    backgroundColor: '#333',
     border: 'none',
     borderRadius: '8px',
     cursor: 'pointer',
-    transition: 'background-color 0.2s',
-    position: 'relative',
-    zIndex: 10,
-    pointerEvents: 'auto',
+    textAlign: 'center',
+  },
+  sectionButtonText: {
+    display: 'inline-block',
+  },
+  scoreBadge: {
+    position: 'absolute',
+    top: '8px',
+    right: '8px',
+    padding: '0.2rem 0.5rem',
+    borderRadius: '12px',
+    color: 'white',
+    fontSize: '0.8rem',
+    fontWeight: 'bold',
+    minWidth: '40px',
+  },
+  statsButton: {
+    padding: '1rem 2rem',
+    fontSize: '1.1rem',
+    color: '#fff',
+    backgroundColor: '#333',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    marginTop: '1rem',
   },
   backButton: {
     padding: '0.75rem 1.5rem',
     fontSize: '1rem',
-    backgroundColor: '#007bff',
-    color: '#ffffff',
+    color: '#fff',
+    backgroundColor: '#333',
     border: 'none',
     borderRadius: '8px',
     cursor: 'pointer',
-    transition: 'background-color 0.2s',
     marginBottom: '1.5rem',
     alignSelf: 'flex-start',
   },
@@ -392,7 +467,6 @@ const styles = {
     marginBottom: '1rem',
     borderRadius: '8px',
     overflow: 'hidden',
-    backgroundColor: 'rgba(40, 167, 69, 0.1)',
   },
   collapsibleHeader: {
     width: '100%',
@@ -401,11 +475,10 @@ const styles = {
     justifyContent: 'space-between',
     padding: '1rem 1.25rem',
     fontSize: '1.1rem',
-    backgroundColor: '#28a745',
+    backgroundColor: '#1a1a1a',
     color: 'white',
     border: 'none',
     cursor: 'pointer',
-    transition: 'background-color 0.2s',
     textAlign: 'left',
   },
   collapsibleTitle: {
@@ -416,7 +489,7 @@ const styles = {
     flex: 1,
     marginLeft: '1rem',
     fontSize: '0.9rem',
-    opacity: 0.9,
+    opacity: 0.8,
   },
   collapsibleArrow: {
     fontSize: '0.9rem',
@@ -424,32 +497,21 @@ const styles = {
   },
   collapsibleContent: {
     padding: '1rem',
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    backgroundColor: '#f5f5f5',
   },
   categoryTitle: {
     fontSize: '1.3rem',
-    color: '#f97316',
+    color: '#333',
     fontWeight: 'bold',
     marginBottom: '1rem',
     textAlign: 'left',
-    borderBottom: '2px solid #f97316',
+    borderBottom: '2px solid #333',
     paddingBottom: '0.5rem',
   },
   categoryButtonContainer: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
     gap: '0.75rem',
-  },
-  topicButton: {
-    padding: '0.75rem 1rem',
-    fontSize: '0.95rem',
-    backgroundColor: '#f97316',
-    color: 'white',
-    border: 'none',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    transition: 'background-color 0.2s',
-    textAlign: 'center',
   },
   noPapersContainer: {
     padding: '2rem',

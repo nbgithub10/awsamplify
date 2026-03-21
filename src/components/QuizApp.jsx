@@ -9,6 +9,7 @@ import { quizData } from '../data/quizData';
 import { studocuQuizData } from '../data/studocu/index';
 import { pastPapersRegistry } from '../data/past_papers/index';
 import { useQuizPersistence } from '../hooks/useQuizPersistence';
+import { clearScoresCache } from '../hooks/useQuizScores';
 
 const QuizApp = ({ onViewStats }) => {
   const [mode, setMode] = useState('section-select');
@@ -178,6 +179,7 @@ const QuizApp = ({ onViewStats }) => {
       totalQuestions: questions.length,
       totalMCQuestions,
     });
+    clearScoresCache();
     setMode('results');
   };
 

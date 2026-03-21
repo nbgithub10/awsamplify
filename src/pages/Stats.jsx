@@ -39,6 +39,16 @@ const Stats = ({ onBack }) => {
       };
     }
 
+    const uniqueSectionsMap = attempts.reduce((acc, item) => {
+      const sectionId = item.key2;
+      if (!sectionId) return acc;
+      if (!acc[sectionId] || new Date(item.payload?.attemptedAt) > new Date(acc[sectionId].payload?.attemptedAt)) {
+        acc[sectionId] = item;
+      }
+      return acc;
+    }, {});
+    const uniqueAttempts = Object.values(uniqueSectionsMap);
+
     let totalScore = 0;
     let totalQuestions = 0;
     let bestScore = 0;
@@ -46,7 +56,7 @@ const Stats = ({ onBack }) => {
     const bySource = {};
     const byCategory = {};
 
-    attempts.forEach((item) => {
+    uniqueAttempts.forEach((item) => {
       const payload = item.payload || {};
       const score = payload.score || 0;
       const total = payload.totalQuestions || 0;
@@ -91,7 +101,7 @@ const Stats = ({ onBack }) => {
     }));
 
     return {
-      totalQuizzes: attempts.length,
+      totalQuizzes: uniqueAttempts.length,
       totalScore,
       totalQuestions,
       averagePercentage: totalQuestions > 0 ? Math.round(totalScore / totalQuestions * 100) : 0,
@@ -99,14 +109,24 @@ const Stats = ({ onBack }) => {
       worstScore: worstScore === 100 ? 0 : worstScore,
       bySource: sourceStats,
       byCategory: categoryStats,
-      recentAttempts: [...attempts]
+      recentAttempts: uniqueAttempts
         .sort((a, b) => new Date(b.payload?.attemptedAt) - new Date(a.payload?.attemptedAt))
-        .slice(0, 10),
+        .slice(0, 20),
     };
   }, [attempts]);
 
   const filteredAttempts = useMemo(() => {
-    let filtered = [...attempts];
+    const uniqueSectionsMap = attempts.reduce((acc, item) => {
+      const sectionId = item.key2;
+      if (!sectionId) return acc;
+      if (!acc[sectionId] || new Date(item.payload?.attemptedAt) > new Date(acc[sectionId].payload?.attemptedAt)) {
+        acc[sectionId] = item;
+      }
+      return acc;
+    }, {});
+    const uniqueAttempts = Object.values(uniqueSectionsMap);
+
+    let filtered = [...uniqueAttempts];
     
     if (filter !== 'all') {
       filtered = filtered.filter((item) => item.key1 === filter);
