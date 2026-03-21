@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { pastPapersRegistry } from '../data/past_papers/index';
 import { useQuizScores } from '../hooks/useQuizScores';
+import { mobileStyles } from '../styles/mobileStyles';
 
 const getScoreColor = (percentage) => {
   if (percentage >= 80) return '#28a745';
@@ -24,34 +25,37 @@ const ScoreBadge = ({ score }) => {
 const StatsBar = ({ stats, isLoading }) => {
   if (isLoading) {
     return (
-      <div style={styles.statsBar}>
+      <div style={styles.statsBar} className="stats-bar">
         <span style={styles.statsLoadingText}>Loading stats...</span>
       </div>
     );
   }
 
   return (
-    <div style={styles.statsBar}>
-      <div style={styles.statItem}>
-        <span style={styles.statValue}>{stats.attempted}</span>
-        <span style={styles.statLabel}>Attempted</span>
+    <>
+      <style>{mobileStyles}</style>
+      <div style={styles.statsBar} className="stats-bar">
+        <div style={styles.statItem} className="stat-item">
+          <span style={styles.statLabel} className="stat-label">Attempted</span>
+          <span style={styles.statValue} className="stat-value">{stats.attempted}</span>
+        </div>
+        <div style={styles.statDivider} className="stat-divider" />
+        <div style={styles.statItem} className="stat-item">
+          <span style={styles.statLabel} className="stat-label">Not Attempted</span>
+          <span style={styles.statValue} className="stat-value">{stats.notAttempted}</span>
+        </div>
+        <div style={styles.statDivider} className="stat-divider" />
+        <div style={styles.statItem} className="stat-item">
+          <span style={styles.statLabel} className="stat-label">Avg Score</span>
+          <span style={{ 
+            ...styles.statValue, 
+            color: stats.averageScore > 0 ? getScoreColor(stats.averageScore) : '#666' 
+          }} className="stat-value">
+            {stats.averageScore > 0 ? `${stats.averageScore}%` : '-'}
+          </span>
+        </div>
       </div>
-      <div style={styles.statDivider} />
-      <div style={styles.statItem}>
-        <span style={styles.statValue}>{stats.notAttempted}</span>
-        <span style={styles.statLabel}>Not Attempted</span>
-      </div>
-      <div style={styles.statDivider} />
-      <div style={styles.statItem}>
-        <span style={{ 
-          ...styles.statValue, 
-          color: stats.averageScore > 0 ? getScoreColor(stats.averageScore) : '#666' 
-        }}>
-          {stats.averageScore > 0 ? `${stats.averageScore}%` : '-'}
-        </span>
-        <span style={styles.statLabel}>Avg Score</span>
-      </div>
-    </div>
+    </>
   );
 };
 

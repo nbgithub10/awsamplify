@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { persistenceService, STATS_SOURCE_LABELS, STATS_SOURCE_COLORS, ISSUE_TYPES } from '../services/persistenceService';
+import { mobileStyles } from '../styles/mobileStyles';
 
 const Stats = ({ onBack }) => {
   const [attempts, setAttempts] = useState([]);
@@ -17,20 +18,25 @@ const Stats = ({ onBack }) => {
   const loadStats = async () => {
     setLoading(true);
     setError(null);
-    const [attemptsResult, reportsResult] = await Promise.all([
-      persistenceService.getAllAttempts(),
-      persistenceService.getAllReports(),
-    ]);
-    setLoading(false);
-    
-    if (attemptsResult.success) {
-      setAttempts(attemptsResult.items);
-    } else {
-      setError(attemptsResult.error);
-    }
-    
-    if (reportsResult.success) {
-      setReports(reportsResult.items);
+    try {
+      const [attemptsResult, reportsResult] = await Promise.all([
+        persistenceService.getAllAttempts(),
+        persistenceService.getAllReports(),
+      ]);
+      
+      if (attemptsResult.success) {
+        setAttempts(attemptsResult.items);
+      } else {
+        setError(attemptsResult.error);
+      }
+      
+      if (reportsResult.success) {
+        setReports(reportsResult.items);
+      }
+    } catch (err) {
+      setError(err.message || 'Failed to load stats');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -38,11 +44,8 @@ const Stats = ({ onBack }) => {
     if (attempts.length === 0) {
       return {
         totalQuizzes: 0,
-        totalScore: 0,
-        totalQuestions: 0,
         averagePercentage: 0,
         bestScore: 0,
-        worstScore: 100,
         bySource: [],
         recentAttempts: [],
       };
@@ -61,9 +64,7 @@ const Stats = ({ onBack }) => {
     let totalScore = 0;
     let totalQuestions = 0;
     let bestScore = 0;
-    let worstScore = 100;
     const bySource = {};
-    const byCategory = {};
 
     uniqueAttempts.forEach((item) => {
       const payload = item.payload || {};
@@ -74,7 +75,6 @@ const Stats = ({ onBack }) => {
       totalScore += score;
       totalQuestions += total;
       bestScore = Math.max(bestScore, percentage);
-      worstScore = Math.min(worstScore, percentage);
 
       const source = item.key1 || 'UNKNOWN';
       if (!bySource[source]) {
@@ -84,13 +84,6 @@ const Stats = ({ onBack }) => {
       bySource[source].totalScore += score;
       bySource[source].totalQuestions += total;
       bySource[source].totalPercentage += percentage;
-
-      const category = item.key2 || 'UNKNOWN';
-      if (!byCategory[category]) {
-        byCategory[category] = { count: 0, totalPercentage: 0 };
-      }
-      byCategory[category].count++;
-      byCategory[category].totalPercentage += percentage;
     });
 
     const sourceStats = Object.entries(bySource).map(([source, data]) => ({
@@ -105,11 +98,9 @@ const Stats = ({ onBack }) => {
 
     return {
       totalQuizzes: uniqueAttempts.length,
-      totalScore,
       totalQuestions,
       averagePercentage: totalQuestions > 0 ? Math.round(totalScore / totalQuestions * 100) : 0,
       bestScore,
-      worstScore: worstScore === 100 ? 0 : worstScore,
       bySource: sourceStats,
       recentAttempts: uniqueAttempts
         .sort((a, b) => new Date(b.payload?.attemptedAt) - new Date(a.payload?.attemptedAt))
@@ -175,11 +166,9 @@ const Stats = ({ onBack }) => {
   };
 
   const handleResolveReport = async (entityId) => {
-    console.log('Resolving report:', entityId);
     setIsUpdating(true);
     try {
       const result = await persistenceService.resolveReport(entityId, reports);
-      console.log('Resolve result:', result);
       if (result.success) {
         setReports(prev => prev.map(r => 
           r.pk === entityId ? { ...r, payload: { ...r.payload, resolved: true } } : r
@@ -187,288 +176,454 @@ const Stats = ({ onBack }) => {
       }
     } catch (err) {
       console.error('Failed to resolve report:', err);
+    } finally {
+      setIsUpdating(false);
     }
-    setIsUpdating(false);
   };
 
   const handleDeleteReport = async (entityId) => {
-    console.log('Deleting report:', entityId);
     setIsUpdating(true);
     try {
       const result = await persistenceService.deleteReport(entityId);
-      console.log('Delete result:', result);
       if (result.success) {
         setReports(prev => prev.filter(r => r.pk !== entityId));
       }
     } catch (err) {
       console.error('Failed to delete report:', err);
+    } finally {
+      setIsUpdating(false);
     }
-    setIsUpdating(false);
   };
 
-  if (loading) {
-    return (
-      <div style={styles.container}>
-        <div style={styles.loadingContainer}>
-          <div style={styles.spinner}></div>
-          <p style={styles.loadingText}>Loading stats...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div style={styles.container}>
-        <div style={styles.errorContainer}>
-          <p style={styles.errorText}>Failed to load stats: {error}</p>
-          <button style={styles.retryButton} onClick={loadStats}>
-            Retry
-          </button>
-        </div>
-      </div>
-    );
-  }
+  const hasStats = attempts.length > 0;
 
   return (
-    <div style={styles.container}>
-      <div style={styles.header}>
-        <button style={styles.backButton} onClick={onBack}>
-          ← Back
-        </button>
-        <h1 style={styles.title}>Your Quiz Stats</h1>
-      </div>
-
-      {attempts.length === 0 && activeReports.length === 0 ? (
-        <div style={styles.emptyState}>
-          <div style={styles.emptyIcon}>📊</div>
-          <h2 style={styles.emptyTitle}>No Stats Yet</h2>
-          <p style={styles.emptyText}>
-            Complete some quizzes and your stats will appear here!
-          </p>
-          <button style={styles.startButton} onClick={onBack}>
-            Start a Quiz
+    <>
+      <style>{mobileStyles}</style>
+      <div style={styles.container} className="stats-container">
+        <div style={styles.header} className="stats-header">
+          <button style={styles.backButton} onClick={onBack} className="stats-back-btn">
+            ← Back
           </button>
+          <h1 style={styles.title} className="stats-title">Your Quiz Stats</h1>
         </div>
-      ) : (
-        <>
-          {attempts.length > 0 && (
-            <>
-              <div style={styles.summaryGrid}>
-                <div style={styles.summaryCard}>
-                  <div style={styles.summaryValue}>{stats.totalQuizzes}</div>
-                  <div style={styles.summaryLabel}>Total Quizzes</div>
-                </div>
-                <div style={styles.summaryCard}>
-                  <div style={{ ...styles.summaryValue, color: getScoreColor(stats.averagePercentage) }}>
-                    {stats.averagePercentage}%
-                  </div>
-                  <div style={styles.summaryLabel}>Average Score</div>
-                </div>
-                <div style={styles.summaryCard}>
-                  <div style={styles.summaryValue}>{stats.totalQuestions}</div>
-                  <div style={styles.summaryLabel}>Questions Answered</div>
-                </div>
-                <div style={styles.summaryCard}>
-                  <div style={{ ...styles.summaryValue, color: getScoreColor(stats.bestScore) }}>
-                    {stats.bestScore}%
-                  </div>
-                  <div style={styles.summaryLabel}>Best Score</div>
-                </div>
-              </div>
 
-              <div style={styles.section}>
-                <h2 style={styles.sectionTitle}>Performance by Source</h2>
-                <div style={styles.sourceGrid}>
-                  {stats.bySource.map((source) => (
+        {loading ? (
+          <div style={styles.loadingContainer}>
+            <div style={styles.spinner}></div>
+            <p style={styles.loadingText}>Loading stats...</p>
+          </div>
+        ) : error ? (
+          <div style={styles.errorContainer}>
+            <p style={styles.errorText}>Failed to load stats: {error}</p>
+            <button style={styles.retryButton} onClick={loadStats}>
+              Retry
+            </button>
+          </div>
+        ) : !hasStats && activeReports.length === 0 ? (
+          <div style={styles.emptyState}>
+            <div style={styles.emptyIcon}>📊</div>
+            <h2 style={styles.emptyTitle}>No Stats Yet</h2>
+            <p style={styles.emptyText}>
+              Complete some quizzes and your stats will appear here!
+            </p>
+            <button style={styles.startButton} onClick={onBack}>
+              Start a Quiz
+            </button>
+          </div>
+        ) : (
+          <>
+            {hasStats && (
+              <>
+                <div style={styles.summaryGrid} className="stats-summary-grid">
+                  <div style={styles.summaryCard} className="stats-summary-card">
+                    <div style={styles.summaryValue} className="stats-summary-value">
+                      {stats.totalQuizzes}
+                    </div>
+                    <div style={styles.summaryLabel} className="stats-summary-label">
+                      Total Quizzes
+                    </div>
+                  </div>
+                  <div style={styles.summaryCard} className="stats-summary-card">
                     <div
-                      key={source.source}
-                      style={{ ...styles.sourceCard, borderLeftColor: source.color }}
+                      style={{
+                        ...styles.summaryValue,
+                        color: getScoreColor(stats.averagePercentage),
+                      }}
+                      className="stats-summary-value"
                     >
-                      <div style={styles.sourceHeader}>
-                        <span style={{ ...styles.sourceLabel, color: source.color }}>
-                          {source.label}
-                        </span>
-                        <span style={styles.sourceCount}>{source.count} quizzes</span>
-                      </div>
-                      <div style={styles.sourceStats}>
-                        <div style={styles.sourceStat}>
-                          <span style={styles.sourceStatValue}>{source.averagePercentage}%</span>
-                          <span style={styles.sourceStatLabel}>Average</span>
+                      {stats.averagePercentage}%
+                    </div>
+                    <div style={styles.summaryLabel} className="stats-summary-label">
+                      Average Score
+                    </div>
+                  </div>
+                  <div style={styles.summaryCard} className="stats-summary-card">
+                    <div style={styles.summaryValue} className="stats-summary-value">
+                      {stats.totalQuestions}
+                    </div>
+                    <div style={styles.summaryLabel} className="stats-summary-label">
+                      Questions Answered
+                    </div>
+                  </div>
+                  <div style={styles.summaryCard} className="stats-summary-card">
+                    <div
+                      style={{
+                        ...styles.summaryValue,
+                        color: getScoreColor(stats.bestScore),
+                      }}
+                      className="stats-summary-value"
+                    >
+                      {stats.bestScore}%
+                    </div>
+                    <div style={styles.summaryLabel} className="stats-summary-label">
+                      Best Score
+                    </div>
+                  </div>
+                </div>
+
+                {stats.bySource.length > 0 && (
+                  <div style={styles.section} className="stats-section">
+                    <h2 style={styles.sectionTitle} className="stats-section-title">Performance by Source</h2>
+                    <div style={styles.sourceGrid} className="stats-source-grid">
+                      {stats.bySource.map((source) => (
+                        <div
+                          key={source.source}
+                          style={{ ...styles.sourceCard, borderLeftColor: source.color }}
+                          className="stats-source-card"
+                        >
+                          <div style={styles.sourceHeader} className="stats-source-header">
+                            <span style={{ ...styles.sourceLabel, color: source.color }} className="stats-source-label">
+                              {source.label}
+                            </span>
+                            <span style={styles.sourceCount} className="stats-source-count">{source.count} quizzes</span>
+                          </div>
+                          <div style={styles.sourceStats} className="stats-source-stats">
+                            <div style={styles.sourceStat}>
+                              <span style={styles.sourceStatValue} className="stats-source-stat-value">{source.averagePercentage}%</span>
+                              <span style={styles.sourceStatLabel} className="stats-source-stat-label">Average</span>
+                            </div>
+                            <div style={styles.sourceStat}>
+                              <span style={styles.sourceStatValue} className="stats-source-stat-value">{source.totalQuestions}</span>
+                              <span style={styles.sourceStatLabel} className="stats-source-stat-label">Questions</span>
+                            </div>
+                          </div>
                         </div>
-                        <div style={styles.sourceStat}>
-                          <span style={styles.sourceStatValue}>{source.totalQuestions}</span>
-                          <span style={styles.sourceStatLabel}>Questions</span>
-                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {attempts.length > 0 && (
+                  <div style={styles.section} className="stats-section">
+                    <div style={styles.sectionHeader} className="stats-section-header">
+                      <h2 style={styles.sectionTitle} className="stats-section-title">Recent Attempts</h2>
+                      <div style={styles.filters} className="stats-filters">
+                        <select
+                          style={styles.select}
+                          value={filter}
+                          onChange={(e) => setFilter(e.target.value)}
+                        >
+                          <option value="all">All Sources</option>
+                          {stats.bySource.map((s) => (
+                            <option key={s.source} value={s.source}>
+                              {s.label}
+                            </option>
+                          ))}
+                        </select>
+                        <select
+                          style={styles.select}
+                          value={sortBy}
+                          onChange={(e) => setSortBy(e.target.value)}
+                        >
+                          <option value="recent">Most Recent</option>
+                          <option value="score">Highest Score</option>
+                          <option value="source">By Source</option>
+                        </select>
                       </div>
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              <div style={styles.section}>
-                <div style={styles.sectionHeader}>
-                  <h2 style={styles.sectionTitle}>Recent Attempts</h2>
-                  <div style={styles.filters}>
-                    <select
-                      style={styles.select}
-                      value={filter}
-                      onChange={(e) => setFilter(e.target.value)}
-                    >
-                      <option value="all">All Sources</option>
-                      {stats.bySource.map((s) => (
-                        <option key={s.source} value={s.source}>
-                          {s.label}
-                        </option>
-                      ))}
-                    </select>
-                    <select
-                      style={styles.select}
-                      value={sortBy}
-                      onChange={(e) => setSortBy(e.target.value)}
-                    >
-                      <option value="recent">Most Recent</option>
-                      <option value="score">Highest Score</option>
-                      <option value="source">By Source</option>
-                    </select>
-                  </div>
-                </div>
-                <div style={styles.tableContainer}>
-                  <table style={styles.table}>
-                    <thead>
-                      <tr style={styles.tableHeaderRow}>
-                        <th style={styles.tableHeader}>Date</th>
-                        <th style={styles.tableHeader}>Source</th>
-                        <th style={styles.tableHeader}>Section</th>
-                        <th style={styles.tableHeader}>Score</th>
-                        <th style={styles.tableHeader}>%</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                    <div style={styles.tableContainer} className="stats-table-container">
+                      <table style={styles.table} className="stats-table">
+                        <thead>
+                          <tr style={styles.tableHeaderRow}>
+                            <th style={styles.tableHeader}>Date</th>
+                            <th style={styles.tableHeader}>Source</th>
+                            <th style={styles.tableHeader}>Section</th>
+                            <th style={styles.tableHeader}>Score</th>
+                            <th style={styles.tableHeader}>%</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {filteredAttempts.slice(0, 20).map((item) => {
+                            const payload = item.payload || {};
+                            return (
+                              <tr key={item.pk} style={styles.tableRow}>
+                                <td style={styles.tableCell}>{formatDate(payload.attemptedAt)}</td>
+                                <td style={styles.tableCell}>
+                                  <span
+                                    style={{
+                                      ...styles.sourceBadge,
+                                      backgroundColor: STATS_SOURCE_COLORS[item.key1] || '#666',
+                                    }}
+                                  >
+                                    {STATS_SOURCE_LABELS[item.key1] || item.key1}
+                                  </span>
+                                </td>
+                                <td style={styles.tableCell}>{payload.section || item.key2 || 'N/A'}</td>
+                                <td style={styles.tableCell}>
+                                  {payload.score}/{payload.totalQuestions}
+                                </td>
+                                <td style={styles.tableCell}>
+                                  <span
+                                    style={{
+                                      ...styles.percentageBadge,
+                                      backgroundColor: getScoreColor(payload.percentage) + '20',
+                                      color: getScoreColor(payload.percentage),
+                                    }}
+                                  >
+                                    {payload.percentage}%
+                                  </span>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                    <div style={{ ...styles.mobileList, display: 'none' }} className="stats-mobile-list">
                       {filteredAttempts.slice(0, 20).map((item) => {
                         const payload = item.payload || {};
                         return (
-                          <tr key={item.pk} style={styles.tableRow}>
-                            <td style={styles.tableCell}>{formatDate(payload.attemptedAt)}</td>
-                            <td style={styles.tableCell}>
-                              <span
-                                style={{
-                                  ...styles.sourceBadge,
-                                  backgroundColor: STATS_SOURCE_COLORS[item.key1] || '#666',
-                                }}
-                              >
-                                {STATS_SOURCE_LABELS[item.key1] || item.key1}
-                              </span>
-                            </td>
-                            <td style={styles.tableCell}>{payload.section || item.key2 || 'N/A'}</td>
-                            <td style={styles.tableCell}>
-                              {payload.score}/{payload.totalQuestions}
-                            </td>
-                            <td style={styles.tableCell}>
-                              <span
-                                style={{
-                                  ...styles.percentageBadge,
-                                  backgroundColor: getScoreColor(payload.percentage) + '20',
-                                  color: getScoreColor(payload.percentage),
-                                }}
-                              >
-                                {payload.percentage}%
-                              </span>
-                            </td>
-                          </tr>
+                          <div key={item.pk} className="stats-mobile-row">
+                            <div className="stats-mobile-card">
+                              <div className="stats-mobile-label">Date</div>
+                              <div className="stats-mobile-value">{formatDate(payload.attemptedAt)}</div>
+                            </div>
+                            <div className="stats-mobile-card">
+                              <div className="stats-mobile-label">Source</div>
+                              <div className="stats-mobile-value">
+                                <span
+                                  style={{
+                                    ...styles.sourceBadge,
+                                    backgroundColor: STATS_SOURCE_COLORS[item.key1] || '#666',
+                                  }}
+                                >
+                                  {STATS_SOURCE_LABELS[item.key1] || item.key1}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="stats-mobile-card">
+                              <div className="stats-mobile-label">Section</div>
+                              <div className="stats-mobile-value">{payload.section || item.key2 || 'N/A'}</div>
+                            </div>
+                            <div className="stats-mobile-card">
+                              <div className="stats-mobile-label">Score</div>
+                              <div className="stats-mobile-value">{payload.score}/{payload.totalQuestions}</div>
+                            </div>
+                            <div className="stats-mobile-card" style={{ gridColumn: 'span 2' }}>
+                              <div className="stats-mobile-label">%</div>
+                              <div className="stats-mobile-value">
+                                <span
+                                  style={{
+                                    ...styles.percentageBadge,
+                                    backgroundColor: getScoreColor(payload.percentage) + '20',
+                                    color: getScoreColor(payload.percentage),
+                                  }}
+                                >
+                                  {payload.percentage}%
+                                </span>
+                              </div>
+                            </div>
+                          </div>
                         );
                       })}
-                    </tbody>
-                  </table>
-                  {filteredAttempts.length > 20 && (
-                    <p style={styles.tableNote}>Showing 20 of {filteredAttempts.length} attempts</p>
-                  )}
-                </div>
-              </div>
-            </>
-          )}
+                    </div>
+                    {filteredAttempts.length > 20 && (
+                      <p style={styles.tableNote}>
+                        Showing 20 of {filteredAttempts.length} attempts
+                      </p>
+                    )}
+                  </div>
+                )}
+              </>
+            )}
 
-          <div style={styles.section}>
-            <h2 style={styles.sectionTitle}>Question Reports ({activeReports.length})</h2>
-            {activeReports.length === 0 ? (
-              <p style={styles.emptyText}>No reported issues yet.</p>
-            ) : (
-              <div style={styles.tableContainer}>
-                <table style={styles.table}>
-                  <thead>
-                    <tr style={styles.tableHeaderRow}>
-                      <th style={styles.tableHeader}>Date</th>
-                      <th style={styles.tableHeader}>Source</th>
-                      <th style={styles.tableHeader}>Question</th>
-                      <th style={styles.tableHeader}>Issue Type</th>
-                      <th style={styles.tableHeader}>Comment</th>
-                      <th style={styles.tableHeader}>User</th>
-                      <th style={styles.tableHeader}>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+            <div style={styles.section} className="stats-section">
+              <h2 style={styles.sectionTitle} className="stats-section-title">
+                Question Reports ({activeReports.length})
+              </h2>
+              {activeReports.length === 0 ? (
+                <p style={styles.emptyText}>No reported issues yet.</p>
+              ) : (
+                <>
+                  <div style={styles.tableContainer} className="stats-table-container">
+                    <table style={styles.table} className="stats-table">
+                      <thead>
+                        <tr style={styles.tableHeaderRow}>
+                          <th style={styles.tableHeader}>Date</th>
+                          <th style={styles.tableHeader}>Source</th>
+                          <th style={styles.tableHeader}>Question</th>
+                          <th style={styles.tableHeader}>Issue Type</th>
+                          <th style={styles.tableHeader}>Comment</th>
+                          <th style={styles.tableHeader}>User</th>
+                          <th style={styles.tableHeader}>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {activeReports.map((report) => {
+                          const payload = report.payload || {};
+                          const sectionDisplay = payload.section || report.key2 || STATS_SOURCE_LABELS[report.key1] || report.key1;
+                          return (
+                            <tr key={report.pk} style={styles.tableRow}>
+                              <td style={styles.tableCell}>{formatDate(payload.reportedAt)}</td>
+                              <td style={styles.tableCell}>
+                                <span
+                                  style={{
+                                    ...styles.sourceBadge,
+                                    backgroundColor: STATS_SOURCE_COLORS[report.key1] || '#666',
+                                  }}
+                                >
+                                  {STATS_SOURCE_LABELS[report.key1] || report.key1}
+                                </span>
+                                <div style={styles.sourceSectionDetail}>
+                                  {sectionDisplay}
+                                </div>
+                              </td>
+                              <td style={{ ...styles.tableCell, ...styles.questionCell }}>
+                                <span title={payload.questionText}>
+                                  {payload.questionText && payload.questionText.length > 50
+                                    ? payload.questionText.substring(0, 50) + '...'
+                                    : payload.questionText || 'N/A'}
+                                </span>
+                              </td>
+                              <td style={styles.tableCell}>
+                                <span
+                                  style={{
+                                    ...styles.issueTypeBadge,
+                                    backgroundColor: '#dc354520',
+                                    color: '#dc3545',
+                                  }}
+                                >
+                                  {getIssueTypeLabel(payload.issueType)}
+                                </span>
+                              </td>
+                              <td style={{
+                                ...styles.tableCell,
+                                fontStyle: payload.comment ? 'normal' : 'italic',
+                                color: '#999'
+                              }}>
+                                {payload.comment || 'No comment'}
+                              </td>
+                              <td style={styles.tableCell}>{payload.userId || 'Anonymous'}</td>
+                              <td style={styles.tableCell}>
+                                <div style={styles.actionButtons}>
+                                  <button
+                                    style={styles.resolveButton}
+                                    onClick={() => handleResolveReport(report.pk)}
+                                    disabled={isUpdating}
+                                    title="Mark as resolved"
+                                  >
+                                    Resolve
+                                  </button>
+                                  <button
+                                    style={styles.deleteButton}
+                                    onClick={() => handleDeleteReport(report.pk)}
+                                    disabled={isUpdating}
+                                    title="Delete report"
+                                  >
+                                    Delete
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div style={{ ...styles.mobileList, display: 'none' }} className="stats-mobile-list">
                     {activeReports.map((report) => {
                       const payload = report.payload || {};
                       const sectionDisplay = payload.section || report.key2 || STATS_SOURCE_LABELS[report.key1] || report.key1;
                       return (
-                        <tr key={report.pk} style={styles.tableRow}>
-                          <td style={styles.tableCell}>{formatDate(payload.reportedAt)}</td>
-                          <td style={styles.tableCell}>
-                            <span
-                              style={{
-                                ...styles.sourceBadge,
-                                backgroundColor: STATS_SOURCE_COLORS[report.key1] || '#666',
-                              }}
+                        <div key={report.pk} className="stats-mobile-row">
+                          <div className="stats-mobile-card">
+                            <div className="stats-mobile-label">Date</div>
+                            <div className="stats-mobile-value">{formatDate(payload.reportedAt)}</div>
+                          </div>
+                          <div className="stats-mobile-card">
+                            <div className="stats-mobile-label">Source</div>
+                            <div className="stats-mobile-value">
+                              <span
+                                style={{
+                                  ...styles.sourceBadge,
+                                  backgroundColor: STATS_SOURCE_COLORS[report.key1] || '#666',
+                                }}
+                              >
+                                {STATS_SOURCE_LABELS[report.key1] || report.key1}
+                              </span>
+                              <div style={{ fontSize: '0.7rem', color: '#666', marginTop: '2px' }}>{sectionDisplay}</div>
+                            </div>
+                          </div>
+                          <div className="stats-mobile-card" style={{ gridColumn: 'span 2' }}>
+                            <div className="stats-mobile-label">Question</div>
+                            <div className="stats-mobile-value">
+                              {payload.questionText && payload.questionText.length > 80
+                                ? payload.questionText.substring(0, 80) + '...'
+                                : payload.questionText || 'N/A'}
+                            </div>
+                          </div>
+                          <div className="stats-mobile-card">
+                            <div className="stats-mobile-label">Issue</div>
+                            <div className="stats-mobile-value">
+                              <span
+                                style={{
+                                  ...styles.issueTypeBadge,
+                                  backgroundColor: '#dc354520',
+                                  color: '#dc3545',
+                                }}
+                              >
+                                {getIssueTypeLabel(payload.issueType)}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="stats-mobile-card">
+                            <div className="stats-mobile-label">Comment</div>
+                            <div className="stats-mobile-value" style={{ fontStyle: payload.comment ? 'normal' : 'italic', color: payload.comment ? '#333' : '#999' }}>
+                              {payload.comment || 'No comment'}
+                            </div>
+                          </div>
+                          <div className="stats-mobile-card">
+                            <div className="stats-mobile-label">User</div>
+                            <div className="stats-mobile-value">{payload.userId || 'Anonymous'}</div>
+                          </div>
+                          <div className="stats-mobile-actions">
+                            <button
+                              style={styles.resolveButton}
+                              onClick={() => handleResolveReport(report.pk)}
+                              disabled={isUpdating}
                             >
-                              {STATS_SOURCE_LABELS[report.key1] || report.key1}
-                            </span>
-                            <div style={{ marginTop: '4px', fontSize: '12px', color: '#666' }}>
-                              {sectionDisplay}
-                            </div>
-                          </td>
-                          <td style={{ ...styles.tableCell, maxWidth: '200px' }}>
-                            <span title={payload.questionText}>{payload.questionText}</span>
-                          </td>
-                          <td style={styles.tableCell}>
-                            <span style={{ ...styles.issueTypeBadge, backgroundColor: '#dc354520', color: '#dc3545' }}>
-                              {getIssueTypeLabel(payload.issueType)}
-                            </span>
-                          </td>
-                          <td style={{ ...styles.tableCell, fontStyle: payload.comment ? 'normal' : 'italic', color: '#999' }}>
-                            {payload.comment || 'No comment'}
-                          </td>
-                          <td style={styles.tableCell}>{payload.userId}</td>
-                          <td style={styles.tableCell}>
-                            <div style={styles.actionButtons}>
-                              <button
-                                style={styles.resolveButton}
-                                onClick={() => handleResolveReport(report.pk)}
-                                disabled={isUpdating}
-                                title="Mark as resolved (hide from list)"
-                              >
-                                Resolve
-                              </button>
-                              <button
-                                style={styles.deleteButton}
-                                onClick={() => handleDeleteReport(report.pk)}
-                                disabled={isUpdating}
-                                title="Delete report"
-                              >
-                                Delete
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
+                              Resolve
+                            </button>
+                            <button
+                              style={styles.deleteButton}
+                              onClick={() => handleDeleteReport(report.pk)}
+                              disabled={isUpdating}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </div>
                       );
                     })}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-        </>
-      )}
-    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 
@@ -477,12 +632,16 @@ const styles = {
     minHeight: '100vh',
     padding: '20px',
     backgroundColor: '#f5f5f5',
+    maxWidth: '100%',
+    overflowX: 'hidden',
+    boxSizing: 'border-box',
   },
   header: {
     display: 'flex',
     alignItems: 'center',
     gap: '1rem',
     marginBottom: '2rem',
+    flexWrap: 'wrap',
   },
   backButton: {
     padding: '0.5rem 1rem',
@@ -504,6 +663,11 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: '50vh',
+  },
+  mobileList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem',
   },
   spinner: {
     width: '40px',
@@ -567,7 +731,7 @@ const styles = {
   },
   summaryGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
     gap: '1rem',
     marginBottom: '2rem',
   },
@@ -633,6 +797,11 @@ const styles = {
     fontSize: '0.85rem',
     color: '#666',
   },
+  sourceSectionDetail: {
+    marginTop: '4px',
+    fontSize: '12px',
+    color: '#666',
+  },
   sourceStats: {
     display: 'flex',
     gap: '1.5rem',
@@ -664,10 +833,12 @@ const styles = {
   },
   tableContainer: {
     overflowX: 'auto',
+    WebkitOverflowScrolling: 'touch',
   },
   table: {
     width: '100%',
     borderCollapse: 'collapse',
+    minWidth: '600px',
   },
   tableHeaderRow: {
     backgroundColor: '#f8f9fa',
@@ -685,6 +856,12 @@ const styles = {
   tableCell: {
     padding: '0.75rem',
     color: '#333',
+  },
+  questionCell: {
+    maxWidth: '200px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   },
   sourceBadge: {
     display: 'inline-block',
