@@ -1,10 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, waitFor, act } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, waitFor } from '@testing-library/react';
 
 vi.mock('../services/persistenceService', () => ({
   persistenceService: {
     getAllAttempts: vi.fn(),
+    getAllReports: vi.fn(),
+    deleteReport: vi.fn(),
+    resolveReport: vi.fn(),
   },
   STATS_SOURCE_LABELS: {
     PAST_PAPER: 'Past Papers',
@@ -16,6 +18,14 @@ vi.mock('../services/persistenceService', () => ({
     AI_GENERATED: '#007bff',
     STUDOCU: '#f97316',
   },
+  ISSUE_TYPES: [
+    { value: 'wrong_answer', label: 'Wrong Answer' },
+    { value: 'ambiguous', label: 'Ambiguous Question' },
+    { value: 'typo', label: 'Typo/Grammar Error' },
+    { value: 'missing_info', label: 'Missing Information' },
+    { value: 'image_issue', label: 'Image Not Loading' },
+    { value: 'other', label: 'Other' },
+  ],
 }));
 
 import { persistenceService } from '../services/persistenceService';
@@ -66,9 +76,31 @@ const mockAttempts = [
   },
 ];
 
+const mockReports = [
+  {
+    pk: 'report-1',
+    key1: 'AI_GENERATED',
+    key2: 'civil',
+    key3: 'MC',
+    payload: {
+      questionId: 'q1',
+      questionText: 'What is the tensile strength of steel?',
+      issueType: 'wrong_answer',
+      comment: 'The answer should be different',
+      userId: 'naina',
+      reportedAt: '2026-03-21T09:00:00Z',
+      resolved: false,
+    },
+  },
+];
+
 describe('Stats', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    persistenceService.getAllReports.mockResolvedValue({
+      success: true,
+      items: [],
+    });
   });
 
   it('should show loading state initially', () => {
@@ -81,7 +113,7 @@ describe('Stats', () => {
     expect(screen.getByText(/loading stats/i)).toBeTruthy();
   });
 
-  it('should show empty state when no attempts', async () => {
+  it('should show empty state when no attempts and no reports', async () => {
     persistenceService.getAllAttempts.mockResolvedValue({
       success: true,
       items: [],
@@ -199,6 +231,41 @@ describe('Stats', () => {
 
     await waitFor(() => {
       expect(screen.getAllByRole('combobox')).toBeTruthy();
+    });
+  });
+
+  it('should show question reports section with reports', async () => {
+    persistenceService.getAllAttempts.mockResolvedValue({
+      success: true,
+      items: [],
+    });
+    persistenceService.getAllReports.mockResolvedValue({
+      success: true,
+      items: mockReports,
+    });
+
+    render(<Stats onBack={vi.fn()} />);
+
+    await waitFor(() => {
+      expect(screen.getByText(/question reports \(1\)/i)).toBeTruthy();
+    });
+  });
+
+  it('should show resolve and delete buttons for reports', async () => {
+    persistenceService.getAllAttempts.mockResolvedValue({
+      success: true,
+      items: [],
+    });
+    persistenceService.getAllReports.mockResolvedValue({
+      success: true,
+      items: mockReports,
+    });
+
+    render(<Stats onBack={vi.fn()} />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /resolve/i })).toBeTruthy();
+      expect(screen.getByRole('button', { name: /delete/i })).toBeTruthy();
     });
   });
 });

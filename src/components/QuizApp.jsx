@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import SectionSelector from './SectionSelector';
 import MultipleChoice from './MultipleChoice';
 import ShortAnswer from './ShortAnswer';
@@ -10,6 +10,7 @@ import { studocuQuizData } from '../data/studocu/index';
 import { pastPapersRegistry } from '../data/past_papers/index';
 import { useQuizPersistence } from '../hooks/useQuizPersistence';
 import { clearScoresCache } from '../hooks/useQuizScores';
+import { persistenceService } from '../services/persistenceService';
 
 const QuizApp = ({ onViewStats }) => {
   const [mode, setMode] = useState('section-select');
@@ -18,47 +19,98 @@ const QuizApp = ({ onViewStats }) => {
   const [userAnswers, setUserAnswers] = useState(new Map());
   const [revealedShortAnswers, setRevealedShortAnswers] = useState(new Set());
   const [showAllQuestions, setShowAllQuestions] = useState(false);
-  const { saveQuizAttempt, isSaving } = useQuizPersistence();
+  const [questionReports, setQuestionReports] = useState(new Map());
+  const [isReportSaving, setIsReportSaving] = useState(false);
+  const { saveQuizAttempt, saveQuestionReport } = useQuizPersistence();
 
-  // Get section title based on section ID
+  useEffect(() => {
+    const fetchReports = async () => {
+      const result = await persistenceService.getAllReports();
+      if (result.success) {
+        const reportsMap = new Map();
+        result.items.forEach(item => {
+          const questionId = item.payload.questionId;
+          const existingReport = reportsMap.get(questionId);
+          if (!existingReport || item.payload.userId === 'naina') {
+            reportsMap.set(questionId, {
+              ...item.payload,
+              entityId: item.pk,
+            });
+          }
+        });
+        setQuestionReports(reportsMap);
+      }
+    };
+
+    if (mode === 'quiz' && section) {
+      fetchReports();
+    }
+  }, [mode, section]);
+
+  const getUserReportForQuestion = useCallback((questionId) => {
+    const report = questionReports.get(questionId);
+    if (report && report.userId === 'naina') {
+      return report;
+    }
+    return null;
+  }, [questionReports]);
+
+  const handleReportQuestion = useCallback(async (question, issueType, comment) => {
+    setIsReportSaving(true);
+    const result = await saveQuestionReport({
+      question,
+      issueType,
+      comment,
+      section,
+    });
+
+    if (result.success) {
+      setQuestionReports(prev => {
+        const newMap = new Map(prev);
+        newMap.set(question.id, {
+          questionId: question.id,
+          issueType,
+          comment,
+          userId: 'naina',
+          reportedAt: new Date().toISOString(),
+          entityId: result.entityId,
+        });
+        return newMap;
+      });
+    }
+    setIsReportSaving(false);
+  }, [saveQuestionReport, section]);
+
   const sectionTitle = useMemo(() => {
     if (!section) return '';
     
-    // Past Papers
     if (section.startsWith('pastPaper-')) {
       const match = section.match(/^pastPaper-(.+)-(\d+.*)$/);
       if (match) {
         const [, subjectSlug, paperSlug] = match;
         const subject = pastPapersRegistry[subjectSlug];
         if (subject) {
-          // Format: "Earth And Environmental Science 2024 HSC"
           return `${subject.title} ${paperSlug.replace(/-/g, ' ').toUpperCase()}`;
         }
       }
     }
     
-    // Studocu sections
     if (section.startsWith('studocu-')) {
       const studocuSection = section.replace('studocu-', '');
       return studocuQuizData.sections[studocuSection]?.title || studocuSection;
     }
     
-    // All sections
     if (section === 'all') {
       return 'All Questions';
     }
     
-    // Regular quiz sections
     return quizData.sections[section]?.title || section;
   }, [section]);
 
-  // Build complete questions array based on selected section
   const questions = useMemo(() => {
     if (!section) return [];
     
-    // Check if it's a Past Papers section
     if (section.startsWith('pastPaper-')) {
-      // Pattern: pastPaper-[subject]-[paper] where paper starts with a digit (e.g., 2022-hsc)
       const match = section.match(/^pastPaper-(.+)-(\d+.*)$/);
       if (match) {
         const [, subjectSlug, paperSlug] = match;
@@ -73,7 +125,6 @@ const QuizApp = ({ onViewStats }) => {
       return [];
     }
     
-    // Check if it's a Studocu section
     if (section.startsWith('studocu-')) {
       const studocuSection = section.replace('studocu-', '');
       const sectionData = studocuQuizData.sections[studocuSection];
@@ -87,7 +138,6 @@ const QuizApp = ({ onViewStats }) => {
     }
     
     if (section === 'all') {
-      // Combine all sections: civil MC, transport MC, past papers MC, civil SA, transport SA
       return [
         ...quizData.sections.civil.multipleChoice,
         ...quizData.sections.transport.multipleChoice,
@@ -96,7 +146,6 @@ const QuizApp = ({ onViewStats }) => {
         ...quizData.sections.transport.shortAnswer,
       ];
     } else {
-      // Single section: MC questions first, then SA questions
       return [
         ...quizData.sections[section].multipleChoice,
         ...quizData.sections[section].shortAnswer,
@@ -104,11 +153,9 @@ const QuizApp = ({ onViewStats }) => {
     }
   }, [section]);
 
-  // Determine total MC questions for the selected section
   const totalMCQuestions = useMemo(() => {
     if (!section) return 0;
     
-    // Check if it's a Past Papers section
     if (section.startsWith('pastPaper-')) {
       const match = section.match(/^pastPaper-(.+)-(\d+.*)$/);
       if (match) {
@@ -119,7 +166,6 @@ const QuizApp = ({ onViewStats }) => {
       return 0;
     }
     
-    // Check if it's a Studocu section
     if (section.startsWith('studocu-')) {
       const studocuSection = section.replace('studocu-', '');
       const sectionData = studocuQuizData.sections[studocuSection];
@@ -135,7 +181,6 @@ const QuizApp = ({ onViewStats }) => {
     }
   }, [section]);
 
-  // Determine if current question is MC or short answer
   const isMultipleChoice = currentQuestionIndex < totalMCQuestions;
   const currentQuestion = questions[currentQuestionIndex];
 
@@ -146,6 +191,7 @@ const QuizApp = ({ onViewStats }) => {
     setCurrentQuestionIndex(0);
     setUserAnswers(new Map());
     setRevealedShortAnswers(new Set());
+    setQuestionReports(new Map());
   };
 
   const handleAnswerChange = (questionId, answer) => {
@@ -231,7 +277,6 @@ const QuizApp = ({ onViewStats }) => {
             </button>
           </div>
           
-          {/* Section Title */}
           <div style={styles.allQuestionsHeader}>
             <h2 style={styles.headerTitle}>{sectionTitle}</h2>
           </div>
@@ -244,7 +289,6 @@ const QuizApp = ({ onViewStats }) => {
           )}
           
           {showAllQuestions ? (
-            // Show ALL questions on single page
             <div className="all-questions-container">
               <div style={styles.allQuestionsHeader}>
                 <h2 style={styles.headerTitle}>All Questions</h2>
@@ -266,6 +310,9 @@ const QuizApp = ({ onViewStats }) => {
                         selectedAnswer={userAnswers.get(question.id)}
                         onSelectAnswer={(answer) => handleAnswerChange(question.id, answer)}
                         showFeedback={userAnswers.has(question.id)}
+                        userReport={getUserReportForQuestion(question.id)}
+                        onReport={handleReportQuestion}
+                        isSaving={isReportSaving}
                       />
                     ) : (
                       <ShortAnswer
@@ -290,16 +337,17 @@ const QuizApp = ({ onViewStats }) => {
               </div>
             </div>
           ) : (
-            // Show SINGLE question with navigation (original behavior)
             <>
               <div className="question-container">
-                {/* Render only ONE question component at a time based on question type */}
                 {isMultipleChoice ? (
                   <MultipleChoice
                     question={currentQuestion}
                     selectedAnswer={userAnswers.get(currentQuestion.id)}
                     onSelectAnswer={(answer) => handleAnswerChange(currentQuestion.id, answer)}
                     showFeedback={userAnswers.has(currentQuestion.id)}
+                    userReport={getUserReportForQuestion(currentQuestion.id)}
+                    onReport={handleReportQuestion}
+                    isSaving={isReportSaving}
                   />
                 ) : (
                   <ShortAnswer

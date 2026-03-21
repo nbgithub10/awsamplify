@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { persistenceService, STATS_SOURCE_LABELS, STATS_SOURCE_COLORS } from '../services/persistenceService';
+import { persistenceService, STATS_SOURCE_LABELS, STATS_SOURCE_COLORS, ISSUE_TYPES } from '../services/persistenceService';
 
 global.fetch = vi.fn();
 
@@ -248,6 +248,189 @@ describe('persistenceService', () => {
       expect(STATS_SOURCE_COLORS.PAST_PAPER).toBe('#28a745');
       expect(STATS_SOURCE_COLORS.AI_GENERATED).toBe('#007bff');
       expect(STATS_SOURCE_COLORS.STUDOCU).toBe('#f97316');
+    });
+  });
+
+  describe('ISSUE_TYPES', () => {
+    it('should have all expected issue types', () => {
+      expect(ISSUE_TYPES).toHaveLength(7);
+      expect(ISSUE_TYPES.find(t => t.value === 'wrong_answer')?.label).toBe('Wrong Answer');
+      expect(ISSUE_TYPES.find(t => t.value === 'ambiguous')?.label).toBe('Ambiguous Question');
+      expect(ISSUE_TYPES.find(t => t.value === 'typo')?.label).toBe('Typo/Grammar Error');
+      expect(ISSUE_TYPES.find(t => t.value === 'missing_info')?.label).toBe('Missing Information');
+      expect(ISSUE_TYPES.find(t => t.value === 'image_issue')?.label).toBe('Image Not Loading');
+      expect(ISSUE_TYPES.find(t => t.value === 'incorrect_image')?.label).toBe('Incorrect Image');
+      expect(ISSUE_TYPES.find(t => t.value === 'other')?.label).toBe('Other');
+    });
+  });
+
+  describe('saveQuestionReport', () => {
+    it('should save a question report', async () => {
+      mockFetch();
+      
+      const result = await persistenceService.saveQuestionReport({
+        question: { id: 'q1', question: 'What is the tensile strength?' },
+        issueType: 'wrong_answer',
+        comment: 'The answer is incorrect',
+        section: 'civil',
+      });
+
+      expect(result.success).toBe(true);
+      expect(result.entityId).toBe('q1-naina');
+
+      const fetchCall = global.fetch.mock.calls[0];
+      const body = JSON.parse(fetchCall[1].body);
+      expect(body.entityType).toBe('QUESTION_REPORT');
+      expect(body.key1).toBe('AI_GENERATED');
+      expect(body.key2).toBe('civil');
+      expect(body.key3).toBe('MC');
+      expect(body.payload.questionId).toBe('q1');
+      expect(body.payload.issueType).toBe('wrong_answer');
+      expect(body.payload.comment).toBe('The answer is incorrect');
+      expect(body.payload.userId).toBe('naina');
+      expect(body.payload.resolved).toBe(false);
+    });
+
+    it('should save report without comment', async () => {
+      mockFetch();
+      
+      await persistenceService.saveQuestionReport({
+        question: { id: 'q2', question: 'Test question' },
+        issueType: 'ambiguous',
+        comment: '',
+        section: 'transport',
+      });
+
+      const fetchCall = global.fetch.mock.calls[0];
+      const body = JSON.parse(fetchCall[1].body);
+      expect(body.payload.comment).toBe('');
+    });
+
+    it('should truncate question text to 100 chars', async () => {
+      mockFetch();
+      const longQuestion = 'A'.repeat(150);
+      
+      await persistenceService.saveQuestionReport({
+        question: { id: 'q3', question: longQuestion },
+        issueType: 'typo',
+        comment: '',
+        section: 'civil',
+      });
+
+      const fetchCall = global.fetch.mock.calls[0];
+      const body = JSON.parse(fetchCall[1].body);
+      expect(body.payload.questionText.length).toBe(100);
+    });
+
+    it('should return error on failed save', async () => {
+      mockFetchError(400, 'Bad Request');
+      
+      const result = await persistenceService.saveQuestionReport({
+        question: { id: 'q1', question: 'Test' },
+        issueType: 'wrong_answer',
+        comment: '',
+        section: 'civil',
+      });
+
+      expect(result.success).toBe(false);
+      expect(result.error).toBe('Bad Request');
+    });
+  });
+
+  describe('getAllReports', () => {
+    it('should fetch all question reports', async () => {
+      global.fetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({
+          items: [
+            { pk: 'report-1', payload: { questionId: 'q1', issueType: 'wrong_answer' } },
+            { pk: 'report-2', payload: { questionId: 'q2', issueType: 'typo' } },
+          ],
+        }),
+      });
+
+      const result = await persistenceService.getAllReports();
+
+      expect(result.success).toBe(true);
+      expect(result.items).toHaveLength(2);
+      expect(global.fetch).toHaveBeenCalledWith(
+        expect.stringContaining('entityType=QUESTION_REPORT'),
+        expect.any(Object)
+      );
+    });
+
+    it('should return empty items on error', async () => {
+      global.fetch.mockRejectedValue(new Error('Network Error'));
+
+      const result = await persistenceService.getAllReports();
+
+      expect(result.success).toBe(false);
+      expect(result.error).toBe('Network Error');
+      expect(result.items).toEqual([]);
+    });
+  });
+
+  describe('deleteReport', () => {
+    it('should delete a report', async () => {
+      global.fetch.mockResolvedValue({
+        ok: true,
+        status: 204,
+      });
+
+      const result = await persistenceService.deleteReport('tenant-hsc-papers#QUESTION_REPORT#civil-mc-2-naina');
+
+      expect(result.success).toBe(true);
+      expect(global.fetch).toHaveBeenCalledWith(
+        expect.stringContaining('/items/QUESTION_REPORT/civil-mc-2-naina'),
+        expect.objectContaining({ method: 'DELETE' })
+      );
+    });
+
+    it('should return error on failed delete', async () => {
+      global.fetch.mockResolvedValue({
+        ok: false,
+        status: 404,
+      });
+
+      const result = await persistenceService.deleteReport('tenant-hsc-papers#QUESTION_REPORT#report-1');
+
+      expect(result.success).toBe(false);
+    });
+  });
+
+  describe('resolveReport', () => {
+    it('should resolve a report', async () => {
+      global.fetch.mockResolvedValue({
+        ok: true,
+        json: () => Promise.resolve({}),
+      });
+
+      const items = [
+        { pk: 'tenant-hsc-papers#QUESTION_REPORT#civil-mc-2-naina', key1: 'AI_GENERATED', key2: 'civil', key3: 'MC', payload: { questionId: 'q1', issueType: 'wrong_answer', resolved: false } },
+      ];
+
+      const result = await persistenceService.resolveReport('tenant-hsc-papers#QUESTION_REPORT#civil-mc-2-naina', items);
+
+      expect(result.success).toBe(true);
+      expect(global.fetch).toHaveBeenCalledWith(
+        expect.stringContaining('/items/QUESTION_REPORT/civil-mc-2-naina'),
+        expect.objectContaining({ method: 'PUT' })
+      );
+
+      const fetchCall = global.fetch.mock.calls[0];
+      const body = JSON.parse(fetchCall[1].body);
+      expect(body.payload.resolved).toBe(true);
+    });
+
+    it('should return error if report not found', async () => {
+      const items = [
+        { pk: 'report-1', payload: { questionId: 'q1' } },
+      ];
+
+      const result = await persistenceService.resolveReport('report-999', items);
+
+      expect(result.success).toBe(false);
+      expect(result.error).toBe('Report not found');
     });
   });
 });

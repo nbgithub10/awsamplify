@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { ISSUE_TYPES } from '../services/persistenceService';
 
-const MultipleChoice = ({ question, selectedAnswer, onSelectAnswer, showFeedback }) => {
+const MultipleChoice = ({ question, selectedAnswer, onSelectAnswer, showFeedback, userReport, onReport, isSaving }) => {
   const [showDiagram, setShowDiagram] = useState(false);
+  const [issueType, setIssueType] = useState('');
+  const [comment, setComment] = useState('');
   const optionLetters = ['A', 'B', 'C', 'D'];
 
   const getButtonClass = (index) => {
@@ -23,6 +26,19 @@ const MultipleChoice = ({ question, selectedAnswer, onSelectAnswer, showFeedback
     return baseClass;
   };
 
+  const handleSaveReport = () => {
+    if (issueType) {
+      onReport(question, issueType, comment);
+      setIssueType('');
+      setComment('');
+    }
+  };
+
+  const getIssueTypeLabel = (value) => {
+    const type = ISSUE_TYPES.find(t => t.value === value);
+    return type ? type.label : value;
+  };
+
   return (
     <div style={{ marginBottom: '30px' }}>
       <div style={{ marginBottom: '15px' }}>
@@ -33,7 +49,6 @@ const MultipleChoice = ({ question, selectedAnswer, onSelectAnswer, showFeedback
       
       <h2 className="question-text">{question.question}</h2>
       
-      {/* Show Diagram button if image is present */}
       {question.image && (
         <div style={{ marginBottom: '15px' }}>
           <button 
@@ -119,6 +134,81 @@ const MultipleChoice = ({ question, selectedAnswer, onSelectAnswer, showFeedback
           </div>
         </div>
       )}
+
+      <div style={{ marginTop: '20px', padding: '16px', borderRadius: '8px', backgroundColor: '#fff8e1', border: '1px solid #e0e0e0' }}>
+        {userReport ? (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ color: '#28a745', fontWeight: 'bold' }}>✓</span>
+            <span style={{ color: '#6c5ce7' }}>
+              <strong>{getIssueTypeLabel(userReport.issueType)}</strong>
+              {userReport.comment && <span style={{ fontStyle: 'italic', color: '#555' }}> - "{userReport.comment}"</span>}
+            </span>
+          </div>
+        ) : (
+          <div>
+            <div style={{ marginBottom: '10px', fontSize: '0.9rem', color: '#666', fontWeight: '500' }}>
+              Report Issue:
+            </div>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+              <select
+                value={issueType}
+                onChange={(e) => setIssueType(e.target.value)}
+                disabled={isSaving}
+                style={{
+                  padding: '8px 12px',
+                  borderRadius: '4px',
+                  border: '1px solid #ccc',
+                  fontSize: '13px',
+                  minWidth: '170px',
+                  backgroundColor: 'white',
+                  color: '#333',
+                  cursor: 'pointer'
+                }}
+              >
+                <option value="">Select issue type...</option>
+                {ISSUE_TYPES.map((type) => (
+                  <option key={type.value} value={type.value}>
+                    {type.label}
+                  </option>
+                ))}
+              </select>
+              <input
+                type="text"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="Comment (optional)"
+                disabled={isSaving}
+                style={{
+                  padding: '8px 12px',
+                  borderRadius: '4px',
+                  border: '1px solid #ccc',
+                  fontSize: '13px',
+                  width: '200px',
+                  backgroundColor: 'white',
+                  color: '#333'
+                }}
+              />
+              <button
+                onClick={handleSaveReport}
+                disabled={!issueType || isSaving}
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '4px',
+                  border: 'none',
+                  backgroundColor: issueType && !isSaving ? '#dc3545' : '#ccc',
+                  color: 'white',
+                  fontSize: '13px',
+                  fontWeight: '500',
+                  cursor: issueType && !isSaving ? 'pointer' : 'not-allowed',
+                  opacity: isSaving ? 0.7 : 1
+                }}
+              >
+                {isSaving ? 'Saving...' : 'Save'}
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
